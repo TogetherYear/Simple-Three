@@ -72,7 +72,7 @@ namespace TEvent {
                             const t = typeof e.listenTarget === 'function' ? e.listenTarget(this) : e.listenTarget;
                             if (t.hasOwnProperty('unique_Id')) {
                                 //@ts-ignore
-                                t.AddListen(e.eventName, this, this[`${e.funcName}`], e.once);
+                                t.AddListen(e.eventName, this, e.funcName, e.once);
                             } else {
                                 //@ts-ignore
                                 const bindEvent = this[`${e.funcName}`].bind(this);
@@ -102,7 +102,7 @@ namespace TEvent {
                             const t = typeof e.listenTarget === 'function' ? e.listenTarget(this) : e.listenTarget;
                             if (t.hasOwnProperty('unique_Id')) {
                                 //@ts-ignore
-                                t.RemoveListen(e.eventName, this, this[`${e.funcName}`], e.once);
+                                t.RemoveListen(e.eventName, this);
                             } else {
                                 const bindEvent = this.tEvent_Generate_OtherEvents.get(e.eventName)!;
                                 //@ts-ignore

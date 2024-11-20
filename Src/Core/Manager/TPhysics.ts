@@ -39,7 +39,7 @@ class TPhysics extends TManager {
 
     @TTest.BindFunction('AddBox')
     private AddBox() {
-        new Box(
+        const box = new Box(
             new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
             new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
             new THREE.Vector3(
@@ -48,6 +48,10 @@ class TPhysics extends TManager {
                 Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6)
             )
         );
+
+        setTimeout(() => {
+            box.Destroy();
+        }, 5000);
     }
 }
 
