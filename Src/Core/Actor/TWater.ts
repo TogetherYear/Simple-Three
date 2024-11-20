@@ -34,7 +34,7 @@ class TWater extends TActor {
 
     @TEvent.Listen(TGame, ST.Manager.TGame.Event.Update)
     private Update() {
-        (this.body as Water).material.uniforms['time'].value += 0.5 / 60.0;
+        (this.body as Water).material.uniforms['time'].value += 0.2 / 60.0;
     }
 }
 
