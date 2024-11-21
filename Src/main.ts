@@ -6,7 +6,6 @@ import { TGltfModel } from './Core/Actor/TGltfModel';
 import { TPointLight } from './Core/Actor/TPointLight';
 import { TWater } from './Core/Actor/TWater';
 import { CustomPlane } from './Core/Test/CustomPlane';
-import * as THREE from 'three';
 
 Generate(document.querySelector('#App')!).then(() => {
     const dire = new TDirectionalLight();
