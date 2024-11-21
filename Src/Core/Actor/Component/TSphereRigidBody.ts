@@ -34,9 +34,6 @@ class TSphereRigidBody extends TComponent {
         });
     }
 
-    @TEvent.Listen(TGame, ST.Manager.TGame.Event.Update)
-    private Update() {}
-
     public PhysicsUpdate(position: THREE.Vector3, quaternion: THREE.Quaternion) {
         this.actor.body.position.copy(position);
         this.actor.body.quaternion.copy(quaternion);

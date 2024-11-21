@@ -31,9 +31,6 @@ class TCamera extends TManager {
         this.camera.aspect = this.dom.offsetWidth / this.dom.offsetHeight;
         this.camera.updateProjectionMatrix();
     }
-
-    @TEvent.Listen(TGame, ST.Manager.TGame.Event.Update)
-    public Update() {}
 }
 
 const TCameraInstance = new TCamera();

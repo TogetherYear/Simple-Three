@@ -183,6 +183,16 @@ class TInput extends TManager {
         this.FreeMovementTranslate();
     }
 
+    private FreeMovementTranslate() {
+        if (this.free && this.mouseStatus.right) {
+            if (this.direction.length() !== 0) {
+                TCamera.camera.translateZ(4.3 * -this.direction.y * TGame.deltaTime);
+                TCamera.camera.translateX(4.3 * this.direction.x * TGame.deltaTime);
+                TCamera.camera.translateY(4.3 * this.direction.z * TGame.deltaTime);
+            }
+        }
+    }
+
     private CalculateDelta() {
         this.Emit(ST.Manager.TInput.Event.Delta, { x: this.delta.x, y: this.delta.y });
         this.FreeMovementRotate();
@@ -195,16 +205,6 @@ class TInput extends TManager {
             if (this.delta.length() !== 0) {
                 TCamera.camera.rotateOnAxis(this.DIRECTION.LEFT, 0.24 * this.delta.y * TGame.deltaTime);
                 TCamera.camera.rotateOnWorldAxis(this.DIRECTION.DOWN, 0.24 * this.delta.x * TGame.deltaTime);
-            }
-        }
-    }
-
-    private FreeMovementTranslate() {
-        if (this.free && this.mouseStatus.right) {
-            if (this.direction.length() !== 0) {
-                TCamera.camera.translateZ(4.3 * -this.direction.y * TGame.deltaTime);
-                TCamera.camera.translateX(4.3 * this.direction.x * TGame.deltaTime);
-                TCamera.camera.translateY(4.3 * this.direction.z * TGame.deltaTime);
             }
         }
     }

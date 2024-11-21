@@ -41,9 +41,6 @@ class TRenderer extends TManager {
     private OnResize(e: UIEvent) {
         this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
     }
-
-    @TEvent.Listen(TGame, ST.Manager.TGame.Event.Update)
-    private Update() {}
 }
 
 const TRendererInstance = new TRenderer();
