@@ -4,7 +4,7 @@ import { ST } from '../type';
 import { TEvent } from '../Decorators/TEvent';
 import * as CANNON from 'cannon-es';
 import { TTest } from '../Decorators/TTest';
-import { Box } from '../Test/Box';
+import { CustomBox } from '../Test/CustomBox';
 import * as THREE from 'three';
 import { Mathf } from '../Utils/Mathf';
 
@@ -40,7 +40,7 @@ class TPhysics extends TManager {
 
     @TTest.BindFunction('AddBox')
     private AddBox() {
-        const box = new Box(
+        const box = new CustomBox(
             new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
             new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
             new THREE.Vector3(

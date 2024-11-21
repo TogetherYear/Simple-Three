@@ -3,7 +3,7 @@ import { TAmbientLight } from './Core/Actor/TAmbientLight';
 import { TDirectionalLight } from './Core/Actor/TDirectionalLight';
 import { TFog } from './Core/Actor/TFog';
 import { TWater } from './Core/Actor/TWater';
-import { Plane } from './Core/Test/Plane';
+import { CustomPlane } from './Core/Test/CustomPlane';
 
 Generate(document.querySelector('#App')!).then(() => {
     const dire = new TDirectionalLight();
@@ -12,5 +12,5 @@ Generate(document.querySelector('#App')!).then(() => {
     const water = new TWater();
 
     // 测试 这个是 固定平面
-    const plane = new Plane();
+    const plane = new CustomPlane();
 });

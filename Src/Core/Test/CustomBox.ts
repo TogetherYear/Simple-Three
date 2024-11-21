@@ -2,7 +2,7 @@ import { TBoxRigidBody } from '../Actor/Component/TBoxRigidBody';
 import { TBox } from '../Actor/TBox';
 import * as THREE from 'three';
 
-class Box extends TBox {
+class CustomBox extends TBox {
     constructor(position: THREE.Vector3, rotate: THREE.Vector3, scale: THREE.Vector3) {
         super();
         this.body.position.copy(position);
@@ -14,4 +14,4 @@ class Box extends TBox {
     }
 }
 
-export { Box };
+export { CustomBox };
