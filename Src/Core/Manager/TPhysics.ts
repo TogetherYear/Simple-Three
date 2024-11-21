@@ -21,6 +21,7 @@ class TPhysics extends TManager {
 
     private CreateWorld() {
         this.world = new CANNON.World();
+        this.world.broadphase = new CANNON.SAPBroadphase(this.world);
         this.world.gravity.set(0, -9.82, 0);
     }
 

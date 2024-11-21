@@ -46,6 +46,11 @@ class TBoxRigidBody extends TComponent {
         super.Destroy();
         TPhysics.Remove(this.body);
     }
+
+    @TEvent.Listen<TBoxRigidBody>((instance) => instance.body, 'collide')
+    private OnCollide(target: any) {
+        console.log(target);
+    }
 }
 
 export { TBoxRigidBody };
