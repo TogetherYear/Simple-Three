@@ -3,8 +3,8 @@ import { TActor } from '@/Core/Base/TActor';
 import { TEvent } from '@/Core/Decorators/TEvent';
 import { TGame } from '@/Core/Manager/TGame';
 import { ST } from '@/Core/type';
-import * as CANNON from 'cannon-es';
 import { TPhysics } from '@/Core/Manager/TPhysics';
+import * as THREE from 'three';
 
 class TBoxRigidBody extends TComponent {
     constructor(actor: TActor, options?: Partial<ST.Component.IRigidBodyOptions>) {
@@ -19,36 +19,33 @@ class TBoxRigidBody extends TComponent {
         mass: 1
     };
 
-    private body!: CANNON.Body;
-
     private Create() {
-        this.body = new CANNON.Body({
+        TPhysics.Add(this, {
             mass: this.options.fix ? 0 : this.options.mass,
-            position: new CANNON.Vec3(this.actor.body.position.x, this.actor.body.position.y, this.actor.body.position.z),
-            quaternion: new CANNON.Quaternion(this.actor.body.quaternion.x, this.actor.body.quaternion.y, this.actor.body.quaternion.z, this.actor.body.quaternion.w),
-            shape: new CANNON.Box(new CANNON.Vec3(this.actor.body.scale.x * 0.5, this.actor.body.scale.y * 0.5, this.actor.body.scale.z * 0.5)),
-            material: new CANNON.Material({
+            type: 'Box',
+            position: [this.actor.body.position.x, this.actor.body.position.y, this.actor.body.position.z],
+            quaternion: [this.actor.body.quaternion.x, this.actor.body.quaternion.y, this.actor.body.quaternion.z, this.actor.body.quaternion.w],
+            scale: [this.actor.body.scale.x * 0.5, this.actor.body.scale.y * 0.5, this.actor.body.scale.z * 0.5],
+            material: {
                 friction: 0.1,
                 restitution: 0.5
-            }),
+            },
             allowSleep: true
         });
-        TPhysics.Add(this.body);
     }
 
     @TEvent.Listen(TGame, ST.Manager.TGame.Event.Update)
-    private Update() {
-        this.actor.body.position.copy(this.body.position);
-        this.actor.body.quaternion.copy(this.body.quaternion);
+    private Update() {}
+
+    public PhysicsUpdate(position: THREE.Vector3, quaternion: THREE.Quaternion) {
+        this.actor.body.position.copy(position);
+        this.actor.body.quaternion.copy(quaternion);
     }
 
     public override Destroy() {
         super.Destroy();
-        TPhysics.Remove(this.body);
+        TPhysics.Remove(this);
     }
-
-    @TEvent.Listen<TBoxRigidBody>((instance) => instance.body, 'collide')
-    private OnCollide(target: any) {}
 }
 
 export { TBoxRigidBody };

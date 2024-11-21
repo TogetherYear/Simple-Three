@@ -2,48 +2,90 @@ import { TManager } from '../Base/TManager';
 import { TGame } from './TGame';
 import { ST } from '../type';
 import { TEvent } from '../Decorators/TEvent';
-import * as CANNON from 'cannon-es';
 import { TTest } from '../Decorators/TTest';
 import { CustomBox } from '../Test/CustomBox';
 import * as THREE from 'three';
 import { Mathf } from '../Utils/Mathf';
 import Physics from '@/Core/Worker/Physics?worker';
+import { TBoxRigidBody } from '../Actor/Component/TBoxRigidBody';
 
 class TPhysics extends TManager {
     constructor() {
         super();
     }
 
-    // private worker = new Physics();
+    private worker = new Physics();
 
-    private world!: CANNON.World;
+    private postionsSharedBuffer = new SharedArrayBuffer(100 * 3 * Float32Array.BYTES_PER_ELEMENT);
 
-    public Run() {
-        this.CreateWorld();
+    private quaternionsSharedBuffer = new SharedArrayBuffer(100 * 4 * Float32Array.BYTES_PER_ELEMENT);
+
+    private positions!: Float32Array;
+
+    private quaternions!: Float32Array;
+
+    private bodys = new Map<string, TBoxRigidBody>();
+
+    public async Run() {
+        await this.CreateWorker();
     }
 
-    // @TEvent.Listen<TPhysics>((instance)=>instance.worker,'message')
-    // private OnMessage(e:SharedArrayBuffer){
-    //     console.log("Worker:Physics:Main",e)
-    // }
-
-    private CreateWorld() {
-        this.world = new CANNON.World();
-        this.world.broadphase = new CANNON.SAPBroadphase(this.world);
-        this.world.gravity.set(0, -9.82, 0);
+    private CreateWorker(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.positions = new Float32Array(this.postionsSharedBuffer);
+            this.quaternions = new Float32Array(this.quaternionsSharedBuffer);
+            this.worker.postMessage({
+                type: 'Init',
+                postionsSharedBuffer: this.postionsSharedBuffer,
+                quaternionsSharedBuffer: this.quaternionsSharedBuffer
+            });
+            this.worker.addEventListener(
+                'message',
+                (e) => {
+                    if (e.data.type === 'Init') {
+                        resolve();
+                    }
+                },
+                { once: true }
+            );
+        });
     }
 
     @TEvent.Listen(TGame, ST.Manager.TGame.Event.Update)
     public Update() {
-        this.world.step(TGame.deltaTime);
+        this.worker.postMessage({
+            type: 'Physics',
+            deltaTime: TGame.deltaTime
+        });
     }
 
-    public Add(body: CANNON.Body) {
-        this.world.addBody(body);
+    @TEvent.Listen<TPhysics>((instance) => instance.worker, 'message')
+    private OnMessage(e: Record<string, any>) {
+        if (e.data.type === 'Physics') {
+            const ids = e.data.ids as Array<string>;
+            for (let i = 0; i < ids.length; ++i) {
+                const target = this.bodys.get(ids[i]);
+                target &&
+                    target.PhysicsUpdate(
+                        new THREE.Vector3(this.positions[i * 3 + 0], this.positions[i * 3 + 1], this.positions[i * 3 + 2]),
+                        new THREE.Quaternion(this.quaternions[i * 4 + 0], this.quaternions[i * 4 + 1], this.quaternions[i * 4 + 2], this.quaternions[i * 4 + 3])
+                    );
+            }
+        }
     }
 
-    public Remove(body: CANNON.Body) {
-        this.world.removeBody(body);
+    public Add(target: TBoxRigidBody, options: Record<string, unknown>) {
+        this.bodys.set(target.unique_Id, target);
+        this.worker.postMessage({
+            type: 'Add',
+            id: target.unique_Id,
+            options
+        });
+    }
+
+    public Remove(target: TBoxRigidBody) {
+        this.bodys.delete(target.unique_Id);
+        this.worker.postMessage({ type: 'Remove', id: target.unique_Id });
     }
 
     @TTest.BindFunction('AddBox')

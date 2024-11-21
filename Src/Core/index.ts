@@ -8,12 +8,12 @@ import { TRenderer } from './Manager/TRenderer';
  * 这个函数只用来初始化 Manager
  */
 const Generate = (dom: HTMLElement): Promise<void> => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         TRenderer.Run(dom);
 
         TCamera.Run(dom);
 
-        TPhysics.Run();
+        await TPhysics.Run();
 
         TInput.Run();
 
