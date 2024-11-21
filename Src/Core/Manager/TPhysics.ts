@@ -8,6 +8,8 @@ import * as THREE from 'three';
 import { Mathf } from '../Utils/Mathf';
 import Physics from '@/Core/Worker/Physics?worker';
 import { TBoxRigidBody } from '../Actor/Component/TBoxRigidBody';
+import { TSphereRigidBody } from '../Actor/Component/TSphereRigidBody';
+import { CustomSphere } from '../Test/CustomSphere';
 
 class TPhysics extends TManager {
     constructor() {
@@ -24,7 +26,7 @@ class TPhysics extends TManager {
 
     private quaternions!: Float32Array;
 
-    private bodys = new Map<string, TBoxRigidBody>();
+    private bodys = new Map<string, TBoxRigidBody | TSphereRigidBody>();
 
     public async Run() {
         await this.CreateWorker();
@@ -74,7 +76,7 @@ class TPhysics extends TManager {
         }
     }
 
-    public Add(target: TBoxRigidBody, options: Record<string, unknown>) {
+    public Add(target: TBoxRigidBody | TSphereRigidBody, options: Record<string, unknown>) {
         this.bodys.set(target.unique_Id, target);
         this.worker.postMessage({
             type: 'Add',
@@ -83,26 +85,31 @@ class TPhysics extends TManager {
         });
     }
 
-    public Remove(target: TBoxRigidBody) {
+    public Remove(target: TBoxRigidBody | TSphereRigidBody) {
         this.bodys.delete(target.unique_Id);
         this.worker.postMessage({ type: 'Remove', id: target.unique_Id });
     }
 
-    @TTest.BindFunction('AddBox')
-    private AddBox() {
-        const box = new CustomBox(
-            new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
-            new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
-            new THREE.Vector3(
-                Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6),
-                Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6),
-                Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6)
-            )
-        );
-
-        setTimeout(() => {
-            box.Destroy();
-        }, 5000);
+    @TTest.BindFunction('AddCustomPhysicsBody')
+    private AddCustomPhysicsBody() {
+        if (Math.random() < 0.5) {
+            new CustomBox(
+                new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
+                new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
+                new THREE.Vector3(
+                    Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6),
+                    Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6),
+                    Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6)
+                )
+            );
+        } else {
+            const scale = Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6);
+            new CustomSphere(
+                new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
+                new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
+                new THREE.Vector3(scale, scale, scale)
+            );
+        }
     }
 }
 

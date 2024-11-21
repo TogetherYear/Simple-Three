@@ -53,22 +53,46 @@ const Physics = (data: Record<string, any>) => {
 };
 
 const Add = (data: Record<string, any>) => {
-    if (data.options.type === 'Box') {
+    const Box = (options: Record<string, any>) => {
         const body = new CANNON.Body({
-            mass: data.options.mass,
-            position: new CANNON.Vec3(data.options.position[0], data.options.position[1], data.options.position[2]),
-            quaternion: new CANNON.Quaternion(data.options.quaternion[0], data.options.quaternion[1], data.options.quaternion[2], data.options.quaternion[3]),
-            shape: new CANNON.Box(new CANNON.Vec3(data.options.scale[0], data.options.scale[1], data.options.scale[2])),
+            mass: options.mass,
+            position: new CANNON.Vec3(options.position[0], options.position[1], options.position[2]),
+            quaternion: new CANNON.Quaternion(options.quaternion[0], options.quaternion[1], options.quaternion[2], options.quaternion[3]),
+            shape: new CANNON.Box(new CANNON.Vec3(options.scale[0], options.scale[1], options.scale[2])),
             material: new CANNON.Material({
-                friction: data.options.material.friction,
-                restitution: data.options.material.restitution
+                friction: options.material.friction,
+                restitution: options.material.restitution
             }),
-            allowSleep: data.options.allowSleep
+            allowSleep: options.allowSleep
         });
-        world.addBody(body);
-        idMap.set(body.id, data.id);
-        bodyMap.set(data.id, body);
+        return body;
+    };
+
+    const Sphere = (options: Record<string, any>) => {
+        const body = new CANNON.Body({
+            mass: options.mass,
+            position: new CANNON.Vec3(options.position[0], options.position[1], options.position[2]),
+            quaternion: new CANNON.Quaternion(options.quaternion[0], options.quaternion[1], options.quaternion[2], options.quaternion[3]),
+            shape: new CANNON.Sphere(options.scale[0]),
+            material: new CANNON.Material({
+                friction: options.material.friction,
+                restitution: options.material.restitution
+            }),
+            allowSleep: options.allowSleep
+        });
+        return body;
+    };
+
+    let body!: CANNON.Body;
+
+    if (data.options.type === 'Box') {
+        body = Box(data.options);
+    } else if (data.options.type === 'Sphere') {
+        body = Sphere(data.options);
     }
+    world.addBody(body);
+    idMap.set(body.id, data.id);
+    bodyMap.set(data.id, body);
 };
 
 const Remove = (data: Record<string, any>) => {

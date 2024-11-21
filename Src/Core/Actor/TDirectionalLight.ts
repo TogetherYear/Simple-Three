@@ -11,7 +11,7 @@ class TDirectionalLight extends TActor {
     private distance = 20;
 
     private Create() {
-        const light = new THREE.DirectionalLight(0xffffff, 0.75);
+        const light = new THREE.DirectionalLight(0xffffff, 0.5);
         light.castShadow = true;
         light.shadow.mapSize.width = 2048;
         light.shadow.mapSize.height = 2048;
@@ -21,7 +21,7 @@ class TDirectionalLight extends TActor {
         light.shadow.camera.bottom = -this.distance;
         light.shadow.camera.far = 3 * this.distance;
         light.shadow.camera.near = this.distance;
-        light.position.set(this.distance, this.distance, this.distance);
+        light.position.set(this.distance * 0.5, this.distance, this.distance * 0.5);
         this.body = light;
         TGame.Add(this.body);
     }
