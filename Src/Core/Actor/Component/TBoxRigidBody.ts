@@ -48,9 +48,7 @@ class TBoxRigidBody extends TComponent {
     }
 
     @TEvent.Listen<TBoxRigidBody>((instance) => instance.body, 'collide')
-    private OnCollide(target: any) {
-        console.log(target);
-    }
+    private OnCollide(target: any) {}
 }
 
 export { TBoxRigidBody };

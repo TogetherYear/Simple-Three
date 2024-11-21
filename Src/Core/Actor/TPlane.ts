@@ -17,7 +17,7 @@ class TPlane extends TActor {
         const geometry = new THREE.BoxGeometry(1, 1, 1);
         this.body = new THREE.Mesh(geometry, this.GetInstanceMaterial(6, THREE.FrontSide));
         this.body.castShadow = false;
-        this.body.receiveShadow = false;
+        this.body.receiveShadow = true;
         this.body.scale.set(14, 0.05, 14);
         TGame.Add(this.body);
     }

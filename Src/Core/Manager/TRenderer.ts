@@ -30,7 +30,8 @@ class TRenderer extends TManager {
             alpha: true,
             antialias: true
         });
-        this.renderer.shadowMap.enabled = false;
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
         this.renderer.setClearColor(0x333333, 1.0);
         this.dom.appendChild(this.renderer.domElement);

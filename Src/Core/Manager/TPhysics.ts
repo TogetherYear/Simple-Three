@@ -7,17 +7,25 @@ import { TTest } from '../Decorators/TTest';
 import { CustomBox } from '../Test/CustomBox';
 import * as THREE from 'three';
 import { Mathf } from '../Utils/Mathf';
+import Physics from '@/Core/Worker/Physics?worker';
 
 class TPhysics extends TManager {
     constructor() {
         super();
     }
 
+    // private worker = new Physics();
+
     private world!: CANNON.World;
 
     public Run() {
         this.CreateWorld();
     }
+
+    // @TEvent.Listen<TPhysics>((instance)=>instance.worker,'message')
+    // private OnMessage(e:SharedArrayBuffer){
+    //     console.log("Worker:Physics:Main",e)
+    // }
 
     private CreateWorld() {
         this.world = new CANNON.World();
