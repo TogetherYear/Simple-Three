@@ -1,8 +1,6 @@
 import * as THREE from 'three';
 import { TManager } from '../Base/TManager';
 import { TEvent } from '../Decorators/TEvent';
-import { TGame } from './TGame';
-import { ST } from '../type';
 
 class TRenderer extends TManager {
     constructor() {

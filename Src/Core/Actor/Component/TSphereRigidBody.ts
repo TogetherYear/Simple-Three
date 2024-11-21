@@ -1,7 +1,5 @@
 import { TComponent } from '@/Core/Base/TComponent';
 import { TActor } from '@/Core/Base/TActor';
-import { TEvent } from '@/Core/Decorators/TEvent';
-import { TGame } from '@/Core/Manager/TGame';
 import { ST } from '@/Core/type';
 import { TPhysics } from '@/Core/Manager/TPhysics';
 import * as THREE from 'three';
