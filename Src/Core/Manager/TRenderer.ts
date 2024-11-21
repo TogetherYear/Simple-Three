@@ -26,7 +26,7 @@ class TRenderer extends TManager {
     private CreateRenderer() {
         this.renderer = new THREE.WebGLRenderer({
             alpha: true,
-            antialias: false
+            antialias: true
         });
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;

@@ -1,5 +1,12 @@
+import * as THREE from 'three';
+
 namespace ST {
-    export namespace Actor {}
+    export namespace Actor {
+        export interface IGltfModelOptions {
+            path: string;
+            position?: THREE.Vector3;
+        }
+    }
 
     export namespace Component {
         export interface IRigidBodyOptions {
