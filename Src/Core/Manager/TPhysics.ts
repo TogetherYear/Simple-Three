@@ -90,7 +90,7 @@ class TPhysics extends TManager {
         this.worker.postMessage({ type: 'Remove', id: target.unique_Id });
     }
 
-    @TTest.BindFunction('AddCustomPhysicsBody')
+    @TTest.BindFunction<TPhysics>((instance) => `${instance.constructor.name}`)
     private AddCustomPhysicsBody() {
         if (Math.random() < 0.5) {
             new CustomBox(

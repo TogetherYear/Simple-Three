@@ -1,14 +1,13 @@
 import * as CANNON from 'cannon-es';
 
-const world = new CANNON.World();
-world.broadphase = new CANNON.SAPBroadphase(world);
-world.gravity.set(0, -9.82, 0);
+let world!: CANNON.World;
 
 let positions!: Float32Array;
 
 let quaternions!: Float32Array;
 
 const idMap = new Map<number, string>();
+
 const bodyMap = new Map<string, CANNON.Body>();
 
 self.onmessage = (e) => {
@@ -24,6 +23,9 @@ self.onmessage = (e) => {
 };
 
 const Init = (data: Record<string, any>) => {
+    world = new CANNON.World();
+    world.broadphase = new CANNON.SAPBroadphase(world);
+    world.gravity.set(0, -9.82, 0);
     positions = new Float32Array(data.postionsSharedBuffer);
     quaternions = new Float32Array(data.quaternionsSharedBuffer);
     self.postMessage({
