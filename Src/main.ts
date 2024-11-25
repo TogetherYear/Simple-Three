@@ -26,12 +26,12 @@ Generate(document.querySelector('#App')!).then((ctx) => {
 
     const freeCameraControl = new TFreeCameraControl(ctx);
 
-    // setTimeout(() => {
-    //     freeCameraControl.Destroy();
-    //     const roundCameraControl = new TRoundCameraControl(ctx);
-    // }, 5000);
+    setTimeout(() => {
+        freeCameraControl.Destroy();
+        const roundCameraControl = new TRoundCameraControl(ctx);
+    }, 10000);
 
-    // setTimeout(() => {
-    //     ctx.Destroy();
-    // }, 10000);
+    setTimeout(() => {
+        ctx.Destroy();
+    }, 20000);
 });
