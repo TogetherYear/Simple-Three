@@ -1,4 +1,4 @@
-import { TBoxRigidBody } from '../Component/TBoxRigidBody';
+import { TBoxRigidBody } from '../Components/TBoxRigidBody';
 import { TPlane } from '../Actor/TPlane';
 import { ST } from '../type';
 

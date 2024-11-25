@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { TActor } from '../Base/TActor';
 import { Water } from 'three/examples/jsm/objects/Water';
 import normal from '@/Assets/Images/normal.jpg';
-import { TEvent } from '../Decorator/TEvent';
+import { TEvent } from '../Decorators/TEvent';
 import { ST } from '../type';
 
 class TWater extends TActor {

@@ -1,6 +1,6 @@
 import { TManager } from '../Base/TManager';
 import { ST } from '../type';
-import { TEvent } from '../Decorator/TEvent';
+import { TEvent } from '../Decorators/TEvent';
 import * as THREE from 'three';
 
 @TEvent.Create([ST.Manager.InputEvent.Delta])

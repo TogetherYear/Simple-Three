@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { TManager } from '../Base/TManager';
-import { TEvent } from '../Decorator/TEvent';
+import { TEvent } from '../Decorators/TEvent';
 import { ST } from '../type';
 
 class TCamera extends TManager {

@@ -1,6 +1,6 @@
-import { TEvent } from '../Decorator/TEvent';
-import { TTest } from '../Decorator/TTest';
-import { TTool } from '../Decorator/TTool';
+import { TEvent } from '../Decorators/TEvent';
+import { TTest } from '../Decorators/TTest';
+import { TTool } from '../Decorators/TTool';
 import { ST } from '../type';
 import { TEntity } from './TEntity';
 

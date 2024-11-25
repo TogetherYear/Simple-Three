@@ -1,5 +1,5 @@
 import { TSphere } from '../Actor/TSphere';
-import { TSphereRigidBody } from '../Component/TSphereRigidBody';
+import { TSphereRigidBody } from '../Components/TSphereRigidBody';
 import { ST } from '../type';
 
 class CustomSphere extends TSphere {
