@@ -2,6 +2,7 @@ import { TEvent } from '../Decorators/TEvent';
 import { TTest } from '../Decorators/TTest';
 import { TTool } from '../Decorators/TTool';
 import { TGame } from '../Manager/TGame';
+import { ST } from '../type';
 import { TComponent } from './TComponent';
 import { TEntity } from './TEntity';
 import * as THREE from 'three';
@@ -10,8 +11,8 @@ import * as THREE from 'three';
 @TTool.Generate()
 @TEvent.Generate(TEvent.Lifecycle.Actor)
 class TActor extends TEntity {
-    constructor() {
-        super();
+    constructor(ctx: ST.Context) {
+        super(ctx);
     }
 
     public body!: THREE.Object3D;
@@ -23,7 +24,7 @@ class TActor extends TEntity {
      */
     public Destroy() {
         if (this.body) {
-            TGame.Remove(this.body);
+            this.ctx.Game.Remove(this.body);
         }
         for (let c of this.components) {
             c.Destroy();

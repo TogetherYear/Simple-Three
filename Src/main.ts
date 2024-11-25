@@ -7,16 +7,16 @@ import { TPointLight } from './Core/Actor/TPointLight';
 import { TWater } from './Core/Actor/TWater';
 import { CustomPlane } from './Core/Test/CustomPlane';
 
-Generate(document.querySelector('#App')!).then(() => {
-    const dire = new TDirectionalLight();
-    const ambi = new TAmbientLight();
-    const fog = new TFog();
-    const water = new TWater();
+Generate(document.querySelector('#App')!).then((ctx) => {
+    const dire = new TDirectionalLight(ctx);
+    const ambi = new TAmbientLight(ctx);
+    const fog = new TFog(ctx);
+    const water = new TWater(ctx);
 
     // 测试 这个是 固定平面
-    const plane = new CustomPlane();
+    const plane = new CustomPlane(ctx);
 
-    const room = new TGltfModel({ path: 'Model/Room.glb' });
+    const room = new TGltfModel(ctx, { path: 'Model/Room.glb' });
 
-    const pointLight = new TPointLight();
+    const pointLight = new TPointLight(ctx);
 });

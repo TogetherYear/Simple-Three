@@ -1,6 +1,7 @@
 import { TEvent } from '../Decorators/TEvent';
 import { TTest } from '../Decorators/TTest';
 import { TTool } from '../Decorators/TTool';
+import { ST } from '../type';
 import { TActor } from './TActor';
 import { TEntity } from './TEntity';
 
@@ -8,8 +9,8 @@ import { TEntity } from './TEntity';
 @TTool.Generate()
 @TEvent.Generate(TEvent.Lifecycle.Component)
 class TComponent extends TEntity {
-    constructor(actor: TActor) {
-        super();
+    constructor(ctx: ST.Context, actor: TActor) {
+        super(ctx);
         this.actor = actor;
     }
 

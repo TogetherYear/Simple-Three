@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import { TActor } from '../Base/TActor';
 import { TGame } from '../Manager/TGame';
+import { ST } from '../type';
 
 class TDirectionalLight extends TActor {
-    constructor() {
-        super();
+    constructor(ctx: ST.Context) {
+        super(ctx);
         this.Create();
     }
 
@@ -23,7 +24,7 @@ class TDirectionalLight extends TActor {
         light.shadow.camera.near = this.distance;
         light.position.set(this.distance * 0.5, this.distance, this.distance * 0.5);
         this.body = light;
-        TGame.Add(this.body);
+        this.ctx.Game.Add(this.body);
     }
 }
 

@@ -6,10 +6,11 @@ import nT from '@/Assets/Images/n.png';
 import mT from '@/Assets/Images/m.png';
 import rT from '@/Assets/Images/r.png';
 import { TGame } from '../Manager/TGame';
+import { ST } from '../type';
 
 class TPlane extends TActor {
-    constructor() {
-        super();
+    constructor(ctx: ST.Context) {
+        super(ctx);
         this.Create();
     }
 
@@ -19,7 +20,7 @@ class TPlane extends TActor {
         this.body.castShadow = false;
         this.body.receiveShadow = true;
         this.body.scale.set(14, 0.05, 14);
-        TGame.Add(this.body);
+        this.ctx.Game.Add(this.body);
     }
 
     private GetInstanceMaterial(repeat: number, side: THREE.Side) {

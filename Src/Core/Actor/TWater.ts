@@ -7,8 +7,8 @@ import { TGame } from '../Manager/TGame';
 import { ST } from '../type';
 
 class TWater extends TActor {
-    constructor() {
-        super();
+    constructor(ctx: ST.Context) {
+        super(ctx);
         this.Create();
     }
 
@@ -29,12 +29,12 @@ class TWater extends TActor {
         });
         this.body.rotation.x = -Math.PI / 2;
         this.body.position.y = -3;
-        TGame.Add(this.body);
+        this.ctx.Game.Add(this.body);
     }
 
-    @TEvent.Listen(TGame, ST.Manager.TGame.Event.Update)
+    @TEvent.Listen<TWater>((instance) => instance.ctx.Game, ST.Manager.TGame.Event.Update)
     private Update() {
-        (this.body as Water).material.uniforms['time'].value += 0.36 * TGame.deltaTime;
+        (this.body as Water).material.uniforms['time'].value += 0.36 * this.ctx.Game.deltaTime;
     }
 }
 

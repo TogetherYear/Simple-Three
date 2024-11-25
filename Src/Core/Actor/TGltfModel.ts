@@ -5,8 +5,8 @@ import { ST } from '../type';
 import * as THREE from 'three';
 
 class TGltfModel extends TActor {
-    constructor(optons: ST.Actor.IGltfModelOptions) {
-        super();
+    constructor(ctx: ST.Context, optons: ST.Actor.IGltfModelOptions) {
+        super(ctx);
         this.options = optons;
         this.Create();
     }
@@ -19,7 +19,7 @@ class TGltfModel extends TActor {
             // this.SetChildrenShadow(model.scene);
             this.body = model.scene;
             this.body.position.copy(this.options.position || new THREE.Vector3());
-            TGame.Add(this.body);
+            this.ctx.Game.Add(this.body);
         });
     }
 

@@ -1,10 +1,11 @@
 import { TBoxRigidBody } from '../Actor/Component/TBoxRigidBody';
 import { TPlane } from '../Actor/TPlane';
+import { ST } from '../type';
 
 class CustomPlane extends TPlane {
-    constructor() {
-        super();
-        this.AddComponent(new TBoxRigidBody(this, { fix: true }));
+    constructor(ctx: ST.Context) {
+        super(ctx);
+        this.AddComponent(new TBoxRigidBody(ctx, this, { fix: true }));
     }
 }
 

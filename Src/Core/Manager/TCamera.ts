@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import { TManager } from '../Base/TManager';
-import { TRenderer } from './TRenderer';
 import { TEvent } from '../Decorators/TEvent';
+import { ST } from '../type';
 
 class TCamera extends TManager {
-    constructor() {
-        super();
+    constructor(ctx: ST.Context) {
+        super(ctx);
     }
 
     public camera!: THREE.PerspectiveCamera;
@@ -21,7 +21,7 @@ class TCamera extends TManager {
         this.camera = new THREE.PerspectiveCamera(90, this.dom.offsetWidth / this.dom.offsetHeight, 0.1, 1000);
         this.camera.position.set(0, 2, 10);
         this.camera.lookAt(new THREE.Vector3(0, 0, 0));
-        TRenderer.scene.add(this.camera);
+        this.ctx.Renderer.scene.add(this.camera);
     }
 
     @TEvent.Listen(window, 'resize')
@@ -31,6 +31,4 @@ class TCamera extends TManager {
     }
 }
 
-const TCameraInstance = new TCamera();
-
-export { TCameraInstance as TCamera };
+export { TCamera };

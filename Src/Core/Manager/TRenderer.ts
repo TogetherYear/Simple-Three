@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import { TManager } from '../Base/TManager';
 import { TEvent } from '../Decorators/TEvent';
+import { ST } from '../type';
 
 class TRenderer extends TManager {
-    constructor() {
-        super();
+    constructor(ctx: ST.Context) {
+        super(ctx);
     }
 
     public scene!: THREE.Scene;
@@ -41,6 +42,4 @@ class TRenderer extends TManager {
     }
 }
 
-const TRendererInstance = new TRenderer();
-
-export { TRendererInstance as TRenderer };
+export { TRenderer };

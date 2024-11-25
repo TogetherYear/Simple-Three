@@ -5,8 +5,8 @@ import { TPhysics } from '@/Core/Manager/TPhysics';
 import * as THREE from 'three';
 
 class TSphereRigidBody extends TComponent {
-    constructor(actor: TActor, options?: Partial<ST.Component.IRigidBodyOptions>) {
-        super(actor);
+    constructor(ctx: ST.Context, actor: TActor, options?: Partial<ST.Component.IRigidBodyOptions>) {
+        super(ctx, actor);
         this.options.fix = options?.fix || false;
         this.options.mass = options?.mass || 1;
         this.Create();
@@ -18,7 +18,7 @@ class TSphereRigidBody extends TComponent {
     };
 
     private Create() {
-        TPhysics.Add(this, {
+        this.ctx.Physics.Add(this, {
             mass: this.options.fix ? 0 : this.options.mass,
             type: 'Sphere',
             position: [this.actor.body.position.x, this.actor.body.position.y, this.actor.body.position.z],
@@ -39,7 +39,7 @@ class TSphereRigidBody extends TComponent {
 
     public override Destroy() {
         super.Destroy();
-        TPhysics.Remove(this);
+        this.ctx.Physics.Remove(this);
     }
 }
 

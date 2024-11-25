@@ -3,12 +3,11 @@ import { TGame } from './TGame';
 import { ST } from '../type';
 import { TEvent } from '../Decorators/TEvent';
 import * as THREE from 'three';
-import { TCamera } from './TCamera';
 
 @TEvent.Create([ST.Manager.TInput.Event.Delta])
 class TInput extends TManager {
-    constructor() {
-        super();
+    constructor(ctx: ST.Context) {
+        super(ctx);
     }
 
     private free = false;
@@ -57,8 +56,11 @@ class TInput extends TManager {
 
     @TEvent.Listen(window, 'keydown')
     private OnKeyDown(e: KeyboardEvent) {
-        e.preventDefault();
-        e.stopPropagation();
+        if (e.key !== 'F12') {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
         if (e.key === 'w' || e.key === 'W') {
             this.keyStatus.w = true;
         } else if (e.key === 's' || e.key === 'S') {
@@ -169,7 +171,7 @@ class TInput extends TManager {
         e.stopPropagation();
     }
 
-    @TEvent.Listen(TGame, ST.Manager.TGame.Event.Update)
+    @TEvent.Listen<TInput>((instance) => instance.ctx.Game, ST.Manager.TGame.Event.Update)
     private Update() {
         this.CalculateDirection();
     }
@@ -186,9 +188,9 @@ class TInput extends TManager {
     private FreeMovementTranslate() {
         if (this.free && this.mouseStatus.right) {
             if (this.direction.length() !== 0) {
-                TCamera.camera.translateZ(4.3 * -this.direction.y * TGame.deltaTime);
-                TCamera.camera.translateX(4.3 * this.direction.x * TGame.deltaTime);
-                TCamera.camera.translateY(4.3 * this.direction.z * TGame.deltaTime);
+                this.ctx.Camera.camera.translateZ(4.3 * -this.direction.y * this.ctx.Game.deltaTime);
+                this.ctx.Camera.camera.translateX(4.3 * this.direction.x * this.ctx.Game.deltaTime);
+                this.ctx.Camera.camera.translateY(4.3 * this.direction.z * this.ctx.Game.deltaTime);
             }
         }
     }
@@ -203,13 +205,11 @@ class TInput extends TManager {
     private FreeMovementRotate() {
         if (this.free && this.mouseStatus.right) {
             if (this.delta.length() !== 0) {
-                TCamera.camera.rotateOnAxis(this.DIRECTION.LEFT, 0.24 * this.delta.y * TGame.deltaTime);
-                TCamera.camera.rotateOnWorldAxis(this.DIRECTION.DOWN, 0.24 * this.delta.x * TGame.deltaTime);
+                this.ctx.Camera.camera.rotateOnAxis(this.DIRECTION.LEFT, 0.24 * this.delta.y * this.ctx.Game.deltaTime);
+                this.ctx.Camera.camera.rotateOnWorldAxis(this.DIRECTION.DOWN, 0.24 * this.delta.x * this.ctx.Game.deltaTime);
             }
         }
     }
 }
 
-const TInputInstance = new TInput();
-
-export { TInputInstance as TInput };
+export { TInput };

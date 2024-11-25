@@ -2,13 +2,11 @@ import { TManager } from '../Base/TManager';
 import { TEvent } from '../Decorators/TEvent';
 import { ST } from '../type';
 import * as THREE from 'three';
-import { TRenderer } from './TRenderer';
-import { TCamera } from './TCamera';
 
 @TEvent.Create([ST.Manager.TGame.Event.Update])
 class TGame extends TManager {
-    constructor() {
-        super();
+    constructor(ctx: ST.Context) {
+        super(ctx);
     }
 
     private clock!: THREE.Clock;
@@ -37,20 +35,18 @@ class TGame extends TManager {
         this.deltaTime = this.clock.getDelta();
         this.renderTime += this.deltaTime;
 
-        TRenderer.renderer.render(TRenderer.scene, TCamera.camera);
+        this.ctx.Renderer.renderer.render(this.ctx.Renderer.scene, this.ctx.Camera.camera);
 
         this.Emit(ST.Manager.TGame.Event.Update);
     }
 
     public Add(object: THREE.Object3D) {
-        TRenderer.scene.add(object);
+        this.ctx.Renderer.scene.add(object);
     }
 
     public Remove(object: THREE.Object3D) {
-        TRenderer.scene.remove(object);
+        this.ctx.Renderer.scene.remove(object);
     }
 }
 
-const TGameInstance = new TGame();
-
-export { TGameInstance as TGame };
+export { TGame };

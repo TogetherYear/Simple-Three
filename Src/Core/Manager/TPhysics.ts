@@ -12,8 +12,8 @@ import { TSphereRigidBody } from '../Actor/Component/TSphereRigidBody';
 import { CustomSphere } from '../Test/CustomSphere';
 
 class TPhysics extends TManager {
-    constructor() {
-        super();
+    constructor(ctx: ST.Context) {
+        super(ctx);
     }
 
     private worker = new Physics();
@@ -53,11 +53,11 @@ class TPhysics extends TManager {
         });
     }
 
-    @TEvent.Listen(TGame, ST.Manager.TGame.Event.Update)
+    @TEvent.Listen<TPhysics>((instance) => instance.ctx.Game, ST.Manager.TGame.Event.Update)
     public Update() {
         this.worker.postMessage({
             type: 'Physics',
-            deltaTime: TGame.deltaTime
+            deltaTime: this.ctx.Game.deltaTime
         });
     }
 
@@ -94,6 +94,7 @@ class TPhysics extends TManager {
     private AddCustomPhysicsBody() {
         if (Math.random() < 0.5) {
             new CustomBox(
+                this.ctx,
                 new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
                 new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
                 new THREE.Vector3(
@@ -105,6 +106,7 @@ class TPhysics extends TManager {
         } else {
             const scale = Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6);
             new CustomSphere(
+                this.ctx,
                 new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
                 new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
                 new THREE.Vector3(scale, scale, scale)
@@ -113,6 +115,4 @@ class TPhysics extends TManager {
     }
 }
 
-const TPhysicsInstance = new TPhysics();
-
-export { TPhysicsInstance as TPhysics };
+export { TPhysics };

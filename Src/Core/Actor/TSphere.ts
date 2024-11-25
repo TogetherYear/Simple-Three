@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import { TActor } from '../Base/TActor';
 import { TGame } from '../Manager/TGame';
+import { ST } from '../type';
 
 class TSphere extends TActor {
-    constructor() {
-        super();
+    constructor(ctx: ST.Context) {
+        super(ctx);
         this.Create();
     }
 
@@ -14,7 +15,7 @@ class TSphere extends TActor {
         this.body = new THREE.Mesh(geometry, material);
         this.body.castShadow = true;
         this.body.receiveShadow = true;
-        TGame.Add(this.body);
+        this.ctx.Game.Add(this.body);
     }
 }
 

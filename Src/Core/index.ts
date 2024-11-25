@@ -3,23 +3,49 @@ import { TGame } from './Manager/TGame';
 import { TInput } from './Manager/TInput';
 import { TPhysics } from './Manager/TPhysics';
 import { TRenderer } from './Manager/TRenderer';
+import { ST } from './type';
 
 /**
  * 这个函数只用来初始化 Manager
  */
-const Generate = (dom: HTMLElement): Promise<void> => {
+const Generate = (dom: HTMLElement): Promise<ST.Context> => {
+    const target: Partial<ST.Context> = {};
+
+    /**
+     * 后面可能加东西 先弄一层代理
+     */
+    const ctx = new Proxy(target as ST.Context, {
+        get: (target: ST.Context, p: keyof ST.Context, receiver: any) => {
+            return target[p];
+        },
+        set: (target: ST.Context, p: keyof ST.Context, newValue: any, receiver: any) => {
+            target[p] = newValue;
+            return true;
+        }
+    });
+
     return new Promise(async (resolve, reject) => {
-        TRenderer.Run(dom);
+        ctx.Renderer = new TRenderer(ctx);
 
-        TCamera.Run(dom);
+        ctx.Camera = new TCamera(ctx);
 
-        await TPhysics.Run();
+        ctx.Physics = new TPhysics(ctx);
 
-        TInput.Run();
+        ctx.Input = new TInput(ctx);
 
-        TGame.Run();
+        ctx.Game = new TGame(ctx);
 
-        resolve();
+        ctx.Renderer.Run(dom);
+
+        ctx.Camera.Run(dom);
+
+        await ctx.Physics.Run();
+
+        ctx.Input.Run();
+
+        ctx.Game.Run();
+
+        resolve(ctx);
     });
 };
 

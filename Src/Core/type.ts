@@ -1,4 +1,9 @@
 import * as THREE from 'three';
+import { TRenderer } from './Manager/TRenderer';
+import { TCamera } from './Manager/TCamera';
+import { TPhysics } from './Manager/TPhysics';
+import { TInput } from './Manager/TInput';
+import { TGame } from './Manager/TGame';
 
 namespace ST {
     export namespace Actor {
@@ -30,6 +35,14 @@ namespace ST {
             }
         }
     }
+
+    export type Context = {
+        Renderer: TRenderer;
+        Camera: TCamera;
+        Physics: TPhysics;
+        Input: TInput;
+        Game: TGame;
+    };
 }
 
 export { ST };
