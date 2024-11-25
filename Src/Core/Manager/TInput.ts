@@ -53,7 +53,7 @@ class TInput extends TManager {
 
     public lastPostion = new THREE.Vector2();
 
-    public focus = true;
+    public focus = false;
 
     public Run() {}
 
@@ -64,6 +64,17 @@ class TInput extends TManager {
 
     @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mouseleave')
     private OnLeave() {
+        this.direction.multiplyScalar(0);
+        this.mouseMoveDelta.multiplyScalar(0);
+        this.lastPostion.multiplyScalar(0);
+        for (let k in this.keyStatus) {
+            //@ts-ignore
+            this.keyStatus[k] = false;
+        }
+        for (let m in this.mouseStatus) {
+            //@ts-ignore
+            this.mouseStatus[m] = false;
+        }
         this.focus = false;
     }
 
@@ -160,6 +171,9 @@ class TInput extends TManager {
 
     @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mousemove')
     private OnMouseMove(e: MouseEvent) {
+        if (!this.focus) {
+            this.focus = true;
+        }
         if (this.lastPostion.length() === 0) {
             this.lastPostion.x = e.clientX;
             this.lastPostion.y = e.clientY;
