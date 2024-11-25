@@ -15,7 +15,7 @@ class TFreeCameraControl extends TPlugin {
         return this.options as ST.Plugin.IFreeCameraControl;
     }
 
-    @TEvent.Listen<TFreeCameraControl>((instance) => instance.ctx.Input, ST.Manager.InputEvent.KeyboardStatus)
+    @TEvent.Listen<TFreeCameraControl>((instance) => instance.ctx.Game, ST.Manager.GameEvent.Update)
     private Update() {
         if (this.ctx.Input.mouseStatus.right) {
             if (this.ctx.Input.direction.length() !== 0) {

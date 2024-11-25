@@ -61,10 +61,6 @@ namespace ST {
 
         export const enum InputEvent {
             /**
-             * 按键状态值
-             */
-            KeyboardStatus = 'KeyboardStatus',
-            /**
              * 鼠标滑动屏幕差值
              */
             MouseMoveDelta = 'MouseMoveDelta',

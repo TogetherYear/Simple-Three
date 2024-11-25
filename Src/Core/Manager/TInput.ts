@@ -3,7 +3,7 @@ import { ST } from '../type';
 import { TEvent } from '../Decorators/TEvent';
 import * as THREE from 'three';
 
-@TEvent.Create([ST.Manager.InputEvent.KeyboardStatus, ST.Manager.InputEvent.MouseMoveDelta, ST.Manager.InputEvent.Wheel])
+@TEvent.Create([ST.Manager.InputEvent.MouseMoveDelta, ST.Manager.InputEvent.Wheel])
 class TInput extends TManager {
     constructor(ctx: ST.Context, options: ST.Manager.IInput = {}) {
         super(ctx, options);
@@ -192,7 +192,6 @@ class TInput extends TManager {
         this.direction.x = hor.x;
         this.direction.y = hor.y;
         this.direction.z = (this.keyStatus.q ? -1 : 0) + (this.keyStatus.e ? 1 : 0);
-        this.Emit(ST.Manager.InputEvent.KeyboardStatus);
     }
 
     private CalculateRotateDelta() {
