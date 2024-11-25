@@ -4,8 +4,12 @@ import { TEvent } from '../Decorators/TEvent';
 import { ST } from '../type';
 
 class TRenderer extends TManager {
-    constructor(ctx: ST.Context) {
-        super(ctx);
+    constructor(ctx: ST.Context, options: ST.Manager.IRenderer = {}) {
+        super(ctx, options);
+    }
+
+    public get O() {
+        return this.options as ST.Manager.IRenderer;
     }
 
     public scene!: THREE.Scene;

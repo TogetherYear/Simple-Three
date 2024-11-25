@@ -1,28 +1,24 @@
 import { TComponent } from '@/Core/Base/TComponent';
-import { TActor } from '@/Core/Base/TActor';
 import { ST } from '@/Core/type';
 import * as THREE from 'three';
 
 class TSphereRigidBody extends TComponent {
-    constructor(ctx: ST.Context, actor: TActor, options?: Partial<ST.Component.IRigidBodyOptions>) {
-        super(ctx, actor);
-        this.options.fix = options?.fix || false;
-        this.options.mass = options?.mass || 1;
+    constructor(ctx: ST.Context, options: ST.Component.IRigidBodyOptions) {
+        super(ctx, options);
         this.Create();
     }
 
-    private options: ST.Component.IRigidBodyOptions = {
-        fix: false,
-        mass: 1
-    };
+    public get O() {
+        return this.options as ST.Component.IRigidBodyOptions;
+    }
 
     private Create() {
         this.ctx.Physics.Add(this, {
-            mass: this.options.fix ? 0 : this.options.mass,
+            mass: this.O.fix ? 0 : this.O.mass,
             type: 'Sphere',
-            position: [this.actor.body.position.x, this.actor.body.position.y, this.actor.body.position.z],
-            quaternion: [this.actor.body.quaternion.x, this.actor.body.quaternion.y, this.actor.body.quaternion.z, this.actor.body.quaternion.w],
-            scale: [this.actor.body.scale.x * 0.5, this.actor.body.scale.y * 0.5, this.actor.body.scale.z * 0.5],
+            position: [this.O.actor.body.position.x, this.O.actor.body.position.y, this.O.actor.body.position.z],
+            quaternion: [this.O.actor.body.quaternion.x, this.O.actor.body.quaternion.y, this.O.actor.body.quaternion.z, this.O.actor.body.quaternion.w],
+            scale: [this.O.actor.body.scale.x * 0.5, this.O.actor.body.scale.y * 0.5, this.O.actor.body.scale.z * 0.5],
             material: {
                 friction: 0.1,
                 restitution: 0.5
@@ -32,8 +28,8 @@ class TSphereRigidBody extends TComponent {
     }
 
     public PhysicsUpdate(position: THREE.Vector3, quaternion: THREE.Quaternion) {
-        this.actor.body.position.copy(position);
-        this.actor.body.quaternion.copy(quaternion);
+        this.O.actor.body.position.copy(position);
+        this.O.actor.body.quaternion.copy(quaternion);
     }
 
     public override Destroy() {

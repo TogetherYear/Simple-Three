@@ -6,9 +6,13 @@ import { TEvent } from '../Decorators/TEvent';
 import { ST } from '../type';
 
 class TWater extends TActor {
-    constructor(ctx: ST.Context) {
-        super(ctx);
+    constructor(ctx: ST.Context, options: ST.Actor.IWater = {}) {
+        super(ctx, options);
         this.Create();
+    }
+
+    public get O() {
+        return this.options as ST.Actor.IWater;
     }
 
     private Create() {
@@ -31,7 +35,7 @@ class TWater extends TActor {
         this.ctx.Game.Add(this.body);
     }
 
-    @TEvent.Listen<TWater>((instance) => instance.ctx.Game, ST.Manager.TGame.Event.Update)
+    @TEvent.Listen<TWater>((instance) => instance.ctx.Game, ST.Manager.GameEvent.Update)
     private Update() {
         (this.body as Water).material.uniforms['time'].value += 0.36 * this.ctx.Game.deltaTime;
     }

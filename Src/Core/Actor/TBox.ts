@@ -3,9 +3,13 @@ import { TActor } from '../Base/TActor';
 import { ST } from '../type';
 
 class TBox extends TActor {
-    constructor(ctx: ST.Context) {
-        super(ctx);
+    constructor(ctx: ST.Context, options: ST.Actor.IBox) {
+        super(ctx, options);
         this.Create();
+    }
+
+    public get O() {
+        return this.options as ST.Actor.IBox;
     }
 
     private Create() {

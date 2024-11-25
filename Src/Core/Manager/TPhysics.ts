@@ -11,8 +11,12 @@ import { TSphereRigidBody } from '../Actor/Component/TSphereRigidBody';
 import { CustomSphere } from '../Test/CustomSphere';
 
 class TPhysics extends TManager {
-    constructor(ctx: ST.Context) {
-        super(ctx);
+    constructor(ctx: ST.Context, options: ST.Manager.IPhysics = {}) {
+        super(ctx, options);
+    }
+
+    public get O() {
+        return this.options as ST.Manager.IPhysics;
     }
 
     private worker = new Physics();
@@ -52,7 +56,7 @@ class TPhysics extends TManager {
         });
     }
 
-    @TEvent.Listen<TPhysics>((instance) => instance.ctx.Game, ST.Manager.TGame.Event.Update)
+    @TEvent.Listen<TPhysics>((instance) => instance.ctx.Game, ST.Manager.GameEvent.Update)
     public Update() {
         this.worker.postMessage({
             type: 'Physics',
@@ -92,24 +96,22 @@ class TPhysics extends TManager {
     @TTest.BindFunction<TPhysics>((instance) => `${instance.constructor.name}`)
     private AddCustomPhysicsBody() {
         if (Math.random() < 0.5) {
-            new CustomBox(
-                this.ctx,
-                new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
-                new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
-                new THREE.Vector3(
+            new CustomBox(this.ctx, {
+                position: new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
+                rotate: new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
+                scale: new THREE.Vector3(
                     Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6),
                     Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6),
                     Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6)
                 )
-            );
+            });
         } else {
             const scale = Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6);
-            new CustomSphere(
-                this.ctx,
-                new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
-                new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
-                new THREE.Vector3(scale, scale, scale)
-            );
+            new CustomSphere(this.ctx, {
+                position: new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
+                rotate: new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
+                scale: new THREE.Vector3(scale, scale, scale)
+            });
         }
     }
 }

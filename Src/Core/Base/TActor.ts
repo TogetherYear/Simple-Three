@@ -10,8 +10,8 @@ import * as THREE from 'three';
 @TTool.Generate()
 @TEvent.Generate(TEvent.Lifecycle.Actor)
 class TActor extends TEntity {
-    constructor(ctx: ST.Context) {
-        super(ctx);
+    constructor(ctx: ST.Context, options: ST.Base.IActor = {}) {
+        super(ctx, options);
     }
 
     public body!: THREE.Object3D;

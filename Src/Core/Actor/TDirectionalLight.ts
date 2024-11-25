@@ -3,9 +3,13 @@ import { TActor } from '../Base/TActor';
 import { ST } from '../type';
 
 class TDirectionalLight extends TActor {
-    constructor(ctx: ST.Context) {
-        super(ctx);
+    constructor(ctx: ST.Context, options: ST.Actor.IDirectionalLight = {}) {
+        super(ctx, options);
         this.Create();
+    }
+
+    public get O() {
+        return this.options as ST.Actor.IDirectionalLight;
     }
 
     private distance = 20;

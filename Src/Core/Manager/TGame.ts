@@ -3,10 +3,14 @@ import { TEvent } from '../Decorators/TEvent';
 import { ST } from '../type';
 import * as THREE from 'three';
 
-@TEvent.Create([ST.Manager.TGame.Event.Update])
+@TEvent.Create([ST.Manager.GameEvent.Update])
 class TGame extends TManager {
-    constructor(ctx: ST.Context) {
-        super(ctx);
+    constructor(ctx: ST.Context, options: ST.Manager.IGame = {}) {
+        super(ctx, options);
+    }
+
+    public get O() {
+        return this.options as ST.Manager.IGame;
     }
 
     private clock!: THREE.Clock;
@@ -37,7 +41,7 @@ class TGame extends TManager {
 
         this.ctx.Renderer.renderer.render(this.ctx.Renderer.scene, this.ctx.Camera.camera);
 
-        this.Emit(ST.Manager.TGame.Event.Update);
+        this.Emit(ST.Manager.GameEvent.Update);
     }
 
     public Add(object: THREE.Object3D) {

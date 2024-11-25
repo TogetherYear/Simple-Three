@@ -1,12 +1,15 @@
 import * as THREE from 'three';
 import { TActor } from '../Base/TActor';
-import { TRenderer } from '../Manager/TRenderer';
 import { ST } from '../type';
 
 class TFog extends TActor {
-    constructor(ctx: ST.Context) {
-        super(ctx);
+    constructor(ctx: ST.Context, options: ST.Actor.IFog = {}) {
+        super(ctx, options);
         this.Create();
+    }
+
+    public get O() {
+        return this.options as ST.Actor.IFog;
     }
 
     private Create() {

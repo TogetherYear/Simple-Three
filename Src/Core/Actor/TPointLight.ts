@@ -3,9 +3,13 @@ import { TActor } from '../Base/TActor';
 import { ST } from '../type';
 
 class TPointLight extends TActor {
-    constructor(ctx: ST.Context) {
-        super(ctx);
+    constructor(ctx: ST.Context, options: ST.Actor.IPointLight = {}) {
+        super(ctx, options);
         this.Create();
+    }
+
+    public get O() {
+        return this.options as ST.Actor.IPointLight;
     }
 
     private Create() {

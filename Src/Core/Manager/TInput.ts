@@ -3,10 +3,14 @@ import { ST } from '../type';
 import { TEvent } from '../Decorators/TEvent';
 import * as THREE from 'three';
 
-@TEvent.Create([ST.Manager.TInput.Event.Delta])
+@TEvent.Create([ST.Manager.InputEvent.Delta])
 class TInput extends TManager {
-    constructor(ctx: ST.Context) {
-        super(ctx);
+    constructor(ctx: ST.Context, options: ST.Manager.IInput = {}) {
+        super(ctx, options);
+    }
+
+    public get O() {
+        return this.options as ST.Manager.IInput;
     }
 
     private free = false;
@@ -170,7 +174,7 @@ class TInput extends TManager {
         e.stopPropagation();
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.Game, ST.Manager.TGame.Event.Update)
+    @TEvent.Listen<TInput>((instance) => instance.ctx.Game, ST.Manager.GameEvent.Update)
     private Update() {
         this.CalculateDirection();
     }
@@ -195,7 +199,7 @@ class TInput extends TManager {
     }
 
     private CalculateDelta() {
-        this.Emit(ST.Manager.TInput.Event.Delta, { x: this.delta.x, y: this.delta.y });
+        this.Emit(ST.Manager.InputEvent.Delta, { x: this.delta.x, y: this.delta.y });
         this.FreeMovementRotate();
         this.delta.x = 0;
         this.delta.y = 0;
