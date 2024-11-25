@@ -1,5 +1,4 @@
 import { TActor } from '../Base/TActor';
-import { TGame } from '../Manager/TGame';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { ST } from '../type';
 import * as THREE from 'three';

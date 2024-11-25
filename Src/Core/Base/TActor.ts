@@ -1,7 +1,6 @@
 import { TEvent } from '../Decorators/TEvent';
 import { TTest } from '../Decorators/TTest';
 import { TTool } from '../Decorators/TTool';
-import { TGame } from '../Manager/TGame';
 import { ST } from '../type';
 import { TComponent } from './TComponent';
 import { TEntity } from './TEntity';

@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { TActor } from '../Base/TActor';
-import { TGame } from '../Manager/TGame';
 import { ST } from '../type';
 
 class TSphere extends TActor {

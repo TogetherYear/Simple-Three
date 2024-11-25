@@ -3,7 +3,6 @@ import { TActor } from '../Base/TActor';
 import { Water } from 'three/examples/jsm/objects/Water';
 import normal from '@/Assets/Images/normal.jpg';
 import { TEvent } from '../Decorators/TEvent';
-import { TGame } from '../Manager/TGame';
 import { ST } from '../type';
 
 class TWater extends TActor {

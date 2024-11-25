@@ -1,7 +1,6 @@
 import { TComponent } from '@/Core/Base/TComponent';
 import { TActor } from '@/Core/Base/TActor';
 import { ST } from '@/Core/type';
-import { TPhysics } from '@/Core/Manager/TPhysics';
 import * as THREE from 'three';
 
 class TSphereRigidBody extends TComponent {

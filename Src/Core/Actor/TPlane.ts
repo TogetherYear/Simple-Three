@@ -5,7 +5,6 @@ import hT from '@/Assets/Images/h.png';
 import nT from '@/Assets/Images/n.png';
 import mT from '@/Assets/Images/m.png';
 import rT from '@/Assets/Images/r.png';
-import { TGame } from '../Manager/TGame';
 import { ST } from '../type';
 
 class TPlane extends TActor {

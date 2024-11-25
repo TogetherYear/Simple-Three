@@ -1,5 +1,4 @@
 import { TManager } from '../Base/TManager';
-import { TGame } from './TGame';
 import { ST } from '../type';
 import { TEvent } from '../Decorators/TEvent';
 import * as THREE from 'three';
