@@ -8,7 +8,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 class TRoundCameraControl extends TPlugin {
     constructor(ctx: ST.Context, options: ST.Plugin.IRoundCameraControl = {}) {
         super(ctx, options);
-        this.control = new OrbitControls(this.ctx.Camera.camera, this.ctx.Renderer.renderer.domElement);
+        this.control = new OrbitControls(this.ctx.Camera.camera, this.ctx.dom);
         this.control.enablePan = false;
         this.control.rotateSpeed = 0.5;
         this.control.zoomSpeed = 1.5;

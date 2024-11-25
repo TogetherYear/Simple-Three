@@ -16,10 +16,7 @@ class TRenderer extends TManager {
 
     public renderer!: THREE.WebGLRenderer;
 
-    private dom!: HTMLElement;
-
-    public Run(dom: HTMLElement) {
-        this.dom = dom;
+    public Run() {
         this.CreateScene();
         this.CreateRenderer();
     }
@@ -35,14 +32,14 @@ class TRenderer extends TManager {
         });
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
+        this.renderer.setSize(this.ctx.dom.offsetWidth, this.ctx.dom.offsetHeight);
         this.renderer.setClearColor(0x333333, 1.0);
-        this.dom.appendChild(this.renderer.domElement);
+        this.ctx.dom.appendChild(this.renderer.domElement);
     }
 
     @TEvent.Listen(window, 'resize')
     private OnResize(e: UIEvent) {
-        this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
+        this.renderer.setSize(this.ctx.dom.offsetWidth, this.ctx.dom.offsetHeight);
     }
 }
 

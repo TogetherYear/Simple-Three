@@ -27,6 +27,8 @@ const Generate = (dom: HTMLElement): Promise<ST.Context> => {
     });
 
     return new Promise(async (resolve, reject) => {
+        ctx.dom = dom;
+
         ctx.Renderer = new TRenderer(ctx);
 
         ctx.Camera = new TCamera(ctx);
@@ -37,9 +39,9 @@ const Generate = (dom: HTMLElement): Promise<ST.Context> => {
 
         ctx.Game = new TGame(ctx);
 
-        ctx.Renderer.Run(dom);
+        ctx.Renderer.Run();
 
-        ctx.Camera.Run(dom);
+        ctx.Camera.Run();
 
         await ctx.Physics.Run();
 

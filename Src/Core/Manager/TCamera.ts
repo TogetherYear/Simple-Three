@@ -16,16 +16,13 @@ class TCamera extends TManager {
 
     public cameraObject!: THREE.Object3D;
 
-    private dom!: HTMLElement;
-
-    public Run(dom: HTMLElement) {
-        this.dom = dom;
+    public Run() {
         this.CreateCamera();
     }
 
     private CreateCamera() {
         this.cameraObject = new THREE.Object3D();
-        this.camera = new THREE.PerspectiveCamera(90, this.dom.offsetWidth / this.dom.offsetHeight, 0.1, 1000);
+        this.camera = new THREE.PerspectiveCamera(90, this.ctx.dom.offsetWidth / this.ctx.dom.offsetHeight, 0.1, 1000);
         this.camera.position.set(0, 2, 10);
         this.camera.lookAt(new THREE.Vector3(0, 0, 0));
         this.cameraObject.add(this.camera);
@@ -34,7 +31,7 @@ class TCamera extends TManager {
 
     @TEvent.Listen(window, 'resize')
     private OnResize(e: UIEvent) {
-        this.camera.aspect = this.dom.offsetWidth / this.dom.offsetHeight;
+        this.camera.aspect = this.ctx.dom.offsetWidth / this.ctx.dom.offsetHeight;
         this.camera.updateProjectionMatrix();
     }
 }

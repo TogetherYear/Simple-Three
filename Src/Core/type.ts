@@ -106,6 +106,7 @@ namespace ST {
     }
 
     export type Context = {
+        dom: HTMLElement;
         Renderer: TRenderer;
         Camera: TCamera;
         Physics: TPhysics;

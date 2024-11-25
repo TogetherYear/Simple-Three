@@ -24,7 +24,7 @@ Generate(document.querySelector('#App')!).then((ctx) => {
 
     const pointLight = new TPointLight(ctx);
 
-    // ctx.Plugins.set('Free', new TFreeCameraControl(ctx));
+    ctx.Plugins.set('Free', new TFreeCameraControl(ctx));
 
-    ctx.Plugins.set('Round', new TRoundCameraControl(ctx));
+    // ctx.Plugins.set('Round', new TRoundCameraControl(ctx));
 });

@@ -52,16 +52,16 @@ class TInput extends TManager {
 
     public lastPostion = new THREE.Vector2();
 
-    public focus = false;
+    public focus = true;
 
     public Run() {}
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'mouseenter')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mouseenter')
     private OnEnter() {
         this.focus = true;
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'mouseleave')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mouseleave')
     private OnLeave() {
         this.focus = false;
     }
@@ -135,7 +135,7 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'mousedown')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mousedown')
     private OnMouseDwon(e: MouseEvent) {
         if (e.button === 0) {
             this.mouseStatus.left = true;
@@ -146,7 +146,7 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'mouseup')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mouseup')
     private OnMouseUp(e: MouseEvent) {
         if (e.button === 0) {
             this.mouseStatus.left = false;
@@ -157,7 +157,7 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'mousemove')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mousemove')
     private OnMouseMove(e: MouseEvent) {
         if (this.lastPostion.length() === 0) {
             this.lastPostion.x = e.clientX;
@@ -171,12 +171,12 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'wheel')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'wheel')
     private OnWheel(e: WheelEvent) {
         this.CalculateWheel(e);
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'contextmenu')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'contextmenu')
     private OnContextMenu(e: Event) {
         e.preventDefault();
     }
