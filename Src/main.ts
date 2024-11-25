@@ -24,11 +24,14 @@ Generate(document.querySelector('#App')!).then((ctx) => {
 
     const pointLight = new TPointLight(ctx);
 
-    ctx.Plugins.set('Free', new TFreeCameraControl(ctx));
+    const freeCameraControl = new TFreeCameraControl(ctx);
 
-    // ctx.Plugins.set('Round', new TRoundCameraControl(ctx));
+    setTimeout(() => {
+        freeCameraControl.Destroy();
+        const roundCameraControl = new TRoundCameraControl(ctx);
+    }, 5000);
 
     setTimeout(() => {
         ctx.Destroy();
-    }, 5000);
+    }, 10000);
 });
