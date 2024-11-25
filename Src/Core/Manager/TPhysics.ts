@@ -1,13 +1,13 @@
 import { TManager } from '../Base/TManager';
 import { ST } from '../type';
-import { TEvent } from '../Decorators/TEvent';
-import { TTest } from '../Decorators/TTest';
+import { TEvent } from '../Decorator/TEvent';
+import { TTest } from '../Decorator/TTest';
 import { CustomBox } from '../Test/CustomBox';
 import * as THREE from 'three';
-import { Mathf } from '../Utils/Mathf';
+import { Mathf } from '../Util/Mathf';
 import Physics from '@/Core/Worker/Physics?worker';
-import { TBoxRigidBody } from '../Actor/Component/TBoxRigidBody';
-import { TSphereRigidBody } from '../Actor/Component/TSphereRigidBody';
+import { TBoxRigidBody } from '../Component/TBoxRigidBody';
+import { TSphereRigidBody } from '../Component/TSphereRigidBody';
 import { CustomSphere } from '../Test/CustomSphere';
 
 class TPhysics extends TManager {
