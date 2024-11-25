@@ -3,7 +3,7 @@ import { ST } from '../type';
 import { TEvent } from '../Decorators/TEvent';
 import * as THREE from 'three';
 
-@TEvent.Create([ST.Manager.InputEvent.Delta])
+@TEvent.Create([ST.Manager.InputEvent.KeyboardStatus, ST.Manager.InputEvent.MouseMoveDelta, ST.Manager.InputEvent.Wheel])
 class TInput extends TManager {
     constructor(ctx: ST.Context, options: ST.Manager.IInput = {}) {
         super(ctx, options);
@@ -13,15 +13,14 @@ class TInput extends TManager {
         return this.options as ST.Manager.IInput;
     }
 
-    private free = false;
-
-    private DIRECTION = {
+    public DIRECTION = {
         UP: new THREE.Vector3(0, 1, 0),
         DOWN: new THREE.Vector3(0, -1, 0),
         FORWARD: new THREE.Vector3(0, 0, -1),
         BEHIND: new THREE.Vector3(0, 0, 1),
         LEFT: new THREE.Vector3(-1, 0, 0),
-        RIGHT: new THREE.Vector3(1, 0, 0)
+        RIGHT: new THREE.Vector3(1, 0, 0),
+        ORIGIN: new THREE.Vector3(0, 0, 0)
     };
 
     public keyStatus = {
@@ -49,13 +48,11 @@ class TInput extends TManager {
 
     public direction = new THREE.Vector3();
 
-    public delta = new THREE.Vector2();
+    public mouseMoveDelta = new THREE.Vector2();
 
     public lastPostion = new THREE.Vector2();
 
-    public Run(free = true) {
-        this.free = free;
-    }
+    public Run() {}
 
     @TEvent.Listen(window, 'keydown')
     private OnKeyDown(e: KeyboardEvent) {
@@ -160,12 +157,17 @@ class TInput extends TManager {
             this.lastPostion.x = e.clientX;
             this.lastPostion.y = e.clientY;
         } else {
-            this.delta.x = e.clientX - this.lastPostion.x;
-            this.delta.y = e.clientY - this.lastPostion.y;
+            this.mouseMoveDelta.x = e.clientX - this.lastPostion.x;
+            this.mouseMoveDelta.y = e.clientY - this.lastPostion.y;
             this.lastPostion.x = e.clientX;
             this.lastPostion.y = e.clientY;
-            this.CalculateDelta();
+            this.CalculateRotateDelta();
         }
+    }
+
+    @TEvent.Listen(window, 'wheel')
+    private OnWheel(e: WheelEvent) {
+        this.CalculateWheel(e);
     }
 
     @TEvent.Listen(window, 'contextmenu')
@@ -185,33 +187,17 @@ class TInput extends TManager {
         this.direction.x = hor.x;
         this.direction.y = hor.y;
         this.direction.z = (this.keyStatus.q ? -1 : 0) + (this.keyStatus.e ? 1 : 0);
-        this.FreeMovementTranslate();
+        this.Emit(ST.Manager.InputEvent.KeyboardStatus);
     }
 
-    private FreeMovementTranslate() {
-        if (this.free && this.mouseStatus.right) {
-            if (this.direction.length() !== 0) {
-                this.ctx.Camera.camera.translateZ(4.3 * -this.direction.y * this.ctx.Game.deltaTime);
-                this.ctx.Camera.camera.translateX(4.3 * this.direction.x * this.ctx.Game.deltaTime);
-                this.ctx.Camera.camera.translateY(4.3 * this.direction.z * this.ctx.Game.deltaTime);
-            }
-        }
+    private CalculateRotateDelta() {
+        this.Emit(ST.Manager.InputEvent.MouseMoveDelta, { x: this.mouseMoveDelta.x, y: this.mouseMoveDelta.y });
+        this.mouseMoveDelta.x = 0;
+        this.mouseMoveDelta.y = 0;
     }
 
-    private CalculateDelta() {
-        this.Emit(ST.Manager.InputEvent.Delta, { x: this.delta.x, y: this.delta.y });
-        this.FreeMovementRotate();
-        this.delta.x = 0;
-        this.delta.y = 0;
-    }
-
-    private FreeMovementRotate() {
-        if (this.free && this.mouseStatus.right) {
-            if (this.delta.length() !== 0) {
-                this.ctx.Camera.camera.rotateOnAxis(this.DIRECTION.LEFT, 0.24 * this.delta.y * this.ctx.Game.deltaTime);
-                this.ctx.Camera.camera.rotateOnWorldAxis(this.DIRECTION.DOWN, 0.24 * this.delta.x * this.ctx.Game.deltaTime);
-            }
-        }
+    private CalculateWheel(e: WheelEvent) {
+        this.Emit(ST.Manager.InputEvent.Wheel, { flag: e.deltaY < 0 });
     }
 }
 

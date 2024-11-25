@@ -5,6 +5,7 @@ import { TPhysics } from './Manager/TPhysics';
 import { TInput } from './Manager/TInput';
 import { TGame } from './Manager/TGame';
 import { TActor } from './Base/TActor';
+import { TPlugin } from './Base/TPlugin';
 
 namespace ST {
     export namespace Actor {
@@ -47,6 +48,8 @@ namespace ST {
         }
 
         export interface IManager extends IEntity {}
+
+        export interface IPlugin extends IEntity {}
     }
 
     export namespace Manager {
@@ -57,7 +60,18 @@ namespace ST {
         export interface IGame extends Base.IManager {}
 
         export const enum InputEvent {
-            Delta = 'Delta'
+            /**
+             * 按键状态值
+             */
+            KeyboardStatus = 'KeyboardStatus',
+            /**
+             * 鼠标滑动屏幕差值
+             */
+            MouseMoveDelta = 'MouseMoveDelta',
+            /**
+             * 滚轮
+             */
+            Wheel = 'Wheel'
         }
 
         export interface IInput extends Base.IManager {}
@@ -67,6 +81,12 @@ namespace ST {
         export interface IPhysics extends Base.IManager {}
 
         export interface IRenderer extends Base.IManager {}
+    }
+
+    export namespace Plugin {
+        export interface IFreeCameraControl extends Base.IEntity {}
+
+        export interface IRoundCameraControl extends Base.IEntity {}
     }
 
     export namespace Test {
@@ -91,6 +111,7 @@ namespace ST {
         Physics: TPhysics;
         Input: TInput;
         Game: TGame;
+        Plugins: Map<string, TPlugin>;
     };
 }
 

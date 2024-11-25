@@ -9,7 +9,9 @@ import { ST } from './type';
  * 这个函数只用来初始化 Manager
  */
 const Generate = (dom: HTMLElement): Promise<ST.Context> => {
-    const target: Partial<ST.Context> = {};
+    const target: Partial<ST.Context> = {
+        Plugins: new Map()
+    };
 
     /**
      * 后面可能加东西 先弄一层代理

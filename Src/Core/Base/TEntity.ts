@@ -9,6 +9,10 @@ abstract class TEntity extends EventSystem {
         this.options = options;
     }
 
+    public get O() {
+        return this.options as ST.Base.IEntity;
+    }
+
     public ctx!: ST.Context;
 
     public options!: ST.Base.IEntity;

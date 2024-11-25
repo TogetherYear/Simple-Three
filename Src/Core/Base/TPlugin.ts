@@ -6,14 +6,14 @@ import { TEntity } from './TEntity';
 
 @TTest.Generate()
 @TTool.Generate()
-@TEvent.Generate(TEvent.Lifecycle.Manager)
-class TManager extends TEntity {
-    constructor(ctx: ST.Context, options: ST.Base.IManager) {
+@TEvent.Generate(TEvent.Lifecycle.Plugin)
+class TPlugin extends TEntity {
+    constructor(ctx: ST.Context, options: ST.Base.IPlugin) {
         super(ctx, options);
     }
 
     public get O() {
-        return this.options as ST.Base.IManager;
+        return this.options as ST.Base.IPlugin;
     }
 
     /**
@@ -22,4 +22,4 @@ class TManager extends TEntity {
     public Destroy() {}
 }
 
-export { TManager };
+export { TPlugin };

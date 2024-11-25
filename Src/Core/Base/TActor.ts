@@ -14,6 +14,10 @@ class TActor extends TEntity {
         super(ctx, options);
     }
 
+    public get O() {
+        return this.options as ST.Base.IActor;
+    }
+
     public body!: THREE.Object3D;
 
     public components: Array<TComponent> = [];

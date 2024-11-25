@@ -12,6 +12,10 @@ class TComponent extends TEntity {
         super(ctx, options);
     }
 
+    public get O() {
+        return this.options as ST.Base.IComponent;
+    }
+
     /**
      * 继承时 销毁物体必须调用 super.Destroy() 我要取消事件
      */

@@ -5,16 +5,17 @@ import { TEntity } from '../Base/TEntity';
  * 事件相关
  */
 namespace TEvent {
-    /**
-     * 如果类不会销毁用 Manager 其余用 Actor
-     */
     export const enum Lifecycle {
         /**
          * 全局管理
          */
         Manager,
         /**
-         * 动态生成物体
+         * 插件
+         */
+        Plugin,
+        /**
+         * 物体
          */
         Actor,
         /**
