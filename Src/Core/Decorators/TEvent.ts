@@ -34,11 +34,7 @@ namespace TEvent {
                     this.tEvent_Generate_Type = type;
                     this.tEvent_Generate_IsFinish = true;
                     this.TEvent_Generate_ListenEvents();
-                    if (this.tEvent_Generate_Type === Lifecycle.Manager) {
-                        this.TEvent_Generate_Manager_Hooks();
-                    } else {
-                        this.TEvent_Generate_Actor_Hooks();
-                    }
+                    this.TEvent_Generate_Hooks();
                     //@ts-ignore
                     if (this['tEvent_Create_IsFinish']) {
                         this.TEvent_Generate_CreatEvents();
@@ -84,9 +80,7 @@ namespace TEvent {
                     });
                 }
 
-                private TEvent_Generate_Manager_Hooks() {}
-
-                private TEvent_Generate_Actor_Hooks() {
+                private TEvent_Generate_Hooks() {
                     //@ts-ignore
                     const original = this[`Destroy`].bind(this);
                     //@ts-ignore

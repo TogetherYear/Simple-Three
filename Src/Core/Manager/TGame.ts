@@ -30,9 +30,9 @@ class TGame extends TManager {
 
     private Loop() {
         window.requestAnimationFrame(() => {
+            this.Update();
             this.Loop();
         });
-        this.Update();
     }
 
     private Update() {

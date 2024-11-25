@@ -25,12 +25,7 @@ namespace TTool {
                     this.TTool_Generate_Debounce();
                     this.TTool_Generate_Throttle();
                     this.TTool_Generate_Retry();
-                    //@ts-ignore
-                    if (this['tEvent_Generate_Type'] !== TEvent.Lifecycle.Manager) {
-                        this.TTool_Generate_Hooks();
-                    } else {
-                        this.TTool_Generate_Interval();
-                    }
+                    this.TTool_Generate_Hooks();
                 }
 
                 private tTool_Generate_Interval: Array<number> = [];

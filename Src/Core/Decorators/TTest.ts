@@ -1,5 +1,4 @@
 import { TEntity } from '../Base/TEntity';
-import { TEvent } from './TEvent';
 
 namespace TTest {
     /**
@@ -16,10 +15,7 @@ namespace TTest {
                 constructor(...args: Array<any>) {
                     super(...args);
                     this.TTest_Generate_BindFunction();
-                    //@ts-ignore
-                    if (this['tEvent_Generate_Type'] !== TEvent.Lifecycle.Manager) {
-                        this.TTest_Generate_Hooks();
-                    }
+                    this.TTest_Generate_Hooks();
                 }
 
                 private TTest_Generate_BindFunction() {
