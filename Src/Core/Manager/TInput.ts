@@ -52,13 +52,25 @@ class TInput extends TManager {
 
     public lastPostion = new THREE.Vector2();
 
+    public focus = false;
+
     public Run() {}
+
+    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'mouseenter')
+    private OnEnter() {
+        this.focus = true;
+    }
+
+    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'mouseleave')
+    private OnLeave() {
+        this.focus = false;
+    }
 
     @TEvent.Listen(window, 'keydown')
     private OnKeyDown(e: KeyboardEvent) {
+        if (!this.focus) return;
         if (e.key !== 'F12') {
             e.preventDefault();
-            e.stopPropagation();
         }
 
         if (e.key === 'w' || e.key === 'W') {
@@ -92,8 +104,8 @@ class TInput extends TManager {
 
     @TEvent.Listen(window, 'keyup')
     private OnKeyUp(e: KeyboardEvent) {
+        if (!this.focus) return;
         e.preventDefault();
-        e.stopPropagation();
         if (e.key === 'w' || e.key === 'W') {
             this.keyStatus.w = false;
         } else if (e.key === 's' || e.key === 'S') {
@@ -123,10 +135,8 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen(window, 'mousedown')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'mousedown')
     private OnMouseDwon(e: MouseEvent) {
-        e.preventDefault();
-        e.stopPropagation();
         if (e.button === 0) {
             this.mouseStatus.left = true;
         } else if (e.button === 1) {
@@ -136,10 +146,8 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen(window, 'mouseup')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'mouseup')
     private OnMouseUp(e: MouseEvent) {
-        e.preventDefault();
-        e.stopPropagation();
         if (e.button === 0) {
             this.mouseStatus.left = false;
         } else if (e.button === 1) {
@@ -149,10 +157,8 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen(window, 'mousemove')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'mousemove')
     private OnMouseMove(e: MouseEvent) {
-        e.preventDefault();
-        e.stopPropagation();
         if (this.lastPostion.length() === 0) {
             this.lastPostion.x = e.clientX;
             this.lastPostion.y = e.clientY;
@@ -165,15 +171,14 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen(window, 'wheel')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'wheel')
     private OnWheel(e: WheelEvent) {
         this.CalculateWheel(e);
     }
 
-    @TEvent.Listen(window, 'contextmenu')
+    @TEvent.Listen<TInput>((instance) => instance.ctx.Renderer.renderer.domElement, 'contextmenu')
     private OnContextMenu(e: Event) {
         e.preventDefault();
-        e.stopPropagation();
     }
 
     @TEvent.Listen<TInput>((instance) => instance.ctx.Game, ST.Manager.GameEvent.Update)
