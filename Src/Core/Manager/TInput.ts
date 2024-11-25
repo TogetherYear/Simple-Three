@@ -2,6 +2,7 @@ import { TManager } from '../Base/TManager';
 import { ST } from '../type';
 import { TEvent } from '../Decorators/TEvent';
 import * as THREE from 'three';
+import { TTool } from '../Decorators/TTool';
 
 @TEvent.Create([ST.Manager.InputEvent.MouseMoveDelta, ST.Manager.InputEvent.Wheel])
 class TInput extends TManager {
@@ -194,12 +195,14 @@ class TInput extends TManager {
         this.direction.z = (this.keyStatus.q ? -1 : 0) + (this.keyStatus.e ? 1 : 0);
     }
 
+    @TTool.Throttle<TInput>((instance) => instance.ctx.Game.deltaTime)
     private CalculateRotateDelta() {
         this.Emit(ST.Manager.InputEvent.MouseMoveDelta, { x: this.mouseMoveDelta.x, y: this.mouseMoveDelta.y });
         this.mouseMoveDelta.x = 0;
         this.mouseMoveDelta.y = 0;
     }
 
+    @TTool.Throttle<TInput>((instance) => instance.ctx.Game.deltaTime)
     private CalculateWheel(e: WheelEvent) {
         this.Emit(ST.Manager.InputEvent.Wheel, { flag: e.deltaY < 0 });
     }
