@@ -8,7 +8,7 @@ import { TEntity } from './TEntity';
 @TTool.Generate()
 @TEvent.Generate(TEvent.Lifecycle.Plugin)
 class TPlugin extends TEntity {
-    constructor(ctx: ST.Context, options: ST.Base.IPlugin) {
+    constructor(ctx: ST.Context, options: ST.Base.IPlugin = {}) {
         super(ctx, options);
     }
 

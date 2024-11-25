@@ -8,7 +8,7 @@ import rT from '@/Assets/Images/r.png';
 import { ST } from '../type';
 
 class TPlane extends TActor {
-    constructor(ctx: ST.Context, options: ST.Actor.IPlane) {
+    constructor(ctx: ST.Context, options: ST.Actor.IPlane = {}) {
         super(ctx, options);
         this.Create();
     }

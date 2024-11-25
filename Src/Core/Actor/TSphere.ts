@@ -3,7 +3,7 @@ import { TActor } from '../Base/TActor';
 import { ST } from '../type';
 
 class TSphere extends TActor {
-    constructor(ctx: ST.Context, options: ST.Actor.ISphere) {
+    constructor(ctx: ST.Context, options: ST.Actor.ISphere = {}) {
         super(ctx, options);
         this.Create();
     }

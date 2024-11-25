@@ -3,7 +3,7 @@ import { EventSystem } from '../Utils/EventSystem';
 import { Time } from '../Utils/Time';
 
 abstract class TEntity extends EventSystem {
-    constructor(ctx: ST.Context, options: ST.Base.IEntity) {
+    constructor(ctx: ST.Context, options: ST.Base.IEntity = {}) {
         super();
         this.ctx = ctx;
         this.options = options;

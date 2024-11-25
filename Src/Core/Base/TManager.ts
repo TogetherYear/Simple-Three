@@ -8,7 +8,7 @@ import { TEntity } from './TEntity';
 @TTool.Generate()
 @TEvent.Generate(TEvent.Lifecycle.Manager)
 class TManager extends TEntity {
-    constructor(ctx: ST.Context, options: ST.Base.IManager) {
+    constructor(ctx: ST.Context, options: ST.Base.IManager = {}) {
         super(ctx, options);
     }
 

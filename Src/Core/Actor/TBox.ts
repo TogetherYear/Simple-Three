@@ -3,7 +3,7 @@ import { TActor } from '../Base/TActor';
 import { ST } from '../type';
 
 class TBox extends TActor {
-    constructor(ctx: ST.Context, options: ST.Actor.IBox) {
+    constructor(ctx: ST.Context, options: ST.Actor.IBox = {}) {
         super(ctx, options);
         this.Create();
     }
