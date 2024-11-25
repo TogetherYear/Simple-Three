@@ -27,4 +27,8 @@ Generate(document.querySelector('#App')!).then((ctx) => {
     ctx.Plugins.set('Free', new TFreeCameraControl(ctx));
 
     // ctx.Plugins.set('Round', new TRoundCameraControl(ctx));
+
+    setTimeout(() => {
+        ctx.Destroy();
+    }, 5000);
 });

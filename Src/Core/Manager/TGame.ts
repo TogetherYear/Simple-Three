@@ -19,6 +19,8 @@ class TGame extends TManager {
 
     public renderTime: number = 0;
 
+    private updateCallback = -1;
+
     public Run() {
         this.CreateClock();
         this.Loop();
@@ -29,7 +31,7 @@ class TGame extends TManager {
     }
 
     private Loop() {
-        window.requestAnimationFrame(() => {
+        this.updateCallback = window.requestAnimationFrame(() => {
             this.Update();
             this.Loop();
         });
@@ -50,6 +52,11 @@ class TGame extends TManager {
 
     public Remove(object: THREE.Object3D) {
         this.ctx.Renderer.scene.remove(object);
+    }
+
+    public override Destroy(): void {
+        super.Destroy();
+        window.cancelAnimationFrame(this.updateCallback);
     }
 }
 

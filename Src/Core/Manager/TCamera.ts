@@ -34,6 +34,10 @@ class TCamera extends TManager {
         this.camera.aspect = this.ctx.dom.offsetWidth / this.ctx.dom.offsetHeight;
         this.camera.updateProjectionMatrix();
     }
+
+    public override Destroy(): void {
+        super.Destroy();
+    }
 }
 
 export { TCamera };

@@ -16,7 +16,7 @@ const Generate = (dom: HTMLElement): Promise<ST.Context> => {
     /**
      * 后面可能加东西 先弄一层代理
      */
-    const ctx = new Proxy(target as ST.Context, {
+    const proxy = Proxy.revocable(target as ST.Context, {
         get: (target: ST.Context, p: keyof ST.Context, receiver: any) => {
             return target[p];
         },
@@ -25,6 +25,8 @@ const Generate = (dom: HTMLElement): Promise<ST.Context> => {
             return true;
         }
     });
+
+    const ctx = proxy.proxy;
 
     return new Promise(async (resolve, reject) => {
         ctx.dom = dom;
@@ -48,6 +50,20 @@ const Generate = (dom: HTMLElement): Promise<ST.Context> => {
         ctx.Input.Run();
 
         ctx.Game.Run();
+
+        ctx.Destroy = () => {
+            ctx.Renderer.Destroy();
+
+            ctx.Camera.Destroy();
+
+            ctx.Physics.Destroy();
+
+            ctx.Input.Destroy();
+
+            ctx.Game.Destroy();
+
+            proxy.revoke();
+        };
 
         resolve(ctx);
     });

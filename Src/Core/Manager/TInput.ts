@@ -204,6 +204,10 @@ class TInput extends TManager {
     private CalculateWheel(e: WheelEvent) {
         this.Emit(ST.Manager.InputEvent.Wheel, { flag: e.deltaY < 0 });
     }
+
+    public override Destroy(): void {
+        super.Destroy();
+    }
 }
 
 export { TInput };

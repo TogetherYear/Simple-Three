@@ -41,6 +41,12 @@ class TRenderer extends TManager {
     private OnResize(e: UIEvent) {
         this.renderer.setSize(this.ctx.dom.offsetWidth, this.ctx.dom.offsetHeight);
     }
+
+    public override Destroy(): void {
+        super.Destroy();
+        this.ctx.dom.removeChild(this.renderer.domElement);
+        this.renderer.dispose();
+    }
 }
 
 export { TRenderer };

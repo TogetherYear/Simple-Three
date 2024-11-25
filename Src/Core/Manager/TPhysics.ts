@@ -114,6 +114,11 @@ class TPhysics extends TManager {
             });
         }
     }
+
+    public override Destroy(): void {
+        super.Destroy();
+        this.worker.terminate();
+    }
 }
 
 export { TPhysics };

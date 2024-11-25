@@ -113,6 +113,10 @@ namespace ST {
         Input: TInput;
         Game: TGame;
         Plugins: Map<string, TPlugin>;
+        /**
+         * 页面销毁时调用
+         */
+        Destroy: () => void;
     };
 }
 
