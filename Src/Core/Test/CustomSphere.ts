@@ -1,9 +1,9 @@
 import { TSphere } from '../Actor/TSphere';
 import { TSphereRigidBody } from '../Components/TSphereRigidBody';
-import { ST } from '../type';
+import { Core } from '../type';
 
 class CustomSphere extends TSphere {
-    constructor(ctx: ST.Context, options: ST.Test.ICustomSphere) {
+    constructor(ctx: Core.Context, options: Core.Test.ICustomSphere) {
         super(ctx, options);
         this.body.position.copy(this.O.position);
         this.body.rotateX(this.O.rotate.x);
@@ -14,7 +14,7 @@ class CustomSphere extends TSphere {
     }
 
     public get O() {
-        return this.options as ST.Test.ICustomSphere;
+        return this.options as Core.Test.ICustomSphere;
     }
 }
 

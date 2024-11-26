@@ -1,16 +1,16 @@
 import { TActor } from '../Base/TActor';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { ST } from '../type';
+import { Core } from '../type';
 import * as THREE from 'three';
 
 class TGltfModel extends TActor {
-    constructor(ctx: ST.Context, options: ST.Actor.IGltfModelOptions) {
+    constructor(ctx: Core.Context, options: Core.Actor.IGltfModelOptions) {
         super(ctx, options);
         this.Create();
     }
 
     public get O() {
-        return this.options as ST.Actor.IGltfModelOptions;
+        return this.options as Core.Actor.IGltfModelOptions;
     }
 
     private Create() {

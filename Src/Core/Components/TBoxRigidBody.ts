@@ -1,15 +1,15 @@
 import { TComponent } from '@/Core/Base/TComponent';
-import { ST } from '@/Core/type';
+import { Core } from '@/Core/type';
 import * as THREE from 'three';
 
 class TBoxRigidBody extends TComponent {
-    constructor(ctx: ST.Context, options: ST.Component.IRigidBodyOptions) {
+    constructor(ctx: Core.Context, options: Core.Component.IRigidBodyOptions) {
         super(ctx, options);
         this.Create();
     }
 
     public get O() {
-        return this.options as ST.Component.IRigidBodyOptions;
+        return this.options as Core.Component.IRigidBodyOptions;
     }
 
     private Create() {

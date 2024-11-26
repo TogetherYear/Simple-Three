@@ -1,17 +1,17 @@
 import { TManager } from '../Base/TManager';
-import { ST } from '../type';
+import { Core } from '../type';
 import { TEvent } from '../Decorators/TEvent';
 import * as THREE from 'three';
 import { TTool } from '../Decorators/TTool';
 
-@TEvent.Create([ST.Manager.InputEvent.MouseMoveDelta, ST.Manager.InputEvent.Wheel])
+@TEvent.Create([Core.Manager.InputEvent.MouseMoveDelta, Core.Manager.InputEvent.Wheel])
 class TInput extends TManager {
-    constructor(ctx: ST.Context, options: ST.Manager.IInput = {}) {
+    constructor(ctx: Core.Context, options: Core.Manager.IInput = {}) {
         super(ctx, options);
     }
 
     public get O() {
-        return this.options as ST.Manager.IInput;
+        return this.options as Core.Manager.IInput;
     }
 
     public DIRECTION = {
@@ -196,7 +196,7 @@ class TInput extends TManager {
         e.preventDefault();
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.Game, ST.Manager.GameEvent.Update)
+    @TEvent.Listen<TInput>((instance) => instance.ctx.Game, Core.Manager.GameEvent.Update)
     private Update() {
         this.CalculateDirection();
     }
@@ -211,14 +211,14 @@ class TInput extends TManager {
 
     @TTool.Throttle<TInput>((instance) => instance.ctx.Game.deltaTime)
     private CalculateRotateDelta() {
-        this.Emit(ST.Manager.InputEvent.MouseMoveDelta, { x: this.mouseMoveDelta.x, y: this.mouseMoveDelta.y });
+        this.Emit(Core.Manager.InputEvent.MouseMoveDelta, { x: this.mouseMoveDelta.x, y: this.mouseMoveDelta.y });
         this.mouseMoveDelta.x = 0;
         this.mouseMoveDelta.y = 0;
     }
 
     @TTool.Throttle<TInput>((instance) => instance.ctx.Game.deltaTime)
     private CalculateWheel(e: WheelEvent) {
-        this.Emit(ST.Manager.InputEvent.Wheel, { flag: e.deltaY < 0 });
+        this.Emit(Core.Manager.InputEvent.Wheel, { flag: e.deltaY < 0 });
     }
 
     public override Destroy(): void {

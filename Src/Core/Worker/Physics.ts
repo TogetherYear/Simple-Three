@@ -1,6 +1,6 @@
 import * as CANNON from 'cannon-es';
 
-import { ST } from '../type';
+import { Core } from '../type';
 
 let world!: CANNON.World;
 
@@ -27,7 +27,7 @@ self.onmessage = (e) => {
     }
 };
 
-const Init = (data: ST.Worker.Physics.InitOptions) => {
+const Init = (data: Core.Worker.Physics.InitOptions) => {
     world = new CANNON.World();
     world.broadphase = new CANNON.SAPBroadphase(world);
     world.gravity.set(0, -9.82, 0);
@@ -59,8 +59,8 @@ const Physics = () => {
     }, deltaTime);
 };
 
-const Add = (data: ST.Worker.Physics.AddBody) => {
-    const Box = (options: ST.Worker.Physics.AddOptions) => {
+const Add = (data: Core.Worker.Physics.AddBody) => {
+    const Box = (options: Core.Worker.Physics.AddOptions) => {
         const body = new CANNON.Body({
             mass: options.mass,
             position: new CANNON.Vec3(options.position[0], options.position[1], options.position[2]),
@@ -75,7 +75,7 @@ const Add = (data: ST.Worker.Physics.AddBody) => {
         return body;
     };
 
-    const Sphere = (options: ST.Worker.Physics.AddOptions) => {
+    const Sphere = (options: Core.Worker.Physics.AddOptions) => {
         const body = new CANNON.Body({
             mass: options.mass,
             position: new CANNON.Vec3(options.position[0], options.position[1], options.position[2]),
@@ -102,7 +102,7 @@ const Add = (data: ST.Worker.Physics.AddBody) => {
     bodyMap.set(data.id, body);
 };
 
-const Remove = (data: ST.Worker.Physics.RemoveBody) => {
+const Remove = (data: Core.Worker.Physics.RemoveBody) => {
     const body = bodyMap.get(data.id)!;
     bodyMap.delete(data.id);
     idMap.delete(body.id);

@@ -1,5 +1,5 @@
 import { TManager } from '../Base/TManager';
-import { ST } from '../type';
+import { Core } from '../type';
 import { TEvent } from '../Decorators/TEvent';
 import { TTest } from '../Decorators/TTest';
 import { CustomBox } from '../Test/CustomBox';
@@ -10,14 +10,14 @@ import { TBoxRigidBody } from '../Components/TBoxRigidBody';
 import { TSphereRigidBody } from '../Components/TSphereRigidBody';
 import { CustomSphere } from '../Test/CustomSphere';
 
-@TEvent.Create([ST.Manager.PhysicsEvent.FixedUpdate])
+@TEvent.Create([Core.Manager.PhysicsEvent.FixedUpdate])
 class TPhysics extends TManager {
-    constructor(ctx: ST.Context, options: ST.Manager.IPhysics = {}) {
+    constructor(ctx: Core.Context, options: Core.Manager.IPhysics = {}) {
         super(ctx, options);
     }
 
     public get O() {
-        return this.options as ST.Manager.IPhysics;
+        return this.options as Core.Manager.IPhysics;
     }
 
     private worker = new Physics();
@@ -61,11 +61,11 @@ class TPhysics extends TManager {
                     target.PhysicsUpdate(position, quaternion);
                 }
             }
-            this.Emit(ST.Manager.PhysicsEvent.FixedUpdate);
+            this.Emit(Core.Manager.PhysicsEvent.FixedUpdate);
         }
     }
 
-    public Add(target: TBoxRigidBody | TSphereRigidBody, options: ST.Worker.Physics.AddOptions) {
+    public Add(target: TBoxRigidBody | TSphereRigidBody, options: Core.Worker.Physics.AddOptions) {
         this.bodys.set(target.unique_Id, target);
         this.worker.postMessage({
             type: 'Add',

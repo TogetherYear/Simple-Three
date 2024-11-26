@@ -1,4 +1,4 @@
-import { ST } from '../type';
+import { Core } from '../type';
 import { TPlugin } from '../Base/TPlugin';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
@@ -6,7 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
  * 圆球视角控制器
  */
 class TRoundCameraControl extends TPlugin {
-    constructor(ctx: ST.Context, options: ST.Plugin.IRoundCameraControl = {}) {
+    constructor(ctx: Core.Context, options: Core.Plugin.IRoundCameraControl = {}) {
         super(ctx, options);
         this.control = new OrbitControls(this.ctx.Camera.camera, this.ctx.dom);
         this.control.enablePan = false;
@@ -18,7 +18,7 @@ class TRoundCameraControl extends TPlugin {
     private control!: OrbitControls;
 
     public get O() {
-        return this.options as ST.Plugin.IRoundCameraControl;
+        return this.options as Core.Plugin.IRoundCameraControl;
     }
 
     public override Destroy(): void {

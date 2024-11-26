@@ -1,15 +1,15 @@
 import * as THREE from 'three';
 import { TActor } from '../Base/TActor';
-import { ST } from '../type';
+import { Core } from '../type';
 
 class TPointLight extends TActor {
-    constructor(ctx: ST.Context, options: ST.Actor.IPointLight = {}) {
+    constructor(ctx: Core.Context, options: Core.Actor.IPointLight = {}) {
         super(ctx, options);
         this.Create();
     }
 
     public get O() {
-        return this.options as ST.Actor.IPointLight;
+        return this.options as Core.Actor.IPointLight;
     }
 
     private Create() {

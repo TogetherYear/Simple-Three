@@ -7,7 +7,7 @@ import { TGame } from './Manager/TGame';
 import { TActor } from './Base/TActor';
 import { TPlugin } from './Base/TPlugin';
 
-namespace ST {
+namespace Core {
     export namespace Actor {
         export interface IGltfModelOptions extends Base.IEntity {
             path: string;
@@ -154,4 +154,4 @@ namespace ST {
     };
 }
 
-export { ST };
+export { Core };

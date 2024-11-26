@@ -1,9 +1,9 @@
 import { TBoxRigidBody } from '../Components/TBoxRigidBody';
 import { TBox } from '../Actor/TBox';
-import { ST } from '../type';
+import { Core } from '../type';
 
 class CustomBox extends TBox {
-    constructor(ctx: ST.Context, options: ST.Test.ICustomBox) {
+    constructor(ctx: Core.Context, options: Core.Test.ICustomBox) {
         super(ctx, options);
         this.body.position.copy(this.O.position);
         this.body.rotateX(this.O.rotate.x);
@@ -14,7 +14,7 @@ class CustomBox extends TBox {
     }
 
     public get O() {
-        return this.options as ST.Test.ICustomBox;
+        return this.options as Core.Test.ICustomBox;
     }
 }
 

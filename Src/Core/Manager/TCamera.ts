@@ -1,15 +1,15 @@
 import * as THREE from 'three';
 import { TManager } from '../Base/TManager';
 import { TEvent } from '../Decorators/TEvent';
-import { ST } from '../type';
+import { Core } from '../type';
 
 class TCamera extends TManager {
-    constructor(ctx: ST.Context, options: ST.Manager.ICamera = {}) {
+    constructor(ctx: Core.Context, options: Core.Manager.ICamera = {}) {
         super(ctx, options);
     }
 
     public get O() {
-        return this.options as ST.Manager.ICamera;
+        return this.options as Core.Manager.ICamera;
     }
 
     public camera!: THREE.PerspectiveCamera;

@@ -5,16 +5,16 @@ import hT from '@/Assets/Images/h.png';
 import nT from '@/Assets/Images/n.png';
 import mT from '@/Assets/Images/m.png';
 import rT from '@/Assets/Images/r.png';
-import { ST } from '../type';
+import { Core } from '../type';
 
 class TPlane extends TActor {
-    constructor(ctx: ST.Context, options: ST.Actor.IPlane = {}) {
+    constructor(ctx: Core.Context, options: Core.Actor.IPlane = {}) {
         super(ctx, options);
         this.Create();
     }
 
     public get O() {
-        return this.options as ST.Actor.IPlane;
+        return this.options as Core.Actor.IPlane;
     }
 
     private Create() {

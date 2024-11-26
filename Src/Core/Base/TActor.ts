@@ -1,7 +1,7 @@
 import { TEvent } from '../Decorators/TEvent';
 import { TTest } from '../Decorators/TTest';
 import { TTool } from '../Decorators/TTool';
-import { ST } from '../type';
+import { Core } from '../type';
 import { TComponent } from './TComponent';
 import { TEntity } from './TEntity';
 import * as THREE from 'three';
@@ -10,12 +10,12 @@ import * as THREE from 'three';
 @TTool.Generate()
 @TEvent.Generate(TEvent.Lifecycle.Actor)
 class TActor extends TEntity {
-    constructor(ctx: ST.Context, options: ST.Base.IActor = {}) {
+    constructor(ctx: Core.Context, options: Core.Base.IActor = {}) {
         super(ctx, options);
     }
 
     public get O() {
-        return this.options as ST.Base.IActor;
+        return this.options as Core.Base.IActor;
     }
 
     public body!: THREE.Object3D;

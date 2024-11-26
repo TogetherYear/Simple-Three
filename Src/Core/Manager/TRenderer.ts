@@ -1,15 +1,15 @@
 import * as THREE from 'three';
 import { TManager } from '../Base/TManager';
 import { TEvent } from '../Decorators/TEvent';
-import { ST } from '../type';
+import { Core } from '../type';
 
 class TRenderer extends TManager {
-    constructor(ctx: ST.Context, options: ST.Manager.IRenderer = {}) {
+    constructor(ctx: Core.Context, options: Core.Manager.IRenderer = {}) {
         super(ctx, options);
     }
 
     public get O() {
-        return this.options as ST.Manager.IRenderer;
+        return this.options as Core.Manager.IRenderer;
     }
 
     public scene!: THREE.Scene;

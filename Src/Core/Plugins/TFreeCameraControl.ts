@@ -1,4 +1,4 @@
-import { ST } from '../type';
+import { Core } from '../type';
 import { TPlugin } from '../Base/TPlugin';
 import { TEvent } from '../Decorators/TEvent';
 
@@ -6,16 +6,16 @@ import { TEvent } from '../Decorators/TEvent';
  * 自由视角控制器
  */
 class TFreeCameraControl extends TPlugin {
-    constructor(ctx: ST.Context, options: ST.Plugin.IFreeCameraControl = {}) {
+    constructor(ctx: Core.Context, options: Core.Plugin.IFreeCameraControl = {}) {
         super(ctx, options);
         this.ctx.Plugins.set(this.constructor.name, this);
     }
 
     public get O() {
-        return this.options as ST.Plugin.IFreeCameraControl;
+        return this.options as Core.Plugin.IFreeCameraControl;
     }
 
-    @TEvent.Listen<TFreeCameraControl>((instance) => instance.ctx.Game, ST.Manager.GameEvent.Update)
+    @TEvent.Listen<TFreeCameraControl>((instance) => instance.ctx.Game, Core.Manager.GameEvent.Update)
     private Update() {
         if (this.ctx.Input.mouseStatus.right) {
             if (this.ctx.Input.direction.length() !== 0) {
@@ -26,7 +26,7 @@ class TFreeCameraControl extends TPlugin {
         }
     }
 
-    @TEvent.Listen<TFreeCameraControl>((instance) => instance.ctx.Input, ST.Manager.InputEvent.MouseMoveDelta)
+    @TEvent.Listen<TFreeCameraControl>((instance) => instance.ctx.Input, Core.Manager.InputEvent.MouseMoveDelta)
     private RotateDelta() {
         if (this.ctx.Input.mouseStatus.right) {
             if (this.ctx.Input.mouseMoveDelta.length() !== 0) {

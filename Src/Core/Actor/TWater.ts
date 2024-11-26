@@ -3,16 +3,16 @@ import { TActor } from '../Base/TActor';
 import { Water } from 'three/examples/jsm/objects/Water';
 import normal from '@/Assets/Images/normal.jpg';
 import { TEvent } from '../Decorators/TEvent';
-import { ST } from '../type';
+import { Core } from '../type';
 
 class TWater extends TActor {
-    constructor(ctx: ST.Context, options: ST.Actor.IWater = {}) {
+    constructor(ctx: Core.Context, options: Core.Actor.IWater = {}) {
         super(ctx, options);
         this.Create();
     }
 
     public get O() {
-        return this.options as ST.Actor.IWater;
+        return this.options as Core.Actor.IWater;
     }
 
     private Create() {
@@ -35,7 +35,7 @@ class TWater extends TActor {
         this.ctx.Game.Add(this.body);
     }
 
-    @TEvent.Listen<TWater>((instance) => instance.ctx.Game, ST.Manager.GameEvent.Update)
+    @TEvent.Listen<TWater>((instance) => instance.ctx.Game, Core.Manager.GameEvent.Update)
     private Update() {
         (this.body as Water).material.uniforms['time'].value += 0.36 * this.ctx.Game.deltaTime;
     }
