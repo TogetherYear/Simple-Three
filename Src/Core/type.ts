@@ -70,6 +70,10 @@ namespace ST {
             Wheel = 'Wheel'
         }
 
+        export const enum PhysicsEvent {
+            FixedUpdate = 'FixedUpdate'
+        }
+
         export interface IInput extends Base.IManager {}
 
         export interface ICamera extends Base.IManager {}
@@ -99,6 +103,40 @@ namespace ST {
         }
 
         export interface ICustomPlane extends Base.IActor {}
+    }
+
+    export namespace Worker {
+        export namespace Physics {
+            export type InitOptions = {
+                type: 'Init';
+                postionsSharedBuffer: SharedArrayBuffer;
+                quaternionsSharedBuffer: SharedArrayBuffer;
+            };
+
+            export type AddBody = {
+                type: 'Add';
+                id: string;
+                options: AddOptions;
+            };
+
+            export type AddOptions = {
+                mass: number;
+                type: 'Box' | 'Sphere';
+                position: Array<number>;
+                quaternion: Array<number>;
+                scale: Array<number>;
+                material: {
+                    friction: number;
+                    restitution: number;
+                };
+                allowSleep: boolean;
+            };
+
+            export type RemoveBody = {
+                type: 'Remove';
+                id: string;
+            };
+        }
     }
 
     export type Context = {

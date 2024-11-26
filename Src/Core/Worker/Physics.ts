@@ -1,5 +1,7 @@
 import * as CANNON from 'cannon-es';
 
+import { ST } from '../type';
+
 let world!: CANNON.World;
 
 let positions!: Float32Array;
@@ -10,11 +12,14 @@ const idMap = new Map<number, string>();
 
 const bodyMap = new Map<string, CANNON.Body>();
 
+/**
+ * 物理计算间隔 毫秒
+ */
+const deltaTime = 1000 / 60;
+
 self.onmessage = (e) => {
     if (e.data.type === 'Init') {
         Init(e.data);
-    } else if (e.data.type === 'Physics') {
-        Physics(e.data);
     } else if (e.data.type === 'Add') {
         Add(e.data);
     } else if (e.data.type === 'Remove') {
@@ -22,40 +27,40 @@ self.onmessage = (e) => {
     }
 };
 
-const Init = (data: Record<string, any>) => {
+const Init = (data: ST.Worker.Physics.InitOptions) => {
     world = new CANNON.World();
     world.broadphase = new CANNON.SAPBroadphase(world);
     world.gravity.set(0, -9.82, 0);
     positions = new Float32Array(data.postionsSharedBuffer);
     quaternions = new Float32Array(data.quaternionsSharedBuffer);
-    self.postMessage({
-        type: 'Init'
-    });
+    Physics();
 };
 
-const Physics = (data: Record<string, any>) => {
-    world.step(data.deltaTime);
+const Physics = () => {
+    setInterval(() => {
+        world.step(deltaTime / 1000);
 
-    const ids: Array<string> = [];
-    for (let i = 0; i < world.bodies.length; ++i) {
-        const body = world.bodies[i];
-        positions[i * 3 + 0] = body.position.x;
-        positions[i * 3 + 1] = body.position.y;
-        positions[i * 3 + 2] = body.position.z;
-        quaternions[i * 4 + 0] = body.quaternion.x;
-        quaternions[i * 4 + 1] = body.quaternion.y;
-        quaternions[i * 4 + 2] = body.quaternion.z;
-        quaternions[i * 4 + 3] = body.quaternion.w;
-        ids.push(idMap.get(body.id)!);
-    }
-    self.postMessage({
-        type: 'Physics',
-        ids: ids
-    });
+        const ids: Array<string> = [];
+        for (let i = 0; i < world.bodies.length; ++i) {
+            const body = world.bodies[i];
+            positions[i * 3 + 0] = body.position.x;
+            positions[i * 3 + 1] = body.position.y;
+            positions[i * 3 + 2] = body.position.z;
+            quaternions[i * 4 + 0] = body.quaternion.x;
+            quaternions[i * 4 + 1] = body.quaternion.y;
+            quaternions[i * 4 + 2] = body.quaternion.z;
+            quaternions[i * 4 + 3] = body.quaternion.w;
+            ids.push(idMap.get(body.id)!);
+        }
+        self.postMessage({
+            type: 'Physics',
+            ids: ids
+        });
+    }, deltaTime);
 };
 
-const Add = (data: Record<string, any>) => {
-    const Box = (options: Record<string, any>) => {
+const Add = (data: ST.Worker.Physics.AddBody) => {
+    const Box = (options: ST.Worker.Physics.AddOptions) => {
         const body = new CANNON.Body({
             mass: options.mass,
             position: new CANNON.Vec3(options.position[0], options.position[1], options.position[2]),
@@ -70,7 +75,7 @@ const Add = (data: Record<string, any>) => {
         return body;
     };
 
-    const Sphere = (options: Record<string, any>) => {
+    const Sphere = (options: ST.Worker.Physics.AddOptions) => {
         const body = new CANNON.Body({
             mass: options.mass,
             position: new CANNON.Vec3(options.position[0], options.position[1], options.position[2]),
@@ -97,7 +102,7 @@ const Add = (data: Record<string, any>) => {
     bodyMap.set(data.id, body);
 };
 
-const Remove = (data: Record<string, any>) => {
+const Remove = (data: ST.Worker.Physics.RemoveBody) => {
     const body = bodyMap.get(data.id)!;
     bodyMap.delete(data.id);
     idMap.delete(body.id);

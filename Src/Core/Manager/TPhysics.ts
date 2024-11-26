@@ -10,6 +10,7 @@ import { TBoxRigidBody } from '../Components/TBoxRigidBody';
 import { TSphereRigidBody } from '../Components/TSphereRigidBody';
 import { CustomSphere } from '../Test/CustomSphere';
 
+@TEvent.Create([ST.Manager.PhysicsEvent.FixedUpdate])
 class TPhysics extends TManager {
     constructor(ctx: ST.Context, options: ST.Manager.IPhysics = {}) {
         super(ctx, options);
@@ -44,23 +45,7 @@ class TPhysics extends TManager {
                 postionsSharedBuffer: this.postionsSharedBuffer,
                 quaternionsSharedBuffer: this.quaternionsSharedBuffer
             });
-            this.worker.addEventListener(
-                'message',
-                (e) => {
-                    if (e.data.type === 'Init') {
-                        resolve();
-                    }
-                },
-                { once: true }
-            );
-        });
-    }
-
-    @TEvent.Listen<TPhysics>((instance) => instance.ctx.Game, ST.Manager.GameEvent.Update)
-    public Update() {
-        this.worker.postMessage({
-            type: 'Physics',
-            deltaTime: this.ctx.Game.deltaTime
+            resolve();
         });
     }
 
@@ -70,16 +55,17 @@ class TPhysics extends TManager {
             const ids = e.data.ids as Array<string>;
             for (let i = 0; i < ids.length; ++i) {
                 const target = this.bodys.get(ids[i]);
-                target &&
-                    target.PhysicsUpdate(
-                        new THREE.Vector3(this.positions[i * 3 + 0], this.positions[i * 3 + 1], this.positions[i * 3 + 2]),
-                        new THREE.Quaternion(this.quaternions[i * 4 + 0], this.quaternions[i * 4 + 1], this.quaternions[i * 4 + 2], this.quaternions[i * 4 + 3])
-                    );
+                if (target) {
+                    const position = new THREE.Vector3(this.positions[i * 3 + 0], this.positions[i * 3 + 1], this.positions[i * 3 + 2]);
+                    const quaternion = new THREE.Quaternion(this.quaternions[i * 4 + 0], this.quaternions[i * 4 + 1], this.quaternions[i * 4 + 2], this.quaternions[i * 4 + 3]);
+                    target.PhysicsUpdate(position, quaternion);
+                }
             }
+            this.Emit(ST.Manager.PhysicsEvent.FixedUpdate);
         }
     }
 
-    public Add(target: TBoxRigidBody | TSphereRigidBody, options: Record<string, unknown>) {
+    public Add(target: TBoxRigidBody | TSphereRigidBody, options: ST.Worker.Physics.AddOptions) {
         this.bodys.set(target.unique_Id, target);
         this.worker.postMessage({
             type: 'Add',
@@ -93,7 +79,7 @@ class TPhysics extends TManager {
         this.worker.postMessage({ type: 'Remove', id: target.unique_Id });
     }
 
-    @TTest.BindFunction<TPhysics>((instance) => `${instance.constructor.name}`)
+    @TTest.BindFunction<TPhysics>((instance) => `RigidBody`)
     private AddCustomPhysicsBody() {
         if (Math.random() < 0.5) {
             new CustomBox(this.ctx, {
