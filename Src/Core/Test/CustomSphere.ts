@@ -11,9 +11,6 @@ class CustomSphere extends TSphere {
         this.body.rotateZ(this.O.rotate.z);
         this.body.scale.copy(this.O.scale);
         this.AddComponent(new TSphereRigidBody(ctx, { mass: 1, fix: false, actor: this }));
-        setTimeout(() => {
-            this.Destroy();
-        }, 20000);
     }
 
     public get O() {

@@ -11,10 +11,6 @@ class CustomBox extends TBox {
         this.body.rotateZ(this.O.rotate.z);
         this.body.scale.copy(this.O.scale);
         this.AddComponent(new TBoxRigidBody(ctx, { mass: 1, actor: this, fix: false }));
-
-        setTimeout(() => {
-            this.Destroy();
-        }, 20000);
     }
 
     public get O() {
