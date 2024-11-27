@@ -1,8 +1,12 @@
-import { Blueprint } from './type';
-import { TGraph } from './Manager/TGraph';
+//#region
 
 import './Templates/index.scss';
 import './Templates/TGenerate/TGenerate';
+
+//#endregion
+
+import { Blueprint } from './type';
+import { TGraph } from './Manager/TGraph';
 
 /**
  * 这个函数只用来初始化 Manager

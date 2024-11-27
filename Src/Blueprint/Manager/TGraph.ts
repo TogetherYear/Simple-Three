@@ -4,6 +4,8 @@ import { Blueprint } from '../type';
 import * as X6 from '@antv/x6';
 import { TTest } from '@/Decorators/TTest';
 
+import { TGenerate } from '../Actor/TGenerate';
+
 class TGraph extends TManager {
     constructor(ctx: Blueprint.Context, options: Blueprint.Manager.IGraph = {}) {
         super(ctx, options);
@@ -54,11 +56,7 @@ class TGraph extends TManager {
 
     @TTest.BindFunction<TGraph>((instance) => `Shape`)
     private AddCustomShape() {
-        const node = this.graph.addNode({
-            shape: 'TGenerate',
-            x: ~~(Math.random() * 100),
-            y: ~~(Math.random() * 100)
-        });
+        const n = new TGenerate(this.ctx);
     }
 }
 

@@ -58,6 +58,7 @@
     .Label {
         position: absolute;
         width: calc(100% - 30px);
+        height: 30px;
         white-space: nowrap;
         font-size: 12px;
         color: #ffffff;
@@ -65,6 +66,7 @@
         line-height: 30px;
         text-align: left;
         left: 30px;
+        top: 0;
     }
 
     .Port {
@@ -79,6 +81,11 @@
         bottom: 0;
         margin: auto;
         cursor: pointer;
+        transition: all 0.15s;
+
+        &:hover {
+            background: #ffffff;
+        }
     }
 }
 
@@ -89,6 +96,10 @@
 
     .Port {
         border: 2px solid #1a72e6;
+
+        &:hover {
+            background: #1a72e6;
+        }
     }
 }
 
@@ -99,10 +110,10 @@
     right: 0;
     height: 30px;
 
-
     .Label {
         position: absolute;
         width: calc(100% - 30px);
+        height: 30px;
         white-space: nowrap;
         font-size: 12px;
         color: #ffffff;
@@ -110,6 +121,7 @@
         line-height: 30px;
         text-align: right;
         right: 30px;
+        top: 0px;
     }
 
     .Port {
@@ -124,11 +136,20 @@
         bottom: 0;
         margin: auto;
         cursor: pointer;
+        transition: all 0.15s;
+
+        &:hover {
+            background: #ffffff;
+        }
     }
 }
 
 .OutputValue {
     .Port {
         border: 2px solid #1a72e6;
+
+        &:hover {
+            background: #1a72e6;
+        }
     }
 }
