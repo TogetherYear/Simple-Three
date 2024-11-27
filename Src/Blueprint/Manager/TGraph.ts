@@ -2,6 +2,7 @@ import { Resolve } from '@/Decorators';
 import { TManager } from '../Base/TManager';
 import { Blueprint } from '../type';
 import * as X6 from '@antv/x6';
+import { TTest } from '@/Decorators/TTest';
 
 class TGraph extends TManager {
     constructor(ctx: Blueprint.Context, options: Blueprint.Manager.IGraph = {}) {
@@ -41,12 +42,6 @@ class TGraph extends TManager {
             }
         });
 
-        const node = this.graph.addNode({
-            shape: 'TGenerate',
-            x: 60,
-            y: 100
-        });
-
         Resolve.then(() => {
             this.graph.centerContent();
         });
@@ -55,6 +50,15 @@ class TGraph extends TManager {
     public override Destroy(): void {
         super.Destroy();
         this.graph.dispose();
+    }
+
+    @TTest.BindFunction<TGraph>((instance) => `Shape`)
+    private AddCustomShape() {
+        const node = this.graph.addNode({
+            shape: 'TGenerate',
+            x: ~~(Math.random() * 100),
+            y: ~~(Math.random() * 100)
+        });
     }
 }
 
