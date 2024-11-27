@@ -1,12 +1,12 @@
-import { TEvent } from '../Decorators/TEvent';
-import { TTest } from '../Decorators/TTest';
-import { TTool } from '../Decorators/TTool';
+import { TEvent } from '../../Decorators/TEvent';
+import { TTest } from '../../Decorators/TTest';
+import { TTool } from '../../Decorators/TTool';
 import { Core } from '../type';
 import { TEntity } from './TEntity';
 
 @TTest.Generate()
 @TTool.Generate()
-@TEvent.Generate(TEvent.Lifecycle.Plugin)
+@TEvent.Generate()
 class TPlugin extends TEntity {
     constructor(ctx: Core.Context, options: Core.Base.IPlugin = {}) {
         super(ctx, options);

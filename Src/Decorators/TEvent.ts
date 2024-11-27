@@ -1,38 +1,18 @@
+import { EventSystem } from '@/Utils/EventSystem';
 import { Resolve } from './index';
-import { TEntity } from '../Base/TEntity';
 
 /**
  * 事件相关
  */
 namespace TEvent {
-    export const enum Lifecycle {
-        /**
-         * 全局管理
-         */
-        Manager,
-        /**
-         * 插件
-         */
-        Plugin,
-        /**
-         * 物体
-         */
-        Actor,
-        /**
-         * 物体组件
-         */
-        Component
-    }
-
     /**
      * 事件循环生成
      */
-    export function Generate(type = Lifecycle.Actor) {
-        return function <T extends new (...args: Array<any>) => TEntity>(C: T) {
+    export function Generate() {
+        return function <T extends new (...args: Array<any>) => EventSystem>(C: T) {
             return class extends C {
                 constructor(...args: Array<any>) {
                     super(...args);
-                    this.tEvent_Generate_Type = type;
                     this.tEvent_Generate_IsFinish = true;
                     this.TEvent_Generate_ListenEvents();
                     this.TEvent_Generate_Hooks();
@@ -41,8 +21,6 @@ namespace TEvent {
                         this.TEvent_Generate_CreatEvents();
                     }
                 }
-
-                public tEvent_Generate_Type!: Lifecycle;
 
                 public tEvent_Generate_IsFinish = false;
 
@@ -118,7 +96,7 @@ namespace TEvent {
      * @description 生成事件列表 只给 Manager 用
      */
     export function Create(events: Array<string>) {
-        return function <T extends new (...args: Array<any>) => TEntity>(C: T) {
+        return function <T extends new (...args: Array<any>) => EventSystem>(C: T) {
             return class extends C {
                 constructor(...args: Array<any>) {
                     super(...args);

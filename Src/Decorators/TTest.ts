@@ -1,4 +1,4 @@
-import { TEntity } from '../Base/TEntity';
+import { EventSystem } from '@/Utils/EventSystem';
 
 namespace TTest {
     /**
@@ -10,7 +10,7 @@ namespace TTest {
      * 测试生成
      */
     export function Generate() {
-        return function <T extends new (...args: Array<any>) => TEntity>(C: T) {
+        return function <T extends new (...args: Array<any>) => EventSystem>(C: T) {
             return class extends C {
                 constructor(...args: Array<any>) {
                     super(...args);
@@ -42,7 +42,8 @@ namespace TTest {
                             this[`${b.funcName}`](...args);
                         };
                         document.querySelector('#Test')?.appendChild(element);
-                        functionMap.set(`${this.unique_Id}:${b.funcName}`, {
+                        //@ts-ignore
+                        functionMap.set(`${this['unique_Id']}:${b.funcName}`, {
                             label: l,
                             funcName: b.funcName,
                             args: b.args,
@@ -68,9 +69,11 @@ namespace TTest {
                             args: Array<unknown>;
                         }>;
                         for (let b of bind) {
-                            const target = functionMap.get(`${this.unique_Id}:${b.funcName}`)!;
+                            //@ts-ignore
+                            const target = functionMap.get(`${this['unique_Id']}:${b.funcName}`)!;
                             target.dom.remove();
-                            functionMap.delete(`${this.unique_Id}:${b.funcName}`);
+                            //@ts-ignore
+                            functionMap.delete(`${this['unique_Id']}:${b.funcName}`);
                         }
                         //@ts-ignore
                         original(...args);

@@ -1,3 +1,5 @@
+import { TGraph } from './Manager/TGraph';
+
 namespace Blueprint {
     export namespace Base {
         export interface IEntity {}
@@ -28,6 +30,11 @@ namespace Blueprint {
 
     export type Context = {
         dom: HTMLElement;
+        Graph: TGraph;
+        /**
+         * 页面销毁时调用
+         */
+        Destroy: () => void;
     };
 }
 

@@ -7,7 +7,7 @@
 // import { TWater } from './Core/Actor/TWater';
 // import { TFreeCameraControl } from './Core/Plugins/TFreeCameraControl';
 // import { TRoundCameraControl } from './Core/Plugins/TRoundCameraControl';
-// import { CustomPlane } from './Core/Test/CustomPlane';
+// import { CustomPlane } from './Test/CustomPlane';
 
 // Generate(document.querySelector('#App')!).then((ctx) => {
 //     const dire = new TDirectionalLight(ctx);
@@ -26,14 +26,14 @@
 
 //     const freeCameraControl = new TFreeCameraControl(ctx);
 
-//     // setTimeout(() => {
-//     //     freeCameraControl.Destroy();
-//     //     const roundCameraControl = new TRoundCameraControl(ctx);
-//     // }, 10000);
+//     setTimeout(() => {
+//         freeCameraControl.Destroy();
+//         const roundCameraControl = new TRoundCameraControl(ctx);
+//     }, 10000);
 
-//     // setTimeout(() => {
-//     //     ctx.Destroy();
-//     // }, 20000);
+//     setTimeout(() => {
+//         ctx.Destroy();
+//     }, 20000);
 // });
 
 import { Generate } from './Blueprint';

@@ -1,6 +1,6 @@
-import { TSphere } from '../Actor/TSphere';
-import { TSphereRigidBody } from '../Components/TSphereRigidBody';
-import { Core } from '../type';
+import { TSphere } from '@/Core/Actor/TSphere';
+import { TSphereRigidBody } from '@/Core/Components/TSphereRigidBody';
+import { Core } from '@/Core/type';
 
 class CustomSphere extends TSphere {
     constructor(ctx: Core.Context, options: Core.Test.ICustomSphere) {

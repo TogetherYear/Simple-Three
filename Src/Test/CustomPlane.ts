@@ -1,6 +1,6 @@
-import { TBoxRigidBody } from '../Components/TBoxRigidBody';
-import { TPlane } from '../Actor/TPlane';
-import { Core } from '../type';
+import { TPlane } from '@/Core/Actor/TPlane';
+import { TBoxRigidBody } from '@/Core/Components/TBoxRigidBody';
+import { Core } from '@/Core/type';
 
 class CustomPlane extends TPlane {
     constructor(ctx: Core.Context, options: Core.Test.ICustomPlane = {}) {

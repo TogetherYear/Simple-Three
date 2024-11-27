@@ -1,6 +1,6 @@
-import { TEvent } from '../Decorators/TEvent';
-import { TTest } from '../Decorators/TTest';
-import { TTool } from '../Decorators/TTool';
+import { TEvent } from '../../Decorators/TEvent';
+import { TTest } from '../../Decorators/TTest';
+import { TTool } from '../../Decorators/TTool';
 import { Core } from '../type';
 import { TComponent } from './TComponent';
 import { TEntity } from './TEntity';
@@ -8,7 +8,7 @@ import * as THREE from 'three';
 
 @TTest.Generate()
 @TTool.Generate()
-@TEvent.Generate(TEvent.Lifecycle.Actor)
+@TEvent.Generate()
 class TActor extends TEntity {
     constructor(ctx: Core.Context, options: Core.Base.IActor = {}) {
         super(ctx, options);

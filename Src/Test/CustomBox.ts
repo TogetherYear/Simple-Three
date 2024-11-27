@@ -1,6 +1,6 @@
-import { TBoxRigidBody } from '../Components/TBoxRigidBody';
-import { TBox } from '../Actor/TBox';
-import { Core } from '../type';
+import { TBox } from '@/Core/Actor/TBox';
+import { TBoxRigidBody } from '@/Core/Components/TBoxRigidBody';
+import { Core } from '@/Core/type';
 
 class CustomBox extends TBox {
     constructor(ctx: Core.Context, options: Core.Test.ICustomBox) {
