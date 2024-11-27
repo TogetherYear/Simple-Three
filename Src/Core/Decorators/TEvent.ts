@@ -1,4 +1,4 @@
-import { EventSystem } from '@/Utils/EventSystem';
+import { EventSystem } from '@/Core/Utils/EventSystem';
 import { Resolve } from './index';
 
 /**
@@ -41,8 +41,6 @@ namespace TEvent {
                             listenTarget: Object | ((instance: Object) => Object);
                             eventName: string;
                             funcName: string;
-                            bindFunc: string;
-                            unbindFunc: string;
                         }>;
                         for (let e of listen) {
                             const t = typeof e.listenTarget === 'function' ? e.listenTarget(this) : e.listenTarget;
@@ -54,7 +52,7 @@ namespace TEvent {
                                 const bindEvent = this[`${e.funcName}`].bind(this);
                                 this.tEvent_Generate_OtherEvents.set(e.eventName, bindEvent);
                                 //@ts-ignore
-                                t[`${e.bindFunc}`](e.eventName, bindEvent);
+                                t.addEventListener(e.eventName, bindEvent);
                             }
                         }
                     });
@@ -70,8 +68,6 @@ namespace TEvent {
                             listenTarget: Object | ((instance: Object) => Object);
                             eventName: string;
                             funcName: string;
-                            bindFunc: string;
-                            unbindFunc: string;
                         }>;
                         for (let e of listen) {
                             const t = typeof e.listenTarget === 'function' ? e.listenTarget(this) : e.listenTarget;
@@ -81,7 +77,7 @@ namespace TEvent {
                             } else {
                                 const bindEvent = this.tEvent_Generate_OtherEvents.get(e.eventName)!;
                                 //@ts-ignore
-                                t[`${e.unbindFunc}`](e.eventName, bindEvent);
+                                t.removeEventListener(e.eventName, bindEvent);
                             }
                         }
                         //@ts-ignore
@@ -121,7 +117,7 @@ namespace TEvent {
     /**
      * 监听事件 es 可以是 继承 Manager 的 也可以是 HTMLElement 或者 window ......
      */
-    export function Listen<T>(es: Object | ((instance: T) => Object), eventName: string, bindFunc = 'addEventListener', unbindFunc = 'removeEventListener') {
+    export function Listen<T>(es: Object | ((instance: T) => Object), eventName: string) {
         return function (target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tEvent_Listen_NeedListen']) {
@@ -129,13 +125,11 @@ namespace TEvent {
                 target['tEvent_Listen_NeedListen'].push({
                     listenTarget: es,
                     eventName,
-                    funcName: propertyKey,
-                    bindFunc,
-                    unbindFunc
+                    funcName: propertyKey
                 });
             } else {
                 //@ts-ignore
-                target['tEvent_Listen_NeedListen'] = [{ listenTarget: es, eventName, funcName: propertyKey, bindFunc, unbindFunc }];
+                target['tEvent_Listen_NeedListen'] = [{ listenTarget: es, eventName, funcName: propertyKey }];
             }
         };
     }

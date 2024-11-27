@@ -1,6 +1,6 @@
 import { Core } from '../type';
-import { EventSystem } from '../../Utils/EventSystem';
-import { Time } from '../../Utils/Time';
+import { EventSystem } from '../Utils/EventSystem';
+import { Time } from '../Utils/Time';
 
 abstract class TEntity extends EventSystem {
     constructor(ctx: Core.Context, options: Core.Base.IEntity = {}) {

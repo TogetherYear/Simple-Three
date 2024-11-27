@@ -1,4 +1,4 @@
-import { EventSystem } from '@/Utils/EventSystem';
+import { EventSystem } from '@/Core/Utils/EventSystem';
 
 namespace TTest {
     /**

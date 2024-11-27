@@ -1,6 +1,6 @@
-import { EventSystem } from '@/Utils/EventSystem';
-import { Time } from '../Utils/Time';
+import { EventSystem } from '@/Core/Utils/EventSystem';
 import { Resolve } from './index';
+import { Time } from '@/Core/Utils/Time';
 
 namespace TTool {
     /**

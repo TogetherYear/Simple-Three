@@ -1,14 +1,14 @@
 import { TManager } from '../Base/TManager';
 import { Core } from '../type';
-import { TEvent } from '../../Decorators/TEvent';
-import { TTest } from '../../Decorators/TTest';
 import * as THREE from 'three';
-import { Mathf } from '../../Utils/Mathf';
+import { Mathf } from '../Utils/Mathf';
 import Physics from '@/Core/Worker/Physics?worker';
 import { TBoxRigidBody } from '../Components/TBoxRigidBody';
 import { TSphereRigidBody } from '../Components/TSphereRigidBody';
-import { CustomBox } from '@/Test/CustomBox';
-import { CustomSphere } from '@/Test/CustomSphere';
+import { CustomBox } from '@/Core/Test/CustomBox';
+import { CustomSphere } from '@/Core/Test/CustomSphere';
+import { TEvent } from '../Decorators/TEvent';
+import { TTest } from '../Decorators/TTest';
 
 @TEvent.Create([Core.Manager.PhysicsEvent.FixedUpdate])
 class TPhysics extends TManager {
