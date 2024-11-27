@@ -16,6 +16,9 @@ class TManager extends TEntity {
         return this.options as Blueprint.Base.IManager;
     }
 
+    /**
+     * 继承时 销毁物体必须调用 super.Destroy() 我要取消事件
+     */
     public Destroy() {}
 }
 

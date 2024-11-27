@@ -5,7 +5,6 @@ import * as X6 from '@antv/x6';
 
 X6.Shape.HTML.register({
     shape: 'TGenerate',
-    effect: ['data'],
     html: (cell) => {
         const root = document.createElement('div');
         root.id = 'TGenerate';
@@ -20,13 +19,16 @@ X6.Shape.HTML.register({
             root.appendChild(body.b);
 
             {
-                const t = Input('输入', Blueprint.Template.Input.Value);
-                body.l.appendChild(t);
-
                 const ok = Output('成功');
+                ok.addEventListener('mousedown', () => {
+                    cell.notify('TGenerate:Output:OK', cell);
+                });
                 body.r.appendChild(ok);
 
                 const error = Output('失败');
+                error.addEventListener('mousedown', () => {
+                    cell.notify('TGenerate:Output:Error', cell);
+                });
                 body.r.appendChild(error);
             }
         }

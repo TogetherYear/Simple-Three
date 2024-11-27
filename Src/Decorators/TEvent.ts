@@ -41,6 +41,8 @@ namespace TEvent {
                             listenTarget: Object | ((instance: Object) => Object);
                             eventName: string;
                             funcName: string;
+                            bindFunc: string;
+                            unbindFunc: string;
                             once: boolean;
                         }>;
                         for (let e of listen) {
@@ -53,7 +55,7 @@ namespace TEvent {
                                 const bindEvent = this[`${e.funcName}`].bind(this);
                                 this.tEvent_Generate_OtherEvents.set(e.eventName, bindEvent);
                                 //@ts-ignore
-                                t.addEventListener(e.eventName, bindEvent);
+                                t[`${e.bindFunc}`](e.eventName, bindEvent);
                             }
                         }
                     });
@@ -69,6 +71,8 @@ namespace TEvent {
                             listenTarget: Object | ((instance: Object) => Object);
                             eventName: string;
                             funcName: string;
+                            bindFunc: string;
+                            unbindFunc: string;
                             once: boolean;
                         }>;
                         for (let e of listen) {
@@ -79,7 +83,7 @@ namespace TEvent {
                             } else {
                                 const bindEvent = this.tEvent_Generate_OtherEvents.get(e.eventName)!;
                                 //@ts-ignore
-                                t.removeEventListener(e.eventName, bindEvent);
+                                t[`${e.unbindFunc}`](e.eventName, bindEvent);
                             }
                         }
                         //@ts-ignore
@@ -119,7 +123,7 @@ namespace TEvent {
     /**
      * 监听事件 es 可以是 继承 Manager 的 也可以是 HTMLElement 或者 window ......
      */
-    export function Listen<T>(es: Object | ((instance: T) => Object), eventName: string, once?: boolean) {
+    export function Listen<T>(es: Object | ((instance: T) => Object), eventName: string, bindFunc = 'addEventListener', unbindFunc = 'removeEventListener', once = false) {
         return function (target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tEvent_Listen_NeedListen']) {
@@ -128,11 +132,13 @@ namespace TEvent {
                     listenTarget: es,
                     eventName,
                     funcName: propertyKey,
-                    once: once || false
+                    bindFunc,
+                    unbindFunc,
+                    once
                 });
             } else {
                 //@ts-ignore
-                target['tEvent_Listen_NeedListen'] = [{ listenTarget: es, eventName, funcName: propertyKey, once: once || false }];
+                target['tEvent_Listen_NeedListen'] = [{ listenTarget: es, eventName, funcName: propertyKey, bindFunc, unbindFunc, once }];
             }
         };
     }
