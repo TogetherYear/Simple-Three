@@ -27,45 +27,29 @@ const Body = () => {
     r.className = 'Right';
     b.appendChild(r);
 
-    return { b, l, r };
+    return b;
 };
 
-const Input = (label: string, type = Blueprint.Template.Input.Step) => {
+const Input = (label: string) => {
     const d = document.createElement('span');
-    if (type === Blueprint.Template.Input.Step) {
-        d.className = 'Input';
-    } else if (type === Blueprint.Template.Input.Value) {
-        d.className = 'Input InputValue';
-    }
+    d.className = 'Input';
 
     const l = document.createElement('span');
     l.className = 'Label';
     l.innerText = label;
     d.appendChild(l);
-
-    const p = document.createElement('span');
-    p.className = 'Port';
-    d.appendChild(p);
 
     return d;
 };
 
-const Output = (label: string, type = Blueprint.Template.Output.Step) => {
+const Output = (label: string) => {
     const d = document.createElement('span');
-    if (type === Blueprint.Template.Output.Step) {
-        d.className = 'Output';
-    } else if (type === Blueprint.Template.Output.Value) {
-        d.className = 'Output OutputValue';
-    }
+    d.className = 'Output';
 
     const l = document.createElement('span');
     l.className = 'Label';
     l.innerText = label;
     d.appendChild(l);
-
-    const p = document.createElement('span');
-    p.className = 'Port';
-    d.appendChild(p);
 
     return d;
 };

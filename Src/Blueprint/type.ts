@@ -22,16 +22,6 @@ namespace Blueprint {
             Manager,
             Actor
         }
-
-        export const enum Input {
-            Step,
-            Value
-        }
-
-        export const enum Output {
-            Step,
-            Value
-        }
     }
 
     export type Context = {

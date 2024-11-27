@@ -43,13 +43,12 @@ namespace TEvent {
                             funcName: string;
                             bindFunc: string;
                             unbindFunc: string;
-                            once: boolean;
                         }>;
                         for (let e of listen) {
                             const t = typeof e.listenTarget === 'function' ? e.listenTarget(this) : e.listenTarget;
                             if (t.hasOwnProperty('unique_Id')) {
                                 //@ts-ignore
-                                t.AddListen(e.eventName, this, e.funcName, e.once);
+                                t.AddListen(e.eventName, this, e.funcName);
                             } else {
                                 //@ts-ignore
                                 const bindEvent = this[`${e.funcName}`].bind(this);
@@ -73,7 +72,6 @@ namespace TEvent {
                             funcName: string;
                             bindFunc: string;
                             unbindFunc: string;
-                            once: boolean;
                         }>;
                         for (let e of listen) {
                             const t = typeof e.listenTarget === 'function' ? e.listenTarget(this) : e.listenTarget;
@@ -123,7 +121,7 @@ namespace TEvent {
     /**
      * 监听事件 es 可以是 继承 Manager 的 也可以是 HTMLElement 或者 window ......
      */
-    export function Listen<T>(es: Object | ((instance: T) => Object), eventName: string, bindFunc = 'addEventListener', unbindFunc = 'removeEventListener', once = false) {
+    export function Listen<T>(es: Object | ((instance: T) => Object), eventName: string, bindFunc = 'addEventListener', unbindFunc = 'removeEventListener') {
         return function (target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tEvent_Listen_NeedListen']) {
@@ -133,12 +131,11 @@ namespace TEvent {
                     eventName,
                     funcName: propertyKey,
                     bindFunc,
-                    unbindFunc,
-                    once
+                    unbindFunc
                 });
             } else {
                 //@ts-ignore
-                target['tEvent_Listen_NeedListen'] = [{ listenTarget: es, eventName, funcName: propertyKey, bindFunc, unbindFunc, once }];
+                target['tEvent_Listen_NeedListen'] = [{ listenTarget: es, eventName, funcName: propertyKey, bindFunc, unbindFunc }];
             }
         };
     }

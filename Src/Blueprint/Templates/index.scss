@@ -68,39 +68,6 @@
         left: 30px;
         top: 0;
     }
-
-    .Port {
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        box-sizing: border-box;
-        border: 2px solid #ffffff;
-        left: 10px;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-        cursor: pointer;
-        transition: all 0.15s;
-
-        &:hover {
-            background: #ffffff;
-        }
-    }
-}
-
-.InputValue {
-    .Label {
-        color: #3b83e2;
-    }
-
-    .Port {
-        border: 2px solid #1a72e6;
-
-        &:hover {
-            background: #1a72e6;
-        }
-    }
 }
 
 .Output {
@@ -124,32 +91,4 @@
         top: 0px;
     }
 
-    .Port {
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        box-sizing: border-box;
-        border: 2px solid #ffffff;
-        right: 10px;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-        cursor: pointer;
-        transition: all 0.15s;
-
-        &:hover {
-            background: #ffffff;
-        }
-    }
-}
-
-.OutputValue {
-    .Port {
-        border: 2px solid #1a72e6;
-
-        &:hover {
-            background: #1a72e6;
-        }
-    }
 }

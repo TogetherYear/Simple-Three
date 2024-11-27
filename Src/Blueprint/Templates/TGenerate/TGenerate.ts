@@ -16,20 +16,14 @@ X6.Shape.HTML.register({
 
         {
             const body = Body();
-            root.appendChild(body.b);
+            root.appendChild(body);
 
             {
                 const ok = Output('成功');
-                ok.addEventListener('mousedown', () => {
-                    cell.notify('TGenerate:Output:OK', cell);
-                });
-                body.r.appendChild(ok);
+                body.appendChild(ok);
 
                 const error = Output('失败');
-                error.addEventListener('mousedown', () => {
-                    cell.notify('TGenerate:Output:Error', cell);
-                });
-                body.r.appendChild(error);
+                body.appendChild(error);
             }
         }
 
