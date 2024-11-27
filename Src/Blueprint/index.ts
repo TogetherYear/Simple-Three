@@ -1,6 +1,9 @@
 import * as X6 from '@antv/x6';
 import { Blueprint } from './type';
 
+import './Templates/index.scss';
+import './Templates/TGenerate/TGenerate';
+
 /**
  * 这个函数只用来初始化 Manager
  */
@@ -34,78 +37,28 @@ const Generate = (dom: HTMLElement): Promise<Blueprint.Context> => {
             },
             grid: {
                 visible: true,
-                size: 14,
+                size: 10,
                 type: 'doubleMesh',
                 args: [
                     {
-                        color: '#ffffff11',
+                        color: '#333333',
                         thickness: 1
                     },
                     {
-                        color: '#ffffff99',
+                        color: '#000000',
                         thickness: 1,
-                        factor: 8
+                        factor: 10
                     }
                 ]
             }
         });
 
-        const data = {
-            nodes: [
-                {
-                    id: 'node1',
-                    shape: 'rect',
-                    x: 40,
-                    y: 40,
-                    width: 100,
-                    height: 40,
-                    label: 'hello',
-                    attrs: {
-                        body: {
-                            stroke: '#8f8f8f',
-                            strokeWidth: 1,
-                            fill: '#fff',
-                            rx: 4,
-                            ry: 4
-                        }
-                    }
-                },
-                {
-                    id: 'node2',
-                    shape: 'rect',
-                    x: 160,
-                    y: 180,
-                    width: 100,
-                    height: 40,
-                    label: 'world',
-                    attrs: {
-                        body: {
-                            stroke: '#8f8f8f',
-                            strokeWidth: 1,
-                            fill: '#fff',
-                            rx: 4,
-                            ry: 4
-                        }
-                    }
-                }
-            ],
-            edges: [
-                {
-                    shape: 'edge',
-                    source: 'node1',
-                    target: 'node2',
-                    label: 'x6',
-                    attrs: {
-                        line: {
-                            stroke: '#8f8f8f',
-                            strokeWidth: 1
-                        }
-                    }
-                }
-            ]
-        };
+        const node = graph.addNode({
+            shape: 'TGenerate',
+            x: 60,
+            y: 100
+        });
 
-        graph.fromJSON(data);
         graph.centerContent();
 
         resolve(ctx);

@@ -1,5 +1,5 @@
 import { TEntity } from '../Base/TEntity';
-import { Time } from '../Utils/Time';
+import { Time } from '../../Utils/Time';
 import { Resolve } from './index';
 import { TEvent } from './TEvent';
 

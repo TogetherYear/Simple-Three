@@ -31,7 +31,7 @@ class TWater extends TActor {
             fog: true
         });
         this.body.rotation.x = -Math.PI / 2;
-        this.body.position.y = -3;
+        this.body.position.y = -1;
         this.ctx.Game.Add(this.body);
     }
 

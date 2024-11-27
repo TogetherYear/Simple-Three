@@ -4,7 +4,7 @@ import { TEvent } from '../Decorators/TEvent';
 import { TTest } from '../Decorators/TTest';
 import { CustomBox } from '../Test/CustomBox';
 import * as THREE from 'three';
-import { Mathf } from '../Utils/Mathf';
+import { Mathf } from '../../Utils/Mathf';
 import Physics from '@/Core/Worker/Physics?worker';
 import { TBoxRigidBody } from '../Components/TBoxRigidBody';
 import { TSphereRigidBody } from '../Components/TSphereRigidBody';

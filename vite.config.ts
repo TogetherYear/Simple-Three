@@ -13,6 +13,13 @@ export default defineConfig(({ command, mode }) => {
             drop: command === 'serve' ? [] : ['debugger'],
             pure: command === 'serve' ? [] : ['console.log']
         },
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    api: 'modern-compiler'
+                }
+            }
+        },
         build: {
             outDir: path.join(__dirname, 'Dist'),
             emptyOutDir: true,

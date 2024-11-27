@@ -1,0 +1,134 @@
+.Header {
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    background: linear-gradient(to right, #555555, #202020);
+
+    .Title {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        line-height: 30px;
+        text-indent: 10px;
+        color: #ffffff;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+}
+
+.Manager {
+    background: linear-gradient(to right, #cf3232, #202020);
+}
+
+.Body {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 30px);
+    left: 0;
+    top: 30px;
+    background: #2a2a2a;
+    overflow: hidden;
+
+    .Left {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        overflow: hidden
+    }
+
+    .Right {
+        @extend .Left;
+        left: 50%;
+    }
+}
+
+.Input {
+    position: relative;
+    display: block;
+    width: 100%;
+    right: 0;
+    height: 30px;
+
+
+    .Label {
+        position: absolute;
+        width: calc(100% - 30px);
+        white-space: nowrap;
+        font-size: 12px;
+        color: #ffffff;
+        letter-spacing: 1px;
+        line-height: 30px;
+        text-align: left;
+        left: 30px;
+    }
+
+    .Port {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        border: 2px solid #ffffff;
+        left: 10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        cursor: pointer;
+    }
+}
+
+.InputValue {
+    .Label {
+        color: #3b83e2;
+    }
+
+    .Port {
+        border: 2px solid #1a72e6;
+    }
+}
+
+.Output {
+    position: relative;
+    display: block;
+    width: 100%;
+    right: 0;
+    height: 30px;
+
+
+    .Label {
+        position: absolute;
+        width: calc(100% - 30px);
+        white-space: nowrap;
+        font-size: 12px;
+        color: #ffffff;
+        letter-spacing: 1px;
+        line-height: 30px;
+        text-align: right;
+        right: 30px;
+    }
+
+    .Port {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        border: 2px solid #ffffff;
+        right: 10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        cursor: pointer;
+    }
+}
+
+.OutputValue {
+    .Port {
+        border: 2px solid #1a72e6;
+    }
+}
