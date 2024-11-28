@@ -1,5 +1,5 @@
-import { TSphere } from '@/Core/Actor/TSphere';
-import { TSphereRigidBody } from '@/Core/Components/TSphereRigidBody';
+import { TSphere } from '@/Core/Actor';
+import { TSphereRigidBody } from '@/Core/Components';
 import { Type } from '@/Core';
 import { TEvent } from '@/Core/Decorators';
 

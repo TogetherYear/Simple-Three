@@ -1,5 +1,5 @@
-import { TPlane } from '@/Core/Actor/TPlane';
-import { TBoxRigidBody } from '@/Core/Components/TBoxRigidBody';
+import { TPlane } from '@/Core/Actor';
+import { TBoxRigidBody } from '@/Core/Components';
 import { Type } from '@/Core';
 
 class CustomPlane extends TPlane {

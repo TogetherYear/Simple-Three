@@ -1,5 +1,5 @@
-import { TBox } from '@/Core/Actor/TBox';
-import { TBoxRigidBody } from '@/Core/Components/TBoxRigidBody';
+import { TBox } from '@/Core/Actor';
+import { TBoxRigidBody } from '@/Core/Components';
 import { TEvent } from '@/Core/Decorators';
 import { Type } from '@/Core';
 
