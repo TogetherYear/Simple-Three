@@ -1,5 +1,9 @@
 <strong>
-<h1>simple-three<h1>
+<font size="4" color="#cc6666">
+
+Threejs + Cannonjs + WebWorker + SharedArraybuffer
+
+</font>
 
 <font size="3" color="#2cb2e7">
 
@@ -53,7 +57,13 @@
 
         -   Physics
 
--   x6蓝图框架
-
 </font>
 </strong>
+
+<font size="3" color="#2cae77">
+
+-   基础渲染完成
+
+-   物理模拟完成（ WebWorker配合SharedArraybuffer ）
+
+</font>
