@@ -19,10 +19,6 @@ class CustomPlugin extends TPlugin {
         return this.options as Type.Test.ICustomPlugin;
     }
 
-    public override Destroy(): void {
-        super.Destroy();
-    }
-
     @TTest.BindFunction<CustomPlugin>((instance) => `AddStatic`)
     private AddStatic() {
         new CustomPlane(this.ctx, {

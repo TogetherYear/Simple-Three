@@ -15,9 +15,6 @@ class TPlugin extends TEntity {
         return this.options as Core.Base.IPlugin;
     }
 
-    /**
-     * 继承时 销毁物体必须调用 super.Destroy() 我要取消事件
-     */
     public Destroy() {
         this.ctx.Plugins = this.ctx.Plugins.filter((p) => p !== this);
     }

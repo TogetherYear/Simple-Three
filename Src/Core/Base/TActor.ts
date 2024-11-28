@@ -20,9 +20,6 @@ class TActor extends TEntity {
 
     public components: Array<TComponent> = [];
 
-    /**
-     * 继承时 销毁物体必须调用 super.Destroy() 我要取消事件
-     */
     public Destroy() {
         this.ctx.Game.Remove(this);
         for (let c of this.components) {
