@@ -5,6 +5,8 @@ Threejs + Cannonjs + WebWorker + SharedArraybuffer
 
 </font>
 
+![](./Example.gif)
+
 <font size="3" color="#2cb2e7">
 
 -   基础代码框架
