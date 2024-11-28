@@ -1,5 +1,4 @@
-import { EventSystem } from '@/Core/Utils/EventSystem';
-import { Resolve } from './index';
+import { EventSystem, Time } from '@/Core/Utils';
 
 /**
  * 事件相关
@@ -35,7 +34,7 @@ namespace TEvent {
                 }
 
                 private TEvent_Generate_ListenEvents() {
-                    Resolve.then(() => {
+                    Time.Resolve.then(() => {
                         //@ts-ignore
                         const listen = (this['tEvent_Listen_NeedListen'] || []) as Array<{
                             listenTarget: Object | ((instance: Object) => Object);

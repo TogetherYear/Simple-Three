@@ -1,8 +1,7 @@
-import { TManager } from '../Base/TManager';
-import { Core } from '../type';
-import { TEvent } from '../Decorators/TEvent';
+import { TManager } from '@/Core/Base';
+import { Core } from '@/Core/type';
+import { TEvent, TTool } from '@/Core/Decorators';
 import * as THREE from 'three';
-import { TTool } from '../Decorators/TTool';
 
 @TEvent.Create([Core.Manager.InputEvent.MouseMoveDelta, Core.Manager.InputEvent.Wheel])
 class TInput extends TManager {

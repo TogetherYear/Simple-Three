@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { TActor } from '../Base/TActor';
-import { Core } from '../type';
+import { TActor } from '@/Core/Base';
+import { Core } from '@/Core/type';
 
 class TAmbientLight extends TActor {
     constructor(ctx: Core.Context, options: Core.Actor.IAmbientLight = {}) {
@@ -14,7 +14,7 @@ class TAmbientLight extends TActor {
 
     private Create() {
         this.body = new THREE.AmbientLight(0xcccccc, 0.3);
-        this.ctx.Game.Add(this.body);
+        this.ctx.Game.Add(this);
     }
 }
 

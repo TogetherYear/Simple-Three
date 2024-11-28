@@ -1,7 +1,5 @@
-import { TEvent } from '../Decorators/TEvent';
-import { TTest } from '../Decorators/TTest';
-import { TTool } from '../Decorators/TTool';
-import { Core } from '../type';
+import { TEvent, TTest, TTool } from '@/Core/Decorators';
+import { Core } from '@/Core/type';
 import { TComponent } from './TComponent';
 import { TEntity } from './TEntity';
 import * as THREE from 'three';
@@ -27,7 +25,7 @@ class TActor extends TEntity {
      */
     public Destroy() {
         if (this.body) {
-            this.ctx.Game.Remove(this.body);
+            this.ctx.Game.Remove(this);
         }
         for (let c of this.components) {
             c.Destroy();

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { TActor } from '../Base/TActor';
-import { Core } from '../type';
+import { TActor } from '@/Core/Base';
+import { Core } from '@/Core/type';
 
 class TBox extends TActor {
     constructor(ctx: Core.Context, options: Core.Actor.IBox = {}) {
@@ -18,7 +18,7 @@ class TBox extends TActor {
         this.body = new THREE.Mesh(geometry, material);
         this.body.castShadow = true;
         this.body.receiveShadow = true;
-        this.ctx.Game.Add(this.body);
+        this.ctx.Game.Add(this);
     }
 }
 

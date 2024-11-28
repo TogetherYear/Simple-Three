@@ -1,9 +1,10 @@
 import { TBox } from '@/Core/Actor/TBox';
 import { TBoxRigidBody } from '@/Core/Components/TBoxRigidBody';
-import { Core } from '@/Core/type';
+import { TEvent } from '@/Core/Decorators';
+import { Type } from '@/Core';
 
 class CustomBox extends TBox {
-    constructor(ctx: Core.Context, options: Core.Test.ICustomBox) {
+    constructor(ctx: Type.Context, options: Type.Test.ICustomBox) {
         super(ctx, options);
         this.body.position.copy(this.O.position);
         this.body.rotateX(this.O.rotate.x);
@@ -14,7 +15,14 @@ class CustomBox extends TBox {
     }
 
     public get O() {
-        return this.options as Core.Test.ICustomBox;
+        return this.options as Type.Test.ICustomBox;
+    }
+
+    @TEvent.Listen<CustomBox>((instance) => instance.ctx.Game, Type.Manager.GameEvent.Update)
+    private Update() {
+        if (this.body.position.y < -3) {
+            this.Destroy();
+        }
     }
 }
 

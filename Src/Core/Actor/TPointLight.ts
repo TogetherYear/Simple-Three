@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { TActor } from '../Base/TActor';
-import { Core } from '../type';
+import { TActor } from '@/Core/Base';
+import { Core } from '@/Core/type';
 
 class TPointLight extends TActor {
     constructor(ctx: Core.Context, options: Core.Actor.IPointLight = {}) {
@@ -17,7 +17,7 @@ class TPointLight extends TActor {
         light.position.set(0, 2, 0);
         light.castShadow = true;
         this.body = light;
-        this.ctx.Game.Add(this.body);
+        this.ctx.Game.Add(this);
     }
 }
 

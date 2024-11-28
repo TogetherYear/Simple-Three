@@ -1,14 +1,9 @@
-import { TManager } from '../Base/TManager';
-import { Core } from '../type';
+import { TManager } from '@/Core/Base';
+import { Core } from '@/Core/type';
 import * as THREE from 'three';
-import { Mathf } from '../Utils/Mathf';
-import Physics from '@/Core/Worker/Physics?worker';
-import { TBoxRigidBody } from '../Components/TBoxRigidBody';
-import { TSphereRigidBody } from '../Components/TSphereRigidBody';
-import { CustomBox } from '@/Core/Test/CustomBox';
-import { CustomSphere } from '@/Core/Test/CustomSphere';
-import { TEvent } from '../Decorators/TEvent';
-import { TTest } from '../Decorators/TTest';
+import { Physics } from '@/Core/Worker';
+import { TBoxRigidBody, TSphereRigidBody } from '@/Core/Components';
+import { TEvent } from '@/Core/Decorators';
 
 @TEvent.Create([Core.Manager.PhysicsEvent.FixedUpdate])
 class TPhysics extends TManager {
@@ -77,28 +72,6 @@ class TPhysics extends TManager {
     public Remove(target: TBoxRigidBody | TSphereRigidBody) {
         this.bodys.delete(target.unique_Id);
         this.worker.postMessage({ type: 'Remove', id: target.unique_Id });
-    }
-
-    @TTest.BindFunction<TPhysics>((instance) => `RigidBody`)
-    private AddCustomPhysicsBody() {
-        if (Math.random() < 0.5) {
-            new CustomBox(this.ctx, {
-                position: new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
-                rotate: new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
-                scale: new THREE.Vector3(
-                    Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6),
-                    Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6),
-                    Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6)
-                )
-            });
-        } else {
-            const scale = Mathf.Clamp(0.4, Number.MAX_SAFE_INTEGER, Math.random() * 1.6);
-            new CustomSphere(this.ctx, {
-                position: new THREE.Vector3(Math.random() * 12 - 6, Math.random() * 6 + 3, Math.random() * 12 - 6),
-                rotate: new THREE.Vector3(Math.random() * 360, Math.random() * 360, Math.random() * 360),
-                scale: new THREE.Vector3(scale, scale, scale)
-            });
-        }
     }
 
     public override Destroy(): void {

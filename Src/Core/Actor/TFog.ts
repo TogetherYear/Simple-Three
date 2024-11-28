@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { TActor } from '../Base/TActor';
-import { Core } from '../type';
+import { TActor } from '@/Core/Base';
+import { Core } from '@/Core/type';
 
 class TFog extends TActor {
     constructor(ctx: Core.Context, options: Core.Actor.IFog = {}) {

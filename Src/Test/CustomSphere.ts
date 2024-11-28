@@ -1,9 +1,10 @@
 import { TSphere } from '@/Core/Actor/TSphere';
 import { TSphereRigidBody } from '@/Core/Components/TSphereRigidBody';
-import { Core } from '@/Core/type';
+import { Type } from '@/Core';
+import { TEvent } from '@/Core/Decorators';
 
 class CustomSphere extends TSphere {
-    constructor(ctx: Core.Context, options: Core.Test.ICustomSphere) {
+    constructor(ctx: Type.Context, options: Type.Test.ICustomSphere) {
         super(ctx, options);
         this.body.position.copy(this.O.position);
         this.body.rotateX(this.O.rotate.x);
@@ -14,7 +15,14 @@ class CustomSphere extends TSphere {
     }
 
     public get O() {
-        return this.options as Core.Test.ICustomSphere;
+        return this.options as Type.Test.ICustomSphere;
+    }
+
+    @TEvent.Listen<CustomSphere>((instance) => instance.ctx.Game, Type.Manager.GameEvent.Update)
+    private Update() {
+        if (this.body.position.y < -3) {
+            this.Destroy();
+        }
     }
 }
 

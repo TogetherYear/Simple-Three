@@ -1,4 +1,4 @@
-import { TComponent } from '@/Core/Base/TComponent';
+import { TComponent } from '@/Core/Base';
 import { Core } from '@/Core/type';
 import * as THREE from 'three';
 

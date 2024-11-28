@@ -1,8 +1,8 @@
-import { TCamera } from './Manager/TCamera';
-import { TGame } from './Manager/TGame';
-import { TInput } from './Manager/TInput';
-import { TPhysics } from './Manager/TPhysics';
-import { TRenderer } from './Manager/TRenderer';
+import * as Base from './Base';
+import * as Actor from './Actor';
+import * as Component from './Components';
+import * as Plugin from './Plugins';
+import * as Manager from './Manager';
 import { Core } from './type';
 
 /**
@@ -31,15 +31,15 @@ const Generate = (dom: HTMLElement): Promise<Core.Context> => {
     return new Promise(async (resolve, reject) => {
         ctx.dom = dom;
 
-        ctx.Renderer = new TRenderer(ctx);
+        ctx.Renderer = new Manager.TRenderer(ctx);
 
-        ctx.Camera = new TCamera(ctx);
+        ctx.Camera = new Manager.TCamera(ctx);
 
-        ctx.Physics = new TPhysics(ctx);
+        ctx.Physics = new Manager.TPhysics(ctx);
 
-        ctx.Input = new TInput(ctx);
+        ctx.Input = new Manager.TInput(ctx);
 
-        ctx.Game = new TGame(ctx);
+        ctx.Game = new Manager.TGame(ctx);
 
         ctx.Renderer.Run();
 
@@ -52,6 +52,10 @@ const Generate = (dom: HTMLElement): Promise<Core.Context> => {
         ctx.Game.Run();
 
         ctx.Destroy = () => {
+            for (let p of ctx.Plugins) {
+                p[1].Destroy();
+            }
+
             ctx.Renderer.Destroy();
 
             ctx.Camera.Destroy();
@@ -69,4 +73,4 @@ const Generate = (dom: HTMLElement): Promise<Core.Context> => {
     });
 };
 
-export { Generate };
+export { Generate, Base, Actor, Component, Plugin, Manager, Core as Type };

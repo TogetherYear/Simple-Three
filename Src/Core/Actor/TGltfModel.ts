@@ -1,6 +1,6 @@
-import { TActor } from '../Base/TActor';
+import { TActor } from '@/Core/Base';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Core } from '../type';
+import { Core } from '@/Core/type';
 import * as THREE from 'three';
 
 class TGltfModel extends TActor {
@@ -19,7 +19,7 @@ class TGltfModel extends TActor {
             // this.SetChildrenShadow(model.scene);
             this.body = model.scene;
             this.body.position.copy(this.O.position || new THREE.Vector3());
-            this.ctx.Game.Add(this.body);
+            this.ctx.Game.Add(this);
         });
     }
 

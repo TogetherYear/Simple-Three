@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { TManager } from '../Base/TManager';
-import { TEvent } from '../Decorators/TEvent';
-import { Core } from '../type';
+import { TManager, TActor } from '@/Core/Base';
+import { TEvent } from '@/Core/Decorators';
+import { Core } from '@/Core/type';
 
 class TRenderer extends TManager {
     constructor(ctx: Core.Context, options: Core.Manager.IRenderer = {}) {
@@ -15,6 +15,8 @@ class TRenderer extends TManager {
     public scene!: THREE.Scene;
 
     public renderer!: THREE.WebGLRenderer;
+
+    public actors: Array<TActor> = [];
 
     public Run() {
         this.CreateScene();
@@ -44,6 +46,9 @@ class TRenderer extends TManager {
 
     public override Destroy(): void {
         super.Destroy();
+        for (let a of this.actors) {
+            a.Destroy();
+        }
         this.ctx.dom.removeChild(this.renderer.domElement);
         this.renderer.dispose();
     }

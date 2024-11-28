@@ -1,6 +1,6 @@
-import { TManager } from '../Base/TManager';
-import { TEvent } from '../Decorators/TEvent';
-import { Core } from '../type';
+import { TActor, TManager } from '@/Core/Base';
+import { TEvent } from '@/Core/Decorators';
+import { Core } from '@/Core/type';
 import * as THREE from 'three';
 
 @TEvent.Create([Core.Manager.GameEvent.Update])
@@ -46,12 +46,14 @@ class TGame extends TManager {
         this.Emit(Core.Manager.GameEvent.Update);
     }
 
-    public Add(object: THREE.Object3D) {
-        this.ctx.Renderer.scene.add(object);
+    public Add(actor: TActor) {
+        this.ctx.Renderer.actors.push(actor);
+        this.ctx.Renderer.scene.add(actor.body);
     }
 
-    public Remove(object: THREE.Object3D) {
-        this.ctx.Renderer.scene.remove(object);
+    public Remove(actor: TActor) {
+        this.ctx.Renderer.actors = this.ctx.Renderer.actors.filter((a) => a !== actor);
+        this.ctx.Renderer.scene.remove(actor.body);
     }
 
     public override Destroy(): void {

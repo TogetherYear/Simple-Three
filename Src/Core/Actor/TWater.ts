@@ -1,9 +1,9 @@
 import * as THREE from 'three';
-import { TActor } from '../Base/TActor';
+import { TActor } from '@/Core/Base';
 import { Water } from 'three/examples/jsm/objects/Water';
 import normal from '@/Assets/Images/normal.jpg';
-import { TEvent } from '../Decorators/TEvent';
-import { Core } from '../type';
+import { TEvent } from '@/Core/Decorators';
+import { Core } from '@/Core/type';
 
 class TWater extends TActor {
     constructor(ctx: Core.Context, options: Core.Actor.IWater = {}) {
@@ -32,7 +32,7 @@ class TWater extends TActor {
         });
         this.body.rotation.x = -Math.PI / 2;
         this.body.position.y = -1;
-        this.ctx.Game.Add(this.body);
+        this.ctx.Game.Add(this);
     }
 
     @TEvent.Listen<TWater>((instance) => instance.ctx.Game, Core.Manager.GameEvent.Update)

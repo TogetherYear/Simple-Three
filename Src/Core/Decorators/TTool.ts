@@ -1,6 +1,4 @@
-import { EventSystem } from '@/Core/Utils/EventSystem';
-import { Resolve } from './index';
-import { Time } from '@/Core/Utils/Time';
+import { EventSystem, Time } from '@/Core/Utils';
 
 namespace TTool {
     /**
@@ -145,7 +143,7 @@ namespace TTool {
                 }
 
                 private TTool_Generate_Interval() {
-                    Resolve.then(() => {
+                    Time.Resolve.then(() => {
                         //@ts-ignore
                         const interval = (this['tTool_Interval_Need'] || []) as Array<{
                             propertyKey: string;

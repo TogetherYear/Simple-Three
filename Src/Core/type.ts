@@ -1,11 +1,6 @@
 import * as THREE from 'three';
-import { TRenderer } from './Manager/TRenderer';
-import { TCamera } from './Manager/TCamera';
-import { TPhysics } from './Manager/TPhysics';
-import { TInput } from './Manager/TInput';
-import { TGame } from './Manager/TGame';
-import { TActor } from './Base/TActor';
-import { TPlugin } from './Base/TPlugin';
+import { TCamera, TGame, TInput, TPhysics, TRenderer } from './Manager';
+import { TPlugin, TActor } from './Base';
 
 namespace Core {
     export namespace Actor {
@@ -102,7 +97,13 @@ namespace Core {
             scale: THREE.Vector3;
         }
 
-        export interface ICustomPlane extends Base.IActor {}
+        export interface ICustomPlane extends Base.IActor {
+            position: THREE.Vector3;
+            rotate: THREE.Vector3;
+            scale: THREE.Vector3;
+        }
+
+        export interface ICustomPlugin extends Base.IPlugin {}
     }
 
     export namespace Worker {

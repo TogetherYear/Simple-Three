@@ -1,7 +1,5 @@
-import { TEvent } from '../Decorators/TEvent';
-import { TTest } from '../Decorators/TTest';
-import { TTool } from '../Decorators/TTool';
-import { Core } from '../type';
+import { TEvent, TTest, TTool } from '@/Core/Decorators';
+import { Core } from '@/Core/type';
 import { TEntity } from './TEntity';
 
 @TTest.Generate()

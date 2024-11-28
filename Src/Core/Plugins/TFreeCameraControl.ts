@@ -1,6 +1,6 @@
-import { Core } from '../type';
-import { TPlugin } from '../Base/TPlugin';
-import { TEvent } from '../Decorators/TEvent';
+import { Core } from '@/Core/type';
+import { TPlugin } from '@/Core/Base';
+import { TEvent } from '@/Core/Decorators';
 
 /**
  * 自由视角控制器

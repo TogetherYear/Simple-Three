@@ -42,6 +42,8 @@ class Time {
             }, time);
         });
     }
+
+    static Resolve = Promise.resolve();
 }
 
 export { Time };
