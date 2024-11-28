@@ -14,6 +14,7 @@ class TFog extends TActor {
 
     private Create() {
         this.ctx.Renderer.scene.fog = new THREE.FogExp2(0x212121, 0.05);
+        this.ctx.Game.Add(this);
     }
 
     public override Destroy(): void {

@@ -48,12 +48,12 @@ class TGame extends TManager {
 
     public Add(actor: TActor) {
         this.ctx.Renderer.actors.push(actor);
-        this.ctx.Renderer.scene.add(actor.body);
+        actor.body && this.ctx.Renderer.scene.add(actor.body);
     }
 
     public Remove(actor: TActor) {
         this.ctx.Renderer.actors = this.ctx.Renderer.actors.filter((a) => a !== actor);
-        this.ctx.Renderer.scene.remove(actor.body);
+        actor.body && this.ctx.Renderer.scene.remove(actor.body);
     }
 
     public override Destroy(): void {
