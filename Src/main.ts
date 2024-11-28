@@ -10,7 +10,7 @@ Core.Generate(document.querySelector('#App')!).then((ctx) => {
 
     const water = new Core.Actor.TWater(ctx);
 
-    const room = new Core.Actor.TGltfModel(ctx, { path: 'Model/Room.glb' });
+    // const room = new Core.Actor.TGltfModel(ctx, { path: 'Model/Room.glb' });
 
     const pointLight = new Core.Actor.TPointLight(ctx);
 
