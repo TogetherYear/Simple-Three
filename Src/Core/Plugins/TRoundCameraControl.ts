@@ -12,7 +12,6 @@ class TRoundCameraControl extends TPlugin {
         this.control.enablePan = false;
         this.control.rotateSpeed = 0.5;
         this.control.zoomSpeed = 1.5;
-        this.ctx.Plugins.set(this.constructor.name, this);
     }
 
     private control!: OrbitControls;
@@ -23,7 +22,6 @@ class TRoundCameraControl extends TPlugin {
 
     public override Destroy(): void {
         super.Destroy();
-        this.ctx.Plugins.delete(this.constructor.name);
     }
 }
 

@@ -10,7 +10,7 @@ import { Core } from './type';
  */
 const Generate = (dom: HTMLElement): Promise<Core.Context> => {
     const target: Partial<Core.Context> = {
-        Plugins: new Map()
+        Plugins: []
     };
 
     /**
@@ -53,7 +53,7 @@ const Generate = (dom: HTMLElement): Promise<Core.Context> => {
 
         ctx.Destroy = () => {
             for (let p of ctx.Plugins) {
-                p[1].Destroy();
+                p.Destroy();
             }
 
             ctx.Renderer.Destroy();

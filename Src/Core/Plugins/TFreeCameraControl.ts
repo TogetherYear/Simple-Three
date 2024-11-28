@@ -8,7 +8,6 @@ import { TEvent } from '@/Core/Decorators';
 class TFreeCameraControl extends TPlugin {
     constructor(ctx: Core.Context, options: Core.Plugin.IFreeCameraControl = {}) {
         super(ctx, options);
-        this.ctx.Plugins.set(this.constructor.name, this);
     }
 
     public get O() {
@@ -38,7 +37,6 @@ class TFreeCameraControl extends TPlugin {
 
     public override Destroy(): void {
         super.Destroy();
-        this.ctx.Plugins.delete(this.constructor.name);
     }
 }
 

@@ -8,6 +8,7 @@ import { TEntity } from './TEntity';
 class TPlugin extends TEntity {
     constructor(ctx: Core.Context, options: Core.Base.IPlugin = {}) {
         super(ctx, options);
+        this.ctx.Plugins.push(this);
     }
 
     public get O() {
@@ -17,7 +18,9 @@ class TPlugin extends TEntity {
     /**
      * 继承时 销毁物体必须调用 super.Destroy() 我要取消事件
      */
-    public Destroy() {}
+    public Destroy() {
+        this.ctx.Plugins = this.ctx.Plugins.filter((p) => p !== this);
+    }
 }
 
 export { TPlugin };

@@ -147,7 +147,7 @@ namespace Core {
         Physics: TPhysics;
         Input: TInput;
         Game: TGame;
-        Plugins: Map<string, TPlugin>;
+        Plugins: Array<TPlugin>;
         /**
          * 页面销毁时调用
          */

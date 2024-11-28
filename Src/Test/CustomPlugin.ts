@@ -13,7 +13,6 @@ import { CustomPlane } from './CustomPlane';
 class CustomPlugin extends TPlugin {
     constructor(ctx: Type.Context, options: Type.Test.ICustomPlugin = {}) {
         super(ctx, options);
-        this.ctx.Plugins.set(this.constructor.name, this);
     }
 
     public get O() {
@@ -22,7 +21,6 @@ class CustomPlugin extends TPlugin {
 
     public override Destroy(): void {
         super.Destroy();
-        this.ctx.Plugins.delete(this.constructor.name);
     }
 
     @TTest.BindFunction<CustomPlugin>((instance) => `AddStatic`)

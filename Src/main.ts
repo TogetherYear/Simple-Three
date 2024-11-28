@@ -1,5 +1,5 @@
-import * as Core from './Core';
-import { CustomPlugin } from './Test';
+import * as Core from '@/Core';
+import { CustomPlugin } from '@/Test/CustomPlugin';
 
 Core.Generate(document.querySelector('#App')!).then((ctx) => {
     const dire = new Core.Actor.TDirectionalLight(ctx);
