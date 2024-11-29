@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { TCamera, TEditor, TGame, TInput, TPhysics, TRenderer } from '@/Core/Manager';
-import { TPlugin, TActor } from '@/Core/Base';
+import { TPlugin, TActor, TEntity } from '@/Core/Base';
 
 namespace Core {
     export namespace Actor {
@@ -54,7 +54,7 @@ namespace Core {
 
         export interface IGame extends Base.IManager {}
 
-        export interface TEditor extends Base.IManager {}
+        export interface IEditor extends Base.IManager {}
 
         export const enum InputEvent {
             /**
@@ -78,34 +78,19 @@ namespace Core {
         export interface IPhysics extends Base.IManager {}
 
         export interface IRenderer extends Base.IManager {}
+
+        export interface IEditorFunc {
+            target: TEntity;
+            label: string | ((instance: TEntity) => string);
+            funcName: string;
+            args: Array<unknown>;
+        }
     }
 
     export namespace Plugin {
         export interface IFreeCameraControl extends Base.IEntity {}
 
         export interface IRoundCameraControl extends Base.IEntity {}
-    }
-
-    export namespace Test {
-        export interface ICustomBox extends Base.IActor {
-            position: THREE.Vector3;
-            rotate: THREE.Vector3;
-            scale: THREE.Vector3;
-        }
-
-        export interface ICustomSphere extends Base.IActor {
-            position: THREE.Vector3;
-            rotate: THREE.Vector3;
-            scale: THREE.Vector3;
-        }
-
-        export interface ICustomPlane extends Base.IActor {
-            position: THREE.Vector3;
-            rotate: THREE.Vector3;
-            scale: THREE.Vector3;
-        }
-
-        export interface ICustomPlugin extends Base.IPlugin {}
     }
 
     export namespace Worker {

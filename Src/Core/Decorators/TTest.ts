@@ -1,11 +1,7 @@
 import { TEntity } from '@/Core/Base';
+import { Time } from '@/Core/Utils';
 
 namespace TTest {
-    /**
-     * 函数列表
-     */
-    export const functionMap: Map<string, { label: string; scope: Object; funcName: string; args: Array<unknown>; dom: HTMLElement }> = new Map();
-
     /**
      * 测试生成
      */
@@ -19,38 +15,19 @@ namespace TTest {
                 }
 
                 private TTest_Generate_BindFunction() {
-                    //@ts-ignore
-                    const bind = (this['tTest_Bind_Function'] || []) as Array<{
-                        label: string | ((instance: Object) => string);
-                        funcName: string;
-                        args: Array<unknown>;
-                    }>;
-                    for (let b of bind) {
-                        const l = typeof b.label === 'function' ? b.label(this) : b.label;
-                        const element = document.createElement('span');
-                        element.className = 'FunctionItem';
-                        element.innerText = l;
-                        element.onclick = () => {
-                            const args = b.args.map((a) => {
-                                if (typeof a === 'function') {
-                                    return a(this);
-                                } else {
-                                    return a;
-                                }
-                            });
-                            //@ts-ignore
-                            this[`${b.funcName}`](...args);
-                        };
-                        document.querySelector('#Test')?.appendChild(element);
+                    Time.Resolve.then(() => {
                         //@ts-ignore
-                        functionMap.set(`${this['unique_Id']}:${b.funcName}`, {
-                            label: l,
-                            funcName: b.funcName,
-                            args: b.args,
-                            scope: this,
-                            dom: element
-                        });
-                    }
+                        const bind = (this['tTest_Bind_Function'] || []) as Array<{
+                            label: string | ((instance: Object) => string);
+                            funcName: string;
+                            args: Array<unknown>;
+                        }>;
+                        this.ctx.Editor.AddBindFunc(
+                            bind.map((b) => {
+                                return { ...b, target: this };
+                            })
+                        );
+                    });
                 }
 
                 private TTest_Generate_Hooks() {
@@ -68,13 +45,11 @@ namespace TTest {
                             funcName: string;
                             args: Array<unknown>;
                         }>;
-                        for (let b of bind) {
-                            //@ts-ignore
-                            const target = functionMap.get(`${this['unique_Id']}:${b.funcName}`)!;
-                            target.dom.remove();
-                            //@ts-ignore
-                            functionMap.delete(`${this['unique_Id']}:${b.funcName}`);
-                        }
+                        this.ctx.Editor.RemoveBindFunc(
+                            bind.map((b) => {
+                                return { ...b, target: this };
+                            })
+                        );
                         //@ts-ignore
                         original(...args);
                     };

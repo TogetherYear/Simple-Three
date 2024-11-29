@@ -2,9 +2,16 @@ import { TSphere } from '@/Core/Actor';
 import { TSphereRigidBody } from '@/Core/Components';
 import { Type } from '@/Core';
 import { TEvent } from '@/Core/Decorators';
+import * as THREE from 'three';
+
+interface ICustomSphere extends Type.Base.IActor {
+    position: THREE.Vector3;
+    rotate: THREE.Vector3;
+    scale: THREE.Vector3;
+}
 
 class CustomSphere extends TSphere {
-    constructor(ctx: Type.Context, options: Type.Test.ICustomSphere) {
+    constructor(ctx: Type.Context, options: ICustomSphere) {
         super(ctx, options);
         this.body.position.copy(this.O.position);
         this.body.rotateX(this.O.rotate.x);
@@ -15,7 +22,7 @@ class CustomSphere extends TSphere {
     }
 
     public get O() {
-        return this.options as Type.Test.ICustomSphere;
+        return this.options as ICustomSphere;
     }
 
     @TEvent.Listen<CustomSphere>((instance) => instance.ctx.Game, Type.Manager.GameEvent.Update)

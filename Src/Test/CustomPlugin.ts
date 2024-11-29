@@ -1,4 +1,3 @@
-import { Type } from '@/Core';
 import { TPlugin } from '@/Core/Base';
 import { TTest } from '@/Core/Decorators';
 import * as THREE from 'three';
@@ -11,14 +10,6 @@ import { CustomPlane } from './CustomPlane';
  * Debug
  */
 class CustomPlugin extends TPlugin {
-    constructor(ctx: Type.Context, options: Type.Test.ICustomPlugin = {}) {
-        super(ctx, options);
-    }
-
-    public get O() {
-        return this.options as Type.Test.ICustomPlugin;
-    }
-
     @TTest.BindFunction<CustomPlugin>((instance) => `AddStatic`)
     private AddStatic() {
         new CustomPlane(this.ctx, {

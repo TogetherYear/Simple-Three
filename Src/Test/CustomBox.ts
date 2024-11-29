@@ -2,9 +2,16 @@ import { TBox } from '@/Core/Actor';
 import { TBoxRigidBody } from '@/Core/Components';
 import { TEvent } from '@/Core/Decorators';
 import { Type } from '@/Core';
+import * as THREE from 'three';
+
+interface ICustomBox extends Type.Base.IActor {
+    position: THREE.Vector3;
+    rotate: THREE.Vector3;
+    scale: THREE.Vector3;
+}
 
 class CustomBox extends TBox {
-    constructor(ctx: Type.Context, options: Type.Test.ICustomBox) {
+    constructor(ctx: Type.Context, options: ICustomBox) {
         super(ctx, options);
         this.body.position.copy(this.O.position);
         this.body.rotateX(this.O.rotate.x);
@@ -15,7 +22,7 @@ class CustomBox extends TBox {
     }
 
     public get O() {
-        return this.options as Type.Test.ICustomBox;
+        return this.options as ICustomBox;
     }
 
     @TEvent.Listen<CustomBox>((instance) => instance.ctx.Game, Type.Manager.GameEvent.Update)

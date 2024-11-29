@@ -1,9 +1,16 @@
 import { TPlane } from '@/Core/Actor';
 import { TBoxRigidBody } from '@/Core/Components';
 import { Type } from '@/Core';
+import * as THREE from 'three';
+
+interface ICustomPlane extends Type.Base.IActor {
+    position: THREE.Vector3;
+    rotate: THREE.Vector3;
+    scale: THREE.Vector3;
+}
 
 class CustomPlane extends TPlane {
-    constructor(ctx: Type.Context, options: Type.Test.ICustomPlane) {
+    constructor(ctx: Type.Context, options: ICustomPlane) {
         super(ctx, options);
         this.body.position.copy(this.O.position);
         this.body.rotateX(this.O.rotate.x);
@@ -14,7 +21,7 @@ class CustomPlane extends TPlane {
     }
 
     public get O() {
-        return this.options as Type.Test.ICustomPlane;
+        return this.options as ICustomPlane;
     }
 }
 
