@@ -81,9 +81,7 @@ namespace Core {
 
         export interface IEditorFunc {
             target: TEntity;
-            label: string | ((instance: TEntity) => string);
             funcName: string;
-            args: Array<unknown>;
         }
     }
 

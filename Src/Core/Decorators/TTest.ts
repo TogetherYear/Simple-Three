@@ -18,9 +18,7 @@ namespace TTest {
                     Time.Resolve.then(() => {
                         //@ts-ignore
                         const bind = (this['tTest_Bind_Function'] || []) as Array<{
-                            label: string | ((instance: Object) => string);
                             funcName: string;
-                            args: Array<unknown>;
                         }>;
                         this.ctx.Editor.AddBindFunc(
                             bind.map((b) => {
@@ -41,9 +39,7 @@ namespace TTest {
                     this[`Destroy`] = function (...args: Array<unknown>) {
                         //@ts-ignore
                         const bind = (this['tTest_Bind_Function'] || []) as Array<{
-                            label: string | ((instance: Object) => string);
                             funcName: string;
-                            args: Array<unknown>;
                         }>;
                         this.ctx.Editor.RemoveBindFunc(
                             bind.map((b) => {
@@ -59,25 +55,21 @@ namespace TTest {
     }
 
     /**
-     * 绑定测试函数 ...args 为需要传递的参数列表 如果需要传递类中变量 需要使用 函数 此函数只有一个参数 为 当前类实例 我会自动给你
+     * 绑定测试函数
      */
-    export function BindFunction<T>(label: string | ((instance: T) => string), ...args: Array<unknown>) {
+    export function BindFunction() {
         return function (target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tTest_Bind_Function']) {
                 //@ts-ignore
                 target['tTest_Bind_Function'].push({
-                    label,
-                    funcName: propertyKey,
-                    args
+                    funcName: propertyKey
                 });
             } else {
                 //@ts-ignore
                 target['tTest_Bind_Function'] = [
                     {
-                        label,
-                        funcName: propertyKey,
-                        args
+                        funcName: propertyKey
                     }
                 ];
             }

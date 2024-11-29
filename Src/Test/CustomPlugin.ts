@@ -10,7 +10,7 @@ import { CustomPlane } from './CustomPlane';
  * Debug
  */
 class CustomPlugin extends TPlugin {
-    @TTest.BindFunction<CustomPlugin>((instance) => `AddStatic`)
+    @TTest.BindFunction()
     private AddStatic() {
         new CustomPlane(this.ctx, {
             position: new THREE.Vector3(Math.random() * 16 - 8, Math.random() * 6, Math.random() * 16 - 8),
@@ -23,7 +23,7 @@ class CustomPlugin extends TPlugin {
         });
     }
 
-    @TTest.BindFunction<CustomPlugin>((instance) => `AddDynamic`)
+    @TTest.BindFunction()
     private AddDynamic() {
         if (Math.random() < 0.5) {
             new CustomBox(this.ctx, {
