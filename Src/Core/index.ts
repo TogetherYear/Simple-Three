@@ -41,6 +41,8 @@ const Generate = (dom: HTMLElement): Promise<Core.Context> => {
 
         ctx.Game = new Manager.TGame(ctx);
 
+        ctx.Editor = new Manager.TEditor(ctx);
+
         ctx.Renderer.Run();
 
         ctx.Camera.Run();
@@ -50,6 +52,8 @@ const Generate = (dom: HTMLElement): Promise<Core.Context> => {
         ctx.Input.Run();
 
         ctx.Game.Run();
+
+        ctx.Editor.Run();
 
         ctx.Destroy = () => {
             for (let p of ctx.Plugins) {
@@ -65,6 +69,8 @@ const Generate = (dom: HTMLElement): Promise<Core.Context> => {
             ctx.Input.Destroy();
 
             ctx.Game.Destroy();
+
+            ctx.Editor.Destroy();
 
             proxy.revoke();
         };

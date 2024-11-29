@@ -1,4 +1,5 @@
-import { EventSystem, Time } from '@/Core/Utils';
+import { Time } from '@/Core/Utils';
+import { TEntity } from '@/Core/Base';
 
 /**
  * 事件相关
@@ -8,7 +9,7 @@ namespace TEvent {
      * 事件循环生成
      */
     export function Generate() {
-        return function <T extends new (...args: Array<any>) => EventSystem>(C: T) {
+        return function <T extends new (...args: Array<any>) => TEntity>(C: T) {
             return class extends C {
                 constructor(...args: Array<any>) {
                     super(...args);
@@ -93,7 +94,7 @@ namespace TEvent {
      * @description 生成事件列表 只给 Manager 用
      */
     export function Create(events: Array<string>) {
-        return function <T extends new (...args: Array<any>) => EventSystem>(C: T) {
+        return function <T extends new (...args: Array<any>) => TEntity>(C: T) {
             return class extends C {
                 constructor(...args: Array<any>) {
                     super(...args);

@@ -1,4 +1,4 @@
-import { EventSystem } from '@/Core/Utils';
+import { TEntity } from '@/Core/Base';
 
 namespace TTest {
     /**
@@ -10,7 +10,7 @@ namespace TTest {
      * 测试生成
      */
     export function Generate() {
-        return function <T extends new (...args: Array<any>) => EventSystem>(C: T) {
+        return function <T extends new (...args: Array<any>) => TEntity>(C: T) {
             return class extends C {
                 constructor(...args: Array<any>) {
                     super(...args);

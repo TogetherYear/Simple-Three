@@ -38,6 +38,7 @@ Threejs + Cannonjs + WebWorker + SharedArraybuffer
         -   TInput
         -   TPhysics
         -   TRenderer
+        -   TEditor
 
     -   Components
 

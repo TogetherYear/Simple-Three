@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { TCamera, TGame, TInput, TPhysics, TRenderer } from './Manager';
-import { TPlugin, TActor } from './Base';
+import { TCamera, TEditor, TGame, TInput, TPhysics, TRenderer } from '@/Core/Manager';
+import { TPlugin, TActor } from '@/Core/Base';
 
 namespace Core {
     export namespace Actor {
@@ -53,6 +53,8 @@ namespace Core {
         }
 
         export interface IGame extends Base.IManager {}
+
+        export interface TEditor extends Base.IManager {}
 
         export const enum InputEvent {
             /**
@@ -147,6 +149,7 @@ namespace Core {
         Physics: TPhysics;
         Input: TInput;
         Game: TGame;
+        Editor: TEditor;
         Plugins: Array<TPlugin>;
         /**
          * 页面销毁时调用
