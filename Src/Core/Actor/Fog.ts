@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { TActor } from '@/Core/Base';
+import { Actor } from '@/Core/Base';
 import { Core } from '@/Core/type';
 
-class TFog extends TActor {
+class Fog extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.IFog = {}) {
         super(ctx, options);
         this.Create();
@@ -23,4 +23,4 @@ class TFog extends TActor {
     }
 }
 
-export { TFog };
+export { Fog };

@@ -1,4 +1,4 @@
-import { TPlugin } from '@/Core/Base';
+import { Plugin } from '@/Core/Base';
 import { TTest } from '@/Core/Decorators';
 import * as THREE from 'three';
 import { Mathf } from '@/Core/Utils';
@@ -9,7 +9,7 @@ import { CustomPlane } from './CustomPlane';
 /**
  * Debug
  */
-class CustomPlugin extends TPlugin {
+class CustomPlugin extends Plugin {
     @TTest.BindFunction()
     private AddStatic() {
         new CustomPlane(this.ctx, {

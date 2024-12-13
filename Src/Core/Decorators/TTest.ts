@@ -1,4 +1,4 @@
-import { TEntity } from '@/Core/Base';
+import { Entity } from '@/Core/Base';
 import { Time } from '@/Core/Utils';
 
 namespace TTest {
@@ -6,7 +6,7 @@ namespace TTest {
      * 测试生成
      */
     export function Generate() {
-        return function <T extends new (...args: Array<any>) => TEntity>(C: T) {
+        return function <T extends new (...args: Array<any>) => Entity>(C: T) {
             return class extends C {
                 constructor(...args: Array<any>) {
                     super(...args);
@@ -26,7 +26,6 @@ namespace TTest {
                                 return { ...b, target: this };
                             })
                         );
-                        console.log('A');
                     });
                 }
 
@@ -108,7 +107,7 @@ namespace TTest {
     /**
      * 绑定测试函数
      */
-    export function BindFunction<T extends TEntity>() {
+    export function BindFunction<T extends Entity>() {
         return function (target: T, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tTest_Bind_Function']) {
@@ -130,7 +129,7 @@ namespace TTest {
     /**
      * 绑定测试属性
      */
-    export function BindProperty<T extends TEntity>(min: number | ((instance: T) => number), max: number | ((instance: T) => number), step: number | ((instance: T) => number)) {
+    export function BindProperty<T extends Entity>(min: number | ((instance: T) => number), max: number | ((instance: T) => number), step: number | ((instance: T) => number)) {
         return function (target: T, propertyKey: string | symbol) {
             //@ts-ignore
             if (target['tTest_Bind_Property']) {

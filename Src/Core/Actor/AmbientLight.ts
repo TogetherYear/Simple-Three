@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { TActor } from '@/Core/Base';
+import { Actor } from '@/Core/Base';
 import { Core } from '@/Core/type';
 
-class TAmbientLight extends TActor {
+class AmbientLight extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.IAmbientLight = {}) {
         super(ctx, options);
         this.Create();
@@ -18,4 +18,4 @@ class TAmbientLight extends TActor {
     }
 }
 
-export { TAmbientLight };
+export { AmbientLight };

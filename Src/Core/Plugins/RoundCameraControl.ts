@@ -1,11 +1,11 @@
 import { Core } from '@/Core/type';
-import { TPlugin } from '@/Core/Base';
+import { Plugin } from '@/Core/Base';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 /**
  * 圆球视角控制器
  */
-class TRoundCameraControl extends TPlugin {
+class RoundCameraControl extends Plugin {
     constructor(ctx: Core.Context, options: Core.Plugin.IRoundCameraControl = {}) {
         super(ctx, options);
         this.control = new OrbitControls(this.ctx.Camera.camera, this.ctx.dom);
@@ -25,4 +25,4 @@ class TRoundCameraControl extends TPlugin {
     }
 }
 
-export { TRoundCameraControl };
+export { RoundCameraControl };

@@ -13,37 +13,37 @@ Threejs + Cannonjs + WebWorker + SharedArraybuffer
 
     -   Base
 
-        -   TEntity
-        -   TActor
-        -   TComponent
-        -   TManager
-        -   TPlugin
+        -   Entity
+        -   Actor
+        -   Component
+        -   Manager
+        -   Plugin
 
     -   Actor
 
-        -   TAmbientLight
-        -   TBox
-        -   TDirectionalLight
-        -   TFog
-        -   TGltfModel
-        -   TPlane
-        -   TPointLight
-        -   TSphere
-        -   TWater
+        -   AmbientLight
+        -   Box
+        -   DirectionalLight
+        -   Fog
+        -   GltfModel
+        -   Plane
+        -   PointLight
+        -   Sphere
+        -   Water
 
     -   Manager
 
-        -   TCamera
-        -   TGame
-        -   TInput
-        -   TPhysics
-        -   TRenderer
-        -   TEditor
+        -   Camera
+        -   Game
+        -   Input
+        -   Physics
+        -   Renderer
+        -   Editor
 
     -   Components
 
-        -   TBoxRigidBody
-        -   TSphereRigidBody
+        -   BoxRigidBody
+        -   SphereRigidBody
 
     -   Decorators
 
@@ -53,12 +53,13 @@ Threejs + Cannonjs + WebWorker + SharedArraybuffer
 
     -   Plugins
 
-        -   TFreeCameraControl
-        -   TRoundCameraControl
+        -   FreeCameraControl
+        -   RoundCameraControl
 
     -   Worker
 
         -   Physics
+        -   SharedBufferPhysics
 
 </font>
 </strong>

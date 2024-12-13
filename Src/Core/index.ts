@@ -31,17 +31,17 @@ const Generate = (dom: HTMLElement): Promise<Core.Context> => {
     return new Promise(async (resolve, reject) => {
         ctx.dom = dom;
 
-        ctx.Editor = new Manager.TEditor(ctx);
+        ctx.Editor = new Manager.Editor(ctx);
 
-        ctx.Renderer = new Manager.TRenderer(ctx);
+        ctx.Renderer = new Manager.Renderer(ctx);
 
-        ctx.Camera = new Manager.TCamera(ctx);
+        ctx.Camera = new Manager.Camera(ctx);
 
-        ctx.Physics = new Manager.TPhysics(ctx, { webWorker: true, sharedArraybuffer: true });
+        ctx.Physics = new Manager.Physics(ctx, { webWorker: true, sharedArraybuffer: true });
 
-        ctx.Input = new Manager.TInput(ctx);
+        ctx.Input = new Manager.Input(ctx);
 
-        ctx.Game = new Manager.TGame(ctx);
+        ctx.Game = new Manager.Game(ctx);
 
         ctx.Editor.Run();
 

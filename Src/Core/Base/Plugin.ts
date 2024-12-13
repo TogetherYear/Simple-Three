@@ -1,11 +1,11 @@
 import { TEvent, TTest, TTool } from '@/Core/Decorators';
 import { Core } from '@/Core/type';
-import { TEntity } from './TEntity';
+import { Entity } from './Entity';
 
 @TTest.Generate()
 @TTool.Generate()
 @TEvent.Generate()
-class TPlugin extends TEntity {
+class Plugin extends Entity {
     constructor(ctx: Core.Context, options: Core.Base.IPlugin = {}) {
         super(ctx, options);
         this.ctx.Plugins.push(this);
@@ -20,4 +20,4 @@ class TPlugin extends TEntity {
     }
 }
 
-export { TPlugin };
+export { Plugin };

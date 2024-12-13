@@ -1,13 +1,13 @@
 import { TEvent, TTest, TTool } from '@/Core/Decorators';
 import { Core } from '@/Core/type';
-import { TComponent } from './TComponent';
-import { TEntity } from './TEntity';
+import { Component } from './Component';
+import { Entity } from './Entity';
 import * as THREE from 'three';
 
 @TTest.Generate()
 @TTool.Generate()
 @TEvent.Generate()
-class TActor extends TEntity {
+class Actor extends Entity {
     constructor(ctx: Core.Context, options: Core.Base.IActor = {}) {
         super(ctx, options);
     }
@@ -18,7 +18,7 @@ class TActor extends TEntity {
 
     public body!: THREE.Object3D;
 
-    public components: Array<TComponent> = [];
+    public components: Array<Component> = [];
 
     public Destroy() {
         this.ctx.Game.Remove(this);
@@ -27,14 +27,14 @@ class TActor extends TEntity {
         }
     }
 
-    public AddComponent(component: TComponent) {
+    public AddComponent(component: Component) {
         this.components.push(component);
     }
 
-    public RemoveComponent(component: TComponent) {
+    public RemoveComponent(component: Component) {
         this.components = this.components.filter((c) => c !== component);
         component.Destroy();
     }
 }
 
-export { TActor };
+export { Actor };

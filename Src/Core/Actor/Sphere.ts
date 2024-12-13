@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { TActor } from '@/Core/Base';
+import { Actor } from '@/Core/Base';
 import { Core } from '@/Core/type';
 
-class TSphere extends TActor {
+class Sphere extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.ISphere = {}) {
         super(ctx, options);
         this.Create();
@@ -22,4 +22,4 @@ class TSphere extends TActor {
     }
 }
 
-export { TSphere };
+export { Sphere };

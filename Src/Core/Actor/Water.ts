@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import { TActor } from '@/Core/Base';
-import { Water } from 'three/examples/jsm/objects/Water';
+import { Actor } from '@/Core/Base';
+import { Water as TW } from 'three/examples/jsm/objects/Water';
 import normal from '@/Assets/Images/normal.jpg';
 import { TEvent } from '@/Core/Decorators';
 import { Core } from '@/Core/type';
 
-class TWater extends TActor {
+class Water extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.IWater = {}) {
         super(ctx, options);
         this.Create();
@@ -20,7 +20,7 @@ class TWater extends TActor {
         const texture = new THREE.TextureLoader().load(normal);
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
-        this.body = new Water(waterGeometry, {
+        this.body = new TW(waterGeometry, {
             textureWidth: 1024,
             textureHeight: 1024,
             waterNormals: texture,
@@ -35,10 +35,10 @@ class TWater extends TActor {
         this.ctx.Game.Add(this);
     }
 
-    @TEvent.Listen<TWater>((instance) => instance.ctx.Game, Core.Manager.GameEvent.Update)
+    @TEvent.Listen<Water>((instance) => instance.ctx.Game, Core.Manager.GameEvent.Update)
     private Update() {
-        (this.body as Water).material.uniforms['time'].value += 0.36 * this.ctx.Game.deltaTime;
+        (this.body as TW).material.uniforms['time'].value += 0.36 * this.ctx.Game.deltaTime;
     }
 }
 
-export { TWater };
+export { Water };

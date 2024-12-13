@@ -1,5 +1,5 @@
-import { TBox } from '@/Core/Actor';
-import { TBoxRigidBody } from '@/Core/Components';
+import { Box } from '@/Core/Actor';
+import { BoxRigidBody } from '@/Core/Components';
 import { TEvent } from '@/Core/Decorators';
 import { Type } from '@/Core';
 import * as THREE from 'three';
@@ -10,7 +10,7 @@ interface ICustomBox extends Type.Base.IActor {
     scale: THREE.Vector3;
 }
 
-class CustomBox extends TBox {
+class CustomBox extends Box {
     constructor(ctx: Type.Context, options: ICustomBox) {
         super(ctx, options);
         this.body.position.copy(this.O.position);
@@ -18,7 +18,7 @@ class CustomBox extends TBox {
         this.body.rotateY(this.O.rotate.y);
         this.body.rotateZ(this.O.rotate.z);
         this.body.scale.copy(this.O.scale);
-        this.AddComponent(new TBoxRigidBody(ctx, { mass: 1, actor: this, fix: false }));
+        this.AddComponent(new BoxRigidBody(ctx, { mass: 1, actor: this, fix: false }));
     }
 
     public get O() {

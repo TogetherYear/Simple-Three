@@ -1,4 +1,4 @@
-import { TFreeCameraControl } from './TFreeCameraControl';
-import { TRoundCameraControl } from './TRoundCameraControl';
+import { FreeCameraControl } from './FreeCameraControl';
+import { RoundCameraControl } from './RoundCameraControl';
 
-export { TFreeCameraControl, TRoundCameraControl };
+export { FreeCameraControl, RoundCameraControl };

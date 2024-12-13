@@ -1,11 +1,11 @@
-import { TAmbientLight } from './TAmbientLight';
-import { TBox } from './TBox';
-import { TDirectionalLight } from './TDirectionalLight';
-import { TFog } from './TFog';
-import { TGltfModel } from './TGltfModel';
-import { TPlane } from './TPlane';
-import { TPointLight } from './TPointLight';
-import { TSphere } from './TSphere';
-import { TWater } from './TWater';
+import { AmbientLight } from './AmbientLight';
+import { Box } from './Box';
+import { DirectionalLight } from './DirectionalLight';
+import { Fog } from './Fog';
+import { GltfModel } from './GltfModel';
+import { Plane } from './Plane';
+import { PointLight } from './PointLight';
+import { Sphere } from './Sphere';
+import { Water } from './Water';
 
-export { TAmbientLight, TBox, TDirectionalLight, TFog, TGltfModel, TPlane, TPointLight, TSphere, TWater };
+export { AmbientLight, Box, DirectionalLight, Fog, GltfModel, Plane, PointLight, Sphere, Water };

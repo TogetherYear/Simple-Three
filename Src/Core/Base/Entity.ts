@@ -1,7 +1,7 @@
 import { Core } from '@/Core/type';
 import { EventSystem, Time } from '@/Core/Utils';
 
-abstract class TEntity extends EventSystem {
+abstract class Entity extends EventSystem {
     constructor(ctx: Core.Context, options: Core.Base.IEntity = {}) {
         super();
         this.ctx = ctx;
@@ -22,4 +22,4 @@ abstract class TEntity extends EventSystem {
     public unique_Id = Time.GenerateRandomUid();
 }
 
-export { TEntity };
+export { Entity };

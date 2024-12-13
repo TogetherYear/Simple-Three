@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { TActor } from '@/Core/Base';
+import { Actor } from '@/Core/Base';
 import { Core } from '@/Core/type';
 
-class TBox extends TActor {
+class Box extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.IBox = {}) {
         super(ctx, options);
         this.Create();
@@ -22,4 +22,4 @@ class TBox extends TActor {
     }
 }
 
-export { TBox };
+export { Box };

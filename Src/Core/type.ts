@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { TCamera, TEditor, TGame, TInput, TPhysics, TRenderer } from '@/Core/Manager';
-import { TPlugin, TActor, TEntity } from '@/Core/Base';
+import { Camera, Editor, Game, Input, Physics, Renderer } from '@/Core/Manager';
+import { Plugin, Actor, Entity } from '@/Core/Base';
 
 namespace Core {
     export namespace Actor {
@@ -39,7 +39,7 @@ namespace Core {
         export interface IActor extends IEntity {}
 
         export interface IComponent extends IEntity {
-            actor: TActor;
+            actor: Actor;
         }
 
         export interface IManager extends IEntity {}
@@ -91,12 +91,12 @@ namespace Core {
         export interface IRenderer extends Base.IManager {}
 
         export interface IEditorFunc {
-            target: TEntity;
+            target: Entity;
             funcName: string;
         }
 
         export interface IEditorPro {
-            target: TEntity;
+            target: Entity;
             propKey: string;
             min: number;
             max: number;
@@ -148,13 +148,13 @@ namespace Core {
 
     export type Context = {
         dom: HTMLElement;
-        Renderer: TRenderer;
-        Camera: TCamera;
-        Physics: TPhysics;
-        Input: TInput;
-        Game: TGame;
-        Editor: TEditor;
-        Plugins: Array<TPlugin>;
+        Renderer: Renderer;
+        Camera: Camera;
+        Physics: Physics;
+        Input: Input;
+        Game: Game;
+        Editor: Editor;
+        Plugins: Array<Plugin>;
         /**
          * 页面销毁时调用
          */

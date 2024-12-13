@@ -1,9 +1,9 @@
-import { TActor } from '@/Core/Base';
+import { Actor } from '@/Core/Base';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Core } from '@/Core/type';
 import * as THREE from 'three';
 
-class TGltfModel extends TActor {
+class GltfModel extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.IGltfModelOptions) {
         super(ctx, options);
         this.Create();
@@ -32,4 +32,4 @@ class TGltfModel extends TActor {
     }
 }
 
-export { TGltfModel };
+export { GltfModel };

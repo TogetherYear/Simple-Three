@@ -1,10 +1,10 @@
-import { TActor, TManager } from '@/Core/Base';
+import { Actor, Manager } from '@/Core/Base';
 import { TEvent } from '@/Core/Decorators';
 import { Core } from '@/Core/type';
 import * as THREE from 'three';
 
 @TEvent.Create([Core.Manager.GameEvent.Update])
-class TGame extends TManager {
+class Game extends Manager {
     constructor(ctx: Core.Context, options: Core.Manager.IGame = {}) {
         super(ctx, options);
     }
@@ -46,12 +46,12 @@ class TGame extends TManager {
         this.Emit(Core.Manager.GameEvent.Update);
     }
 
-    public Add(actor: TActor) {
+    public Add(actor: Actor) {
         this.ctx.Renderer.actors.push(actor);
         actor.body && this.ctx.Renderer.scene.add(actor.body);
     }
 
-    public Remove(actor: TActor) {
+    public Remove(actor: Actor) {
         this.ctx.Renderer.actors = this.ctx.Renderer.actors.filter((a) => a !== actor);
         actor.body && this.ctx.Renderer.scene.remove(actor.body);
     }
@@ -62,4 +62,4 @@ class TGame extends TManager {
     }
 }
 
-export { TGame };
+export { Game };

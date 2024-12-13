@@ -1,4 +1,4 @@
-import { TBoxRigidBody } from './TBoxRigidBody';
-import { TSphereRigidBody } from './TSphereRigidBody';
+import { BoxRigidBody } from './BoxRigidBody';
+import { SphereRigidBody } from './SphereRigidBody';
 
-export { TBoxRigidBody, TSphereRigidBody };
+export { BoxRigidBody, SphereRigidBody };

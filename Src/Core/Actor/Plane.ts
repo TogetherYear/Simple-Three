@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { TActor } from '@/Core/Base';
+import { Actor } from '@/Core/Base';
 import bcT from '@/Assets/Images/bc.png';
 import hT from '@/Assets/Images/h.png';
 import nT from '@/Assets/Images/n.png';
@@ -7,7 +7,7 @@ import mT from '@/Assets/Images/m.png';
 import rT from '@/Assets/Images/r.png';
 import { Core } from '@/Core/type';
 
-class TPlane extends TActor {
+class Plane extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.IPlane = {}) {
         super(ctx, options);
         this.Create();
@@ -59,4 +59,4 @@ class TPlane extends TActor {
     }
 }
 
-export { TPlane };
+export { Plane };

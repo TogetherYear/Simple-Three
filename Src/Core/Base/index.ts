@@ -1,7 +1,7 @@
-import { TActor } from './TActor';
-import { TComponent } from './TComponent';
-import { TEntity } from './TEntity';
-import { TManager } from './TManager';
-import { TPlugin } from './TPlugin';
+import { Actor } from './Actor';
+import { Component } from './Component';
+import { Entity } from './Entity';
+import { Manager } from './Manager';
+import { Plugin } from './Plugin';
 
-export { TActor, TComponent, TEntity, TManager, TPlugin };
+export { Actor, Component, Entity, Manager, Plugin };

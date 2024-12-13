@@ -1,42 +1,42 @@
-import { TManager } from '@/Core/Base';
+import { Manager } from '@/Core/Base';
 import { Core } from '@/Core/type';
 import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
-import { Physics, SharedBufferPhysics } from '@/Core/Worker';
-import { TBoxRigidBody, TSphereRigidBody } from '@/Core/Components';
+import { Physics as PW, SharedBufferPhysics as PBW } from '@/Core/Worker';
+import { BoxRigidBody, SphereRigidBody } from '@/Core/Components';
 import { TEvent } from '@/Core/Decorators';
-import { TSubManager } from '../Base/TSubManager';
+import { SubManager } from '../Base/SubManager';
 
 @TEvent.Create([Core.Manager.PhysicsEvent.Update])
-class TPhysics extends TManager {
+class Physics extends Manager {
     constructor(ctx: Core.Context, options: Core.Manager.IPhysics = {}) {
         super(ctx, options);
     }
 
-    private dealInstance!: TWebWorkerSharedArraybufferPhysics | TWebWorkerPhysics | TDefaultPhysics;
+    private dealInstance!: WebWorkerSharedArraybufferPhysics | WebWorkerPhysics | DefaultPhysics;
 
     public get O() {
         return this.options as Core.Manager.IPhysics;
     }
 
-    public bodys = new Map<string, TBoxRigidBody | TSphereRigidBody>();
+    public bodys = new Map<string, BoxRigidBody | SphereRigidBody>();
 
     public async Run() {
         if (this.O.webWorker && this.O.sharedArraybuffer) {
-            this.dealInstance = new TWebWorkerSharedArraybufferPhysics(this.ctx);
+            this.dealInstance = new WebWorkerSharedArraybufferPhysics(this.ctx);
         } else if (this.O.webWorker && !this.O.sharedArraybuffer) {
-            this.dealInstance = new TWebWorkerPhysics(this.ctx);
+            this.dealInstance = new WebWorkerPhysics(this.ctx);
         } else {
-            this.dealInstance = new TDefaultPhysics(this.ctx);
+            this.dealInstance = new DefaultPhysics(this.ctx);
         }
         await this.dealInstance.Run();
     }
 
-    public Add(target: TBoxRigidBody | TSphereRigidBody, options: Core.Worker.Physics.AddOptions) {
+    public Add(target: BoxRigidBody | SphereRigidBody, options: Core.Worker.Physics.AddOptions) {
         this.dealInstance.Add(target, options);
     }
 
-    public Remove(target: TBoxRigidBody | TSphereRigidBody) {
+    public Remove(target: BoxRigidBody | SphereRigidBody) {
         this.dealInstance.Remove(target);
     }
 
@@ -46,7 +46,7 @@ class TPhysics extends TManager {
     }
 }
 
-class TWebWorkerSharedArraybufferPhysics extends TSubManager {
+class WebWorkerSharedArraybufferPhysics extends SubManager {
     constructor(ctx: Core.Context, options: Core.Manager.IWebWorkerSharedArraybufferPhysics = {}) {
         super(ctx, options);
         this.SetDefault();
@@ -67,7 +67,7 @@ class TWebWorkerSharedArraybufferPhysics extends TSubManager {
     private quaternions!: Float32Array;
 
     private SetDefault() {
-        this.worker = new SharedBufferPhysics();
+        this.worker = new PBW();
         this.postionsSharedBuffer = new SharedArrayBuffer(100 * 3 * Float32Array.BYTES_PER_ELEMENT);
         this.quaternionsSharedBuffer = new SharedArrayBuffer(100 * 4 * Float32Array.BYTES_PER_ELEMENT);
         this.positions = new Float32Array(this.postionsSharedBuffer);
@@ -94,7 +94,7 @@ class TWebWorkerSharedArraybufferPhysics extends TSubManager {
         });
     }
 
-    @TEvent.Listen<TWebWorkerSharedArraybufferPhysics>((instance) => instance.worker!, 'message')
+    @TEvent.Listen<WebWorkerSharedArraybufferPhysics>((instance) => instance.worker!, 'message')
     private OnMessage(e: Record<string, any>) {
         if (e.data.type === 'Physics') {
             const ids = e.data.ids as Array<string>;
@@ -110,7 +110,7 @@ class TWebWorkerSharedArraybufferPhysics extends TSubManager {
         }
     }
 
-    public Add(target: TBoxRigidBody | TSphereRigidBody, options: Core.Worker.Physics.AddOptions) {
+    public Add(target: BoxRigidBody | SphereRigidBody, options: Core.Worker.Physics.AddOptions) {
         if (this.ctx.Physics.bodys.size < 100) {
             this.ctx.Physics.bodys.set(target.unique_Id, target);
             this.worker!.postMessage({
@@ -121,7 +121,7 @@ class TWebWorkerSharedArraybufferPhysics extends TSubManager {
         }
     }
 
-    public Remove(target: TBoxRigidBody | TSphereRigidBody) {
+    public Remove(target: BoxRigidBody | SphereRigidBody) {
         this.ctx.Physics.bodys.delete(target.unique_Id);
         this.worker!.postMessage({ type: 'Remove', id: target.unique_Id });
     }
@@ -132,7 +132,7 @@ class TWebWorkerSharedArraybufferPhysics extends TSubManager {
     }
 }
 
-class TWebWorkerPhysics extends TSubManager {
+class WebWorkerPhysics extends SubManager {
     constructor(ctx: Core.Context, options: Core.Manager.IWebWorkerPhysics = {}) {
         super(ctx, options);
         this.SetDefault();
@@ -145,7 +145,7 @@ class TWebWorkerPhysics extends TSubManager {
     private worker!: Worker;
 
     private SetDefault() {
-        this.worker = new Physics();
+        this.worker = new PW();
     }
 
     public async Run(): Promise<void> {
@@ -166,7 +166,7 @@ class TWebWorkerPhysics extends TSubManager {
         });
     }
 
-    @TEvent.Listen<TWebWorkerPhysics>((instance) => instance.worker!, 'message')
+    @TEvent.Listen<WebWorkerPhysics>((instance) => instance.worker!, 'message')
     private OnMessage(e: Record<string, any>) {
         if (e.data.type === 'Physics') {
             const ids = e.data.ids as Array<string>;
@@ -184,7 +184,7 @@ class TWebWorkerPhysics extends TSubManager {
         }
     }
 
-    public Add(target: TBoxRigidBody | TSphereRigidBody, options: Core.Worker.Physics.AddOptions) {
+    public Add(target: BoxRigidBody | SphereRigidBody, options: Core.Worker.Physics.AddOptions) {
         if (this.ctx.Physics.bodys.size < 100) {
             this.ctx.Physics.bodys.set(target.unique_Id, target);
             this.worker!.postMessage({
@@ -195,7 +195,7 @@ class TWebWorkerPhysics extends TSubManager {
         }
     }
 
-    public Remove(target: TBoxRigidBody | TSphereRigidBody) {
+    public Remove(target: BoxRigidBody | SphereRigidBody) {
         this.ctx.Physics.bodys.delete(target.unique_Id);
         this.worker!.postMessage({ type: 'Remove', id: target.unique_Id });
     }
@@ -206,7 +206,7 @@ class TWebWorkerPhysics extends TSubManager {
     }
 }
 
-class TDefaultPhysics extends TSubManager {
+class DefaultPhysics extends SubManager {
     constructor(ctx: Core.Context, options: Core.Manager.IDefaultPhysics = {}) {
         super(ctx, options);
         this.SetDefault();
@@ -271,7 +271,7 @@ class TDefaultPhysics extends TSubManager {
         this.ctx.Physics.Emit(Core.Manager.PhysicsEvent.Update);
     }
 
-    public Add(target: TBoxRigidBody | TSphereRigidBody, options: Core.Worker.Physics.AddOptions) {
+    public Add(target: BoxRigidBody | SphereRigidBody, options: Core.Worker.Physics.AddOptions) {
         if (this.ctx.Physics.bodys.size < 100) {
             let body!: CANNON.Body;
             if (options.type === 'Box') {
@@ -315,7 +315,7 @@ class TDefaultPhysics extends TSubManager {
         return body;
     }
 
-    public Remove(target: TBoxRigidBody | TSphereRigidBody) {
+    public Remove(target: BoxRigidBody | SphereRigidBody) {
         this.ctx.Physics.bodys.delete(target.unique_Id);
     }
 
@@ -327,4 +327,4 @@ class TDefaultPhysics extends TSubManager {
     }
 }
 
-export { TPhysics };
+export { Physics };

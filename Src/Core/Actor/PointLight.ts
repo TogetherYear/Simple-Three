@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { TActor } from '@/Core/Base';
+import { Actor } from '@/Core/Base';
 import { Core } from '@/Core/type';
 
-class TPointLight extends TActor {
+class PointLight extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.IPointLight = {}) {
         super(ctx, options);
         this.Create();
@@ -21,4 +21,4 @@ class TPointLight extends TActor {
     }
 }
 
-export { TPointLight };
+export { PointLight };

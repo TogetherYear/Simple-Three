@@ -1,8 +1,8 @@
-import { TEntity, TManager } from '@/Core/Base';
+import { Entity, Manager } from '@/Core/Base';
 import * as G from 'three/examples/jsm/libs/lil-gui.module.min';
 import { Core } from '@/Core/type';
 
-class TEditor extends TManager {
+class Editor extends Manager {
     constructor(ctx: Core.Context, options: Core.Manager.IEditor = {}) {
         super(ctx, options);
     }
@@ -44,7 +44,7 @@ class TEditor extends TManager {
         }
     }
 
-    public RemoveBindProperty<T extends TEntity>(target: Array<{ target: T; propKey: string }>) {
+    public RemoveBindProperty<T extends Entity>(target: Array<{ target: T; propKey: string }>) {
         for (let t of target) {
             const b = this.bindFuncs.get(`${t.target.unique_Id}-${t.propKey}`);
             b && b.destroy();
@@ -57,4 +57,4 @@ class TEditor extends TManager {
     }
 }
 
-export { TEditor };
+export { Editor };

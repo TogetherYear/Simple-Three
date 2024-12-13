@@ -1,10 +1,10 @@
-import { TManager } from '@/Core/Base';
+import { Manager } from '@/Core/Base';
 import { Core } from '@/Core/type';
 import { TEvent, TTool } from '@/Core/Decorators';
 import * as THREE from 'three';
 
 @TEvent.Create([Core.Manager.InputEvent.MouseMoveDelta, Core.Manager.InputEvent.Wheel])
-class TInput extends TManager {
+class Input extends Manager {
     constructor(ctx: Core.Context, options: Core.Manager.IInput = {}) {
         super(ctx, options);
     }
@@ -56,12 +56,12 @@ class TInput extends TManager {
 
     public Run() {}
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mouseenter')
+    @TEvent.Listen<Input>((instance) => instance.ctx.dom, 'mouseenter')
     private OnEnter() {
         this.focus = true;
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mouseleave')
+    @TEvent.Listen<Input>((instance) => instance.ctx.dom, 'mouseleave')
     private OnLeave() {
         this.direction.multiplyScalar(0);
         this.mouseMoveDelta.multiplyScalar(0);
@@ -146,7 +146,7 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mousedown')
+    @TEvent.Listen<Input>((instance) => instance.ctx.dom, 'mousedown')
     private OnMouseDwon(e: MouseEvent) {
         if (e.button === 0) {
             this.mouseStatus.left = true;
@@ -157,7 +157,7 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mouseup')
+    @TEvent.Listen<Input>((instance) => instance.ctx.dom, 'mouseup')
     private OnMouseUp(e: MouseEvent) {
         if (e.button === 0) {
             this.mouseStatus.left = false;
@@ -168,7 +168,7 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'mousemove')
+    @TEvent.Listen<Input>((instance) => instance.ctx.dom, 'mousemove')
     private OnMouseMove(e: MouseEvent) {
         if (!this.focus) {
             this.focus = true;
@@ -185,17 +185,17 @@ class TInput extends TManager {
         }
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'wheel')
+    @TEvent.Listen<Input>((instance) => instance.ctx.dom, 'wheel')
     private OnWheel(e: WheelEvent) {
         this.CalculateWheel(e);
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.dom, 'contextmenu')
+    @TEvent.Listen<Input>((instance) => instance.ctx.dom, 'contextmenu')
     private OnContextMenu(e: Event) {
         e.preventDefault();
     }
 
-    @TEvent.Listen<TInput>((instance) => instance.ctx.Game, Core.Manager.GameEvent.Update)
+    @TEvent.Listen<Input>((instance) => instance.ctx.Game, Core.Manager.GameEvent.Update)
     private Update() {
         this.CalculateDirection();
     }
@@ -208,14 +208,14 @@ class TInput extends TManager {
         this.direction.z = (this.keyStatus.q ? -1 : 0) + (this.keyStatus.e ? 1 : 0);
     }
 
-    @TTool.Throttle<TInput>((instance) => instance.ctx.Game.deltaTime)
+    @TTool.Throttle<Input>((instance) => instance.ctx.Game.deltaTime)
     private CalculateRotateDelta() {
         this.Emit(Core.Manager.InputEvent.MouseMoveDelta, { x: this.mouseMoveDelta.x, y: this.mouseMoveDelta.y });
         this.mouseMoveDelta.x = 0;
         this.mouseMoveDelta.y = 0;
     }
 
-    @TTool.Throttle<TInput>((instance) => instance.ctx.Game.deltaTime)
+    @TTool.Throttle<Input>((instance) => instance.ctx.Game.deltaTime)
     private CalculateWheel(e: WheelEvent) {
         this.Emit(Core.Manager.InputEvent.Wheel, { flag: e.deltaY < 0 });
     }
@@ -225,4 +225,4 @@ class TInput extends TManager {
     }
 }
 
-export { TInput };
+export { Input };

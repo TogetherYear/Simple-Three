@@ -1,8 +1,8 @@
-import { TComponent } from '@/Core/Base';
+import { Component } from '@/Core/Base';
 import { Core } from '@/Core/type';
 import * as THREE from 'three';
 
-class TSphereRigidBody extends TComponent {
+class SphereRigidBody extends Component {
     constructor(ctx: Core.Context, options: Core.Component.IRigidBodyOptions) {
         super(ctx, options);
         this.Create();
@@ -38,4 +38,4 @@ class TSphereRigidBody extends TComponent {
     }
 }
 
-export { TSphereRigidBody };
+export { SphereRigidBody };

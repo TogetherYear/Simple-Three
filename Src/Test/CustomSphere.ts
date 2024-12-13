@@ -1,5 +1,5 @@
-import { TSphere } from '@/Core/Actor';
-import { TSphereRigidBody } from '@/Core/Components';
+import { Sphere } from '@/Core/Actor';
+import { SphereRigidBody } from '@/Core/Components';
 import { Type } from '@/Core';
 import { TEvent } from '@/Core/Decorators';
 import * as THREE from 'three';
@@ -10,7 +10,7 @@ interface ICustomSphere extends Type.Base.IActor {
     scale: THREE.Vector3;
 }
 
-class CustomSphere extends TSphere {
+class CustomSphere extends Sphere {
     constructor(ctx: Type.Context, options: ICustomSphere) {
         super(ctx, options);
         this.body.position.copy(this.O.position);
@@ -18,7 +18,7 @@ class CustomSphere extends TSphere {
         this.body.rotateY(this.O.rotate.y);
         this.body.rotateZ(this.O.rotate.z);
         this.body.scale.copy(this.O.scale);
-        this.AddComponent(new TSphereRigidBody(ctx, { mass: 1, fix: false, actor: this }));
+        this.AddComponent(new SphereRigidBody(ctx, { mass: 1, fix: false, actor: this }));
     }
 
     public get O() {

@@ -1,8 +1,8 @@
-import { TCamera } from './TCamera';
-import { TGame } from './TGame';
-import { TInput } from './TInput';
-import { TPhysics } from './TPhysics';
-import { TRenderer } from './TRenderer';
-import { TEditor } from './TEditor';
+import { Camera } from './Camera';
+import { Game } from './Game';
+import { Input } from './Input';
+import { Physics } from './Physics';
+import { Renderer } from './Renderer';
+import { Editor } from './Editor';
 
-export { TCamera, TGame, TInput, TPhysics, TRenderer, TEditor };
+export { Camera, Game, Input, Physics, Renderer, Editor };

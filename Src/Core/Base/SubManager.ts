@@ -1,20 +1,20 @@
 import { TEvent, TTest, TTool } from '@/Core/Decorators';
 import { Core } from '@/Core/type';
-import { TEntity } from './TEntity';
+import { Entity } from './Entity';
 
 @TTest.Generate()
 @TTool.Generate()
 @TEvent.Generate()
-class TComponent extends TEntity {
-    constructor(ctx: Core.Context, options: Core.Base.IComponent) {
+class SubManager extends Entity {
+    constructor(ctx: Core.Context, options: Core.Base.ISubManager = {}) {
         super(ctx, options);
     }
 
     public get O() {
-        return this.options as Core.Base.IComponent;
+        return this.options as Core.Base.ISubManager;
     }
 
     public Destroy() {}
 }
 
-export { TComponent };
+export { SubManager };

@@ -1,9 +1,9 @@
 import * as THREE from 'three';
-import { TManager } from '@/Core/Base';
+import { Manager } from '@/Core/Base';
 import { Core } from '@/Core/type';
 import { TEvent } from '@/Core/Decorators';
 
-class TCamera extends TManager {
+class Camera extends Manager {
     constructor(ctx: Core.Context, options: Core.Manager.ICamera = {}) {
         super(ctx, options);
     }
@@ -40,4 +40,4 @@ class TCamera extends TManager {
     }
 }
 
-export { TCamera };
+export { Camera };

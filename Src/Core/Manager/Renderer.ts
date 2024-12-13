@@ -1,9 +1,9 @@
 import * as THREE from 'three';
-import { TManager, TActor } from '@/Core/Base';
+import { Manager, Actor } from '@/Core/Base';
 import { TEvent, TTest } from '@/Core/Decorators';
 import { Core } from '@/Core/type';
 
-class TRenderer extends TManager {
+class Renderer extends Manager {
     constructor(ctx: Core.Context, options: Core.Manager.IRenderer = {}) {
         super(ctx, options);
     }
@@ -16,7 +16,7 @@ class TRenderer extends TManager {
 
     public renderer!: THREE.WebGLRenderer;
 
-    public actors: Array<TActor> = [];
+    public actors: Array<Actor> = [];
 
     @TTest.BindProperty(0.1, 5, 0.1)
     private resolutionScale = 1;
@@ -57,4 +57,4 @@ class TRenderer extends TManager {
     }
 }
 
-export { TRenderer };
+export { Renderer };

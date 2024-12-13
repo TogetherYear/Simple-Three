@@ -1,5 +1,5 @@
 import { Time } from '@/Core/Utils';
-import { TEntity } from '@/Core/Base';
+import { Entity } from '@/Core/Base';
 
 /**
  * 事件相关
@@ -9,7 +9,7 @@ namespace TEvent {
      * 事件循环生成
      */
     export function Generate() {
-        return function <T extends new (...args: Array<any>) => TEntity>(C: T) {
+        return function <T extends new (...args: Array<any>) => Entity>(C: T) {
             return class extends C {
                 constructor(...args: Array<any>) {
                     super(...args);
@@ -96,7 +96,7 @@ namespace TEvent {
      * @description 生成事件列表 只给 Manager 用
      */
     export function Create(events: Array<string>) {
-        return function <T extends new (...args: Array<any>) => TEntity>(C: T) {
+        return function <T extends new (...args: Array<any>) => Entity>(C: T) {
             return class extends C {
                 constructor(...args: Array<any>) {
                     super(...args);
@@ -119,7 +119,7 @@ namespace TEvent {
     /**
      * 监听事件 es 可以是 继承 Manager 的 也可以是 HTMLElement 或者 window ......
      */
-    export function Listen<T extends TEntity>(es: Object | ((instance: T) => Object), eventName: string) {
+    export function Listen<T extends Entity>(es: Object | ((instance: T) => Object), eventName: string) {
         return function (target: T, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tEvent_Listen_NeedListen']) {
