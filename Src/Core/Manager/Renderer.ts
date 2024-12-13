@@ -18,7 +18,9 @@ class Renderer extends Manager {
 
     public actors: Array<Actor> = [];
 
-    @TTest.BindProperty(0.1, 5, 0.1)
+    @TTest.BindNumberProperty<Renderer>(0.1, 5, 0.1, (instance) => {
+        console.log('A');
+    })
     private resolutionScale = 1;
 
     public Run() {

@@ -33,10 +33,12 @@ namespace TTest {
                     Time.Resolve.then(() => {
                         //@ts-ignore
                         const bind = (this['tTest_Bind_Property'] || []) as Array<{
+                            type: 'number';
                             propKey: string;
                             min: number | ((instance: T) => number);
                             max: number | ((instance: T) => number);
                             step: number | ((instance: T) => number);
+                            Callback: (instance: T, value: number) => void;
                         }>;
                         this.ctx.Editor.AddBindProperty(
                             bind.map((b) => {
@@ -48,7 +50,9 @@ namespace TTest {
                                     //@ts-ignore
                                     max: typeof b.max === 'function' ? b.max(this) : b.max,
                                     //@ts-ignore
-                                    step: typeof b.step === 'function' ? b.step(this) : b.step
+                                    step: typeof b.step === 'function' ? b.step(this) : b.step,
+                                    type: b.type,
+                                    Callback: b.Callback
                                 };
                             })
                         );
@@ -86,10 +90,12 @@ namespace TTest {
                     this[`Destroy`] = function (...args: Array<unknown>) {
                         //@ts-ignore
                         const bind = (this['tTest_Bind_Property'] || []) as Array<{
+                            type: 'number';
                             propKey: string;
                             min: number | ((instance: T) => number);
                             max: number | ((instance: T) => number);
                             step: number | ((instance: T) => number);
+                            Callback: (instance: T, value: number) => void;
                         }>;
                         this.ctx.Editor.RemoveBindProperty(
                             bind.map((b) => {
@@ -127,27 +133,36 @@ namespace TTest {
     }
 
     /**
-     * 绑定测试属性
+     * 绑定number属性
      */
-    export function BindProperty<T extends Entity>(min: number | ((instance: T) => number), max: number | ((instance: T) => number), step: number | ((instance: T) => number)) {
+    export function BindNumberProperty<T extends Entity>(
+        min: number | ((instance: T) => number),
+        max: number | ((instance: T) => number),
+        step: number | ((instance: T) => number),
+        Callback: (instance: T, value: number) => void
+    ) {
         return function (target: T, propertyKey: string | symbol) {
             //@ts-ignore
             if (target['tTest_Bind_Property']) {
                 //@ts-ignore
                 target['tTest_Bind_Property'].push({
+                    type: 'number',
                     propKey: propertyKey,
                     min,
                     max,
-                    step
+                    step,
+                    Callback
                 });
             } else {
                 //@ts-ignore
                 target['tTest_Bind_Property'] = [
                     {
+                        type: 'number',
                         propKey: propertyKey,
                         min,
                         max,
-                        step
+                        step,
+                        Callback
                     }
                 ];
             }

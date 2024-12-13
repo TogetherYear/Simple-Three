@@ -35,10 +35,13 @@ class Editor extends Manager {
         }
     }
 
-    public AddBindProperty(target: Array<Core.Manager.IEditorPro>) {
+    public AddBindProperty(target: Array<Core.Manager.IEditorPro<Entity>>) {
         for (let t of target) {
             //@ts-ignore
             const controller = this.gui.add(t.target, t.propKey, t.min, t.max, t.step);
+            controller.onChange((e) => {
+                t.Callback(t.target, e);
+            });
             //@ts-ignore
             this.bindFuncs.set(`${t.target.unique_Id}-${t.propKey}`, controller);
         }

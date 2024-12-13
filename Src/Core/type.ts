@@ -95,12 +95,14 @@ namespace Core {
             funcName: string;
         }
 
-        export interface IEditorPro {
+        export interface IEditorPro<T extends Entity> {
             target: Entity;
+            type: 'number';
             propKey: string;
             min: number;
             max: number;
             step: number;
+            Callback: (instance: T, value: number) => void;
         }
     }
 
