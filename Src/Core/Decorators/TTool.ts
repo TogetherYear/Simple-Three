@@ -32,7 +32,7 @@ namespace TTool {
                     //@ts-ignore
                     const create = (this['tTool_Debounce_NeedCreate'] || []) as Array<{
                         funcName: string;
-                        delta: number | ((instance: Object) => number);
+                        delta: number | ((instance: T) => number);
                     }>;
                     for (let e of create) {
                         //@ts-ignore
@@ -50,6 +50,7 @@ namespace TTool {
                                         original(...args);
                                         debounceMap.delete(key);
                                     },
+                                    //@ts-ignore
                                     typeof e.delta === 'function' ? e.delta(this) : e.delta
                                 );
                             } else {
@@ -59,6 +60,7 @@ namespace TTool {
                                         original(...args);
                                         debounceMap.delete(key);
                                     },
+                                    //@ts-ignore
                                     typeof e.delta === 'function' ? e.delta(this) : e.delta
                                 );
                             }
@@ -72,7 +74,7 @@ namespace TTool {
                     //@ts-ignore
                     const create = (this['tTool_Throttle_NeedCreate'] || []) as Array<{
                         funcName: string;
-                        delta: number | ((instance: Object) => number);
+                        delta: number | ((instance: T) => number);
                     }>;
                     for (let e of create) {
                         //@ts-ignore
@@ -84,6 +86,7 @@ namespace TTool {
                             let lastTime = throttleMap.get(key);
                             if (lastTime) {
                                 const currentTime = Date.now();
+                                //@ts-ignore
                                 if (currentTime - lastTime > (typeof e.delta === 'function' ? e.delta(this) : e.delta)) {
                                     lastTime = currentTime;
                                     original(...args);
@@ -100,8 +103,8 @@ namespace TTool {
                 private TTool_Generate_Retry() {
                     //@ts-ignore
                     const retry = (this['tTool_Retry_Need'] || []) as Array<{
-                        retryCount: number | ((instance: Object) => number);
-                        retryDelay: number | ((instance: Object) => number);
+                        retryCount: number | ((instance: T) => number);
+                        retryDelay: number | ((instance: T) => number);
                         PassRetryCondition: (data: Record<string, unknown>) => boolean | Promise<boolean>;
                         propertyKey: string;
                     }>;
@@ -124,6 +127,7 @@ namespace TTool {
                         //@ts-ignore
                         this[`${r.propertyKey}`] = function (...args: Array<unknown>) {
                             return new Promise(async (resolve, reject) => {
+                                //@ts-ignore
                                 const count = typeof r.retryCount === 'function' ? r.retryCount(this) : r.retryCount;
                                 for (let i = 0; i < count; ++i) {
                                     const result = await temp(...args);
@@ -136,6 +140,7 @@ namespace TTool {
                                         resolve(result.data);
                                         break;
                                     }
+                                    //@ts-ignore
                                     await Time.Sleep(typeof r.retryDelay === 'function' ? r.retryDelay(this) : r.retryDelay);
                                 }
                             });
@@ -148,8 +153,8 @@ namespace TTool {
                         //@ts-ignore
                         const interval = (this['tTool_Interval_Need'] || []) as Array<{
                             propertyKey: string;
-                            condition: boolean | ((instance: Object) => boolean);
-                            time: number | ((instance: Object) => number);
+                            condition: boolean | ((instance: T) => boolean);
+                            time: number | ((instance: T) => number);
                         }>;
 
                         for (let i of interval) {
@@ -158,10 +163,12 @@ namespace TTool {
 
                             const timer = setInterval(
                                 () => {
+                                    //@ts-ignore
                                     if (typeof i.condition === 'function' ? i.condition(this) : i.condition) {
                                         original();
                                     }
                                 },
+                                //@ts-ignore
                                 typeof i.time === 'function' ? i.time(this) : i.time
                             );
 
@@ -201,7 +208,7 @@ namespace TTool {
      * 防抖 默认 500 毫秒
      */
     export function Debounce<T extends TEntity>(delta: number | ((instance: T) => number) = 500) {
-        return function (target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
+        return function (target: T, propertyKey: string, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tTool_Debounce_NeedCreate']) {
                 //@ts-ignore
@@ -225,7 +232,7 @@ namespace TTool {
      * 节流 默认 500 毫秒
      */
     export function Throttle<T extends TEntity>(delta: number | ((instance: T) => number) = 500) {
-        return function (target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
+        return function (target: T, propertyKey: string, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tTool_Throttle_NeedCreate']) {
                 //@ts-ignore
@@ -253,7 +260,7 @@ namespace TTool {
         retryDelay: number | ((instance: T) => number),
         PassRetryCondition: (data: Record<string, unknown> | undefined | any) => boolean | Promise<boolean>
     ) {
-        return function (target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+        return function (target: T, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tTool_Retry_Need']) {
                 //@ts-ignore
@@ -285,7 +292,7 @@ namespace TTool {
      * condition 是否执行的条件 time 每次执行间隔
      */
     export function Interval<T extends TEntity>(condition: boolean | ((instance: T) => boolean), time: number | ((instance: T) => number)) {
-        return function (target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+        return function (target: T, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tTool_Interval_Need']) {
                 //@ts-ignore

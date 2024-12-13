@@ -35,9 +35,9 @@ namespace TTest {
                         //@ts-ignore
                         const bind = (this['tTest_Bind_Property'] || []) as Array<{
                             propKey: string;
-                            min: number | ((instace: T) => number);
-                            max: number | ((instace: T) => number);
-                            step: number | ((instace: T) => number);
+                            min: number | ((instance: T) => number);
+                            max: number | ((instance: T) => number);
+                            step: number | ((instance: T) => number);
                         }>;
                         this.ctx.Editor.AddBindProperty(
                             bind.map((b) => {
@@ -88,9 +88,9 @@ namespace TTest {
                         //@ts-ignore
                         const bind = (this['tTest_Bind_Property'] || []) as Array<{
                             propKey: string;
-                            min: number | ((instace: T) => number);
-                            max: number | ((instace: T) => number);
-                            step: number | ((instace: T) => number);
+                            min: number | ((instance: T) => number);
+                            max: number | ((instance: T) => number);
+                            step: number | ((instance: T) => number);
                         }>;
                         this.ctx.Editor.RemoveBindProperty(
                             bind.map((b) => {
@@ -108,8 +108,8 @@ namespace TTest {
     /**
      * 绑定测试函数
      */
-    export function BindFunction() {
-        return function (target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+    export function BindFunction<T extends TEntity>() {
+        return function (target: T, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tTest_Bind_Function']) {
                 //@ts-ignore
@@ -131,7 +131,7 @@ namespace TTest {
      * 绑定测试属性
      */
     export function BindProperty<T extends TEntity>(min: number | ((instance: T) => number), max: number | ((instance: T) => number), step: number | ((instance: T) => number)) {
-        return function (target: Object, propertyKey: string | symbol) {
+        return function (target: T, propertyKey: string | symbol) {
             //@ts-ignore
             if (target['tTest_Bind_Property']) {
                 //@ts-ignore

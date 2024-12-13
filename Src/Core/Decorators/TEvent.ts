@@ -38,11 +38,12 @@ namespace TEvent {
                     Time.Resolve.then(() => {
                         //@ts-ignore
                         const listen = (this['tEvent_Listen_NeedListen'] || []) as Array<{
-                            listenTarget: Object | ((instance: Object) => Object);
+                            listenTarget: Object | ((instance: T) => Object);
                             eventName: string;
                             funcName: string;
                         }>;
                         for (let e of listen) {
+                            //@ts-ignore
                             const t = typeof e.listenTarget === 'function' ? e.listenTarget(this) : e.listenTarget;
                             if (t.hasOwnProperty('unique_Id')) {
                                 //@ts-ignore
@@ -65,11 +66,12 @@ namespace TEvent {
                     this[`Destroy`] = function (...args: Array<unknown>) {
                         //@ts-ignore
                         const listen = (this['tEvent_Listen_NeedListen'] || []) as Array<{
-                            listenTarget: Object | ((instance: Object) => Object);
+                            listenTarget: Object | ((instance: T) => Object);
                             eventName: string;
                             funcName: string;
                         }>;
                         for (let e of listen) {
+                            //@ts-ignore
                             const t = typeof e.listenTarget === 'function' ? e.listenTarget(this) : e.listenTarget;
                             if (t.hasOwnProperty('unique_Id')) {
                                 //@ts-ignore
@@ -117,8 +119,8 @@ namespace TEvent {
     /**
      * 监听事件 es 可以是 继承 Manager 的 也可以是 HTMLElement 或者 window ......
      */
-    export function Listen<T>(es: Object | ((instance: T) => Object), eventName: string) {
-        return function (target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+    export function Listen<T extends TEntity>(es: Object | ((instance: T) => Object), eventName: string) {
+        return function (target: T, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
             //@ts-ignore
             if (target['tEvent_Listen_NeedListen']) {
                 //@ts-ignore
