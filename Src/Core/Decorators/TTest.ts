@@ -11,6 +11,7 @@ namespace TTest {
                 constructor(...args: Array<any>) {
                     super(...args);
                     this.TTest_Generate_BindFunction();
+                    this.TTest_Generate_BindProperty();
                     this.TTest_Generate_Hooks();
                 }
 
@@ -25,11 +26,39 @@ namespace TTest {
                                 return { ...b, target: this };
                             })
                         );
+                        console.log('A');
+                    });
+                }
+
+                private TTest_Generate_BindProperty() {
+                    Time.Resolve.then(() => {
+                        //@ts-ignore
+                        const bind = (this['tTest_Bind_Property'] || []) as Array<{
+                            propKey: string;
+                            min: number | ((instace: T) => number);
+                            max: number | ((instace: T) => number);
+                            step: number | ((instace: T) => number);
+                        }>;
+                        this.ctx.Editor.AddBindProperty(
+                            bind.map((b) => {
+                                return {
+                                    target: this,
+                                    propKey: b.propKey,
+                                    //@ts-ignore
+                                    min: typeof b.min === 'function' ? b.min(this) : b.min,
+                                    //@ts-ignore
+                                    max: typeof b.max === 'function' ? b.max(this) : b.max,
+                                    //@ts-ignore
+                                    step: typeof b.step === 'function' ? b.step(this) : b.step
+                                };
+                            })
+                        );
                     });
                 }
 
                 private TTest_Generate_Hooks() {
                     this.TTest_Generate_UnBindFunction();
+                    this.TTest_Generate_UnBindProperty();
                 }
 
                 private TTest_Generate_UnBindFunction() {
@@ -44,6 +73,28 @@ namespace TTest {
                         this.ctx.Editor.RemoveBindFunc(
                             bind.map((b) => {
                                 return { ...b, target: this };
+                            })
+                        );
+                        //@ts-ignore
+                        original(...args);
+                    };
+                }
+
+                private TTest_Generate_UnBindProperty() {
+                    //@ts-ignore
+                    const original = this[`Destroy`].bind(this);
+                    //@ts-ignore
+                    this[`Destroy`] = function (...args: Array<unknown>) {
+                        //@ts-ignore
+                        const bind = (this['tTest_Bind_Property'] || []) as Array<{
+                            propKey: string;
+                            min: number | ((instace: T) => number);
+                            max: number | ((instace: T) => number);
+                            step: number | ((instace: T) => number);
+                        }>;
+                        this.ctx.Editor.RemoveBindProperty(
+                            bind.map((b) => {
+                                return { target: this, propKey: b.propKey };
                             })
                         );
                         //@ts-ignore
@@ -70,6 +121,34 @@ namespace TTest {
                 target['tTest_Bind_Function'] = [
                     {
                         funcName: propertyKey
+                    }
+                ];
+            }
+        };
+    }
+
+    /**
+     * 绑定测试属性
+     */
+    export function BindProperty<T extends TEntity>(min: number | ((instance: T) => number), max: number | ((instance: T) => number), step: number | ((instance: T) => number)) {
+        return function (target: Object, propertyKey: string | symbol) {
+            //@ts-ignore
+            if (target['tTest_Bind_Property']) {
+                //@ts-ignore
+                target['tTest_Bind_Property'].push({
+                    propKey: propertyKey,
+                    min,
+                    max,
+                    step
+                });
+            } else {
+                //@ts-ignore
+                target['tTest_Bind_Property'] = [
+                    {
+                        propKey: propertyKey,
+                        min,
+                        max,
+                        step
                     }
                 ];
             }

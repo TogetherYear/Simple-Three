@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { TManager, TActor } from '@/Core/Base';
-import { TEvent } from '@/Core/Decorators';
+import { TEvent, TTest } from '@/Core/Decorators';
 import { Core } from '@/Core/type';
 
 class TRenderer extends TManager {
@@ -17,6 +17,9 @@ class TRenderer extends TManager {
     public renderer!: THREE.WebGLRenderer;
 
     public actors: Array<TActor> = [];
+
+    @TTest.BindProperty(0.1, 5, 0.1)
+    private resolutionScale = 1;
 
     public Run() {
         this.CreateScene();

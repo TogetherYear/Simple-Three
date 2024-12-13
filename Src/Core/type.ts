@@ -94,6 +94,14 @@ namespace Core {
             target: TEntity;
             funcName: string;
         }
+
+        export interface IEditorPro {
+            target: TEntity;
+            propKey: string;
+            min: number;
+            max: number;
+            step: number;
+        }
     }
 
     export namespace Plugin {
