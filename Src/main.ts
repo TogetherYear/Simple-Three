@@ -10,20 +10,11 @@ Core.Generate(document.querySelector('#App')!).then((ctx) => {
 
     const water = new Core.Actor.TWater(ctx);
 
-    // const room = new Core.Actor.TGltfModel(ctx, { path: 'Model/Room.glb' });
+    const room = new Core.Actor.TGltfModel(ctx, { path: 'Model/Room.glb' });
 
     const pointLight = new Core.Actor.TPointLight(ctx);
 
-    const freeCameraControl = new Core.Plugin.TFreeCameraControl(ctx);
-
-    // setTimeout(() => {
-    //     freeCameraControl.Destroy();
-    //     const roundCameraControl = new Core.Plugin.TRoundCameraControl(ctx);
-    // }, 10000);
-
-    // setTimeout(() => {
-    //     ctx.Destroy();
-    // }, 20000);
+    const CameraControl = new Core.Plugin.TRoundCameraControl(ctx);
 
     const debug = new CustomPlugin(ctx);
 });

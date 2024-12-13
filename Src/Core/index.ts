@@ -35,7 +35,7 @@ const Generate = (dom: HTMLElement): Promise<Core.Context> => {
 
         ctx.Camera = new Manager.TCamera(ctx);
 
-        ctx.Physics = new Manager.TPhysics(ctx);
+        ctx.Physics = new Manager.TPhysics(ctx, { webWorker: true, sharedArraybuffer: true });
 
         ctx.Input = new Manager.TInput(ctx);
 

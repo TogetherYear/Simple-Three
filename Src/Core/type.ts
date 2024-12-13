@@ -44,6 +44,8 @@ namespace Core {
 
         export interface IManager extends IEntity {}
 
+        export interface ISubManager extends IEntity {}
+
         export interface IPlugin extends IEntity {}
     }
 
@@ -68,14 +70,23 @@ namespace Core {
         }
 
         export const enum PhysicsEvent {
-            FixedUpdate = 'FixedUpdate'
+            Update = 'Update'
         }
 
         export interface IInput extends Base.IManager {}
 
         export interface ICamera extends Base.IManager {}
 
-        export interface IPhysics extends Base.IManager {}
+        export interface IPhysics extends Base.IManager {
+            webWorker?: boolean;
+            sharedArraybuffer?: boolean;
+        }
+
+        export interface IWebWorkerSharedArraybufferPhysics extends Base.ISubManager {}
+
+        export interface IWebWorkerPhysics extends Base.ISubManager {}
+
+        export interface IDefaultPhysics extends Base.ISubManager {}
 
         export interface IRenderer extends Base.IManager {}
 
@@ -93,11 +104,13 @@ namespace Core {
 
     export namespace Worker {
         export namespace Physics {
-            export type InitOptions = {
+            export type InitOptionsHasSharedArrayBuffer = {
                 type: 'Init';
                 postionsSharedBuffer: SharedArrayBuffer;
                 quaternionsSharedBuffer: SharedArrayBuffer;
             };
+
+            export type InitOptions = Omit<InitOptionsHasSharedArrayBuffer, 'postionsSharedBuffer' | 'quaternionsSharedBuffer'>;
 
             export type AddBody = {
                 type: 'Add';

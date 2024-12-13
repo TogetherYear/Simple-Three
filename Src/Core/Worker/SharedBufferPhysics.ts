@@ -31,8 +31,8 @@ const Init = (data: Core.Worker.Physics.InitOptionsHasSharedArrayBuffer) => {
     world = new CANNON.World();
     world.broadphase = new CANNON.SAPBroadphase(world);
     world.gravity.set(0, -9.82, 0);
-    positions = new Float32Array(100 * 3 * Float32Array.BYTES_PER_ELEMENT);
-    quaternions = new Float32Array(100 * 4 * Float32Array.BYTES_PER_ELEMENT);
+    positions = new Float32Array(data.postionsSharedBuffer);
+    quaternions = new Float32Array(data.quaternionsSharedBuffer);
     self.postMessage({
         type: 'Init'
     });
@@ -57,9 +57,7 @@ const Physics = () => {
         }
         self.postMessage({
             type: 'Physics',
-            ids: ids,
-            positions: positions.slice(0, 3 * world.bodies.length),
-            quaternions: quaternions.slice(0, 4 * world.bodies.length)
+            ids: ids
         });
     }, deltaTime);
 };

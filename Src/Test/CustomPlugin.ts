@@ -44,6 +44,11 @@ class CustomPlugin extends TPlugin {
             });
         }
     }
+
+    @TTest.BindFunction()
+    private Refresh() {
+        location.reload();
+    }
 }
 
 export { CustomPlugin };
