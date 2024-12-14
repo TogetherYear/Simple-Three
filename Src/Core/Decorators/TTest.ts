@@ -41,6 +41,7 @@ namespace TTest {
                             Callback: (instance: T, value: number) => void;
                         }>;
                         this.ctx.Editor.AddBindProperty(
+                            //@ts-ignore
                             bind.map((b) => {
                                 return {
                                     target: this,

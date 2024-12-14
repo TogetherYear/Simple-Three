@@ -18,8 +18,8 @@ class Renderer extends Manager {
 
     public actors: Array<Actor> = [];
 
-    @TTest.BindNumberProperty<Renderer>(0.1, 5, 0.1, (instance) => {
-        console.log('A');
+    @TTest.BindNumberProperty<Renderer>(0.1, 3, 0.1, (instance, value) => {
+        instance.renderer.setPixelRatio(value);
     })
     private resolutionScale = 1;
 
@@ -45,7 +45,7 @@ class Renderer extends Manager {
     }
 
     @TEvent.Listen(window, 'resize')
-    private OnResize(e: UIEvent) {
+    private OnResize() {
         this.renderer.setSize(this.ctx.dom.offsetWidth, this.ctx.dom.offsetHeight);
     }
 
