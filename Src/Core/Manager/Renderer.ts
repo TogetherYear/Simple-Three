@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { Manager, Actor } from '@/Core/Base';
-import { TEvent, TTest } from '@/Core/Decorators';
+import { TEvent } from '@/Core/Decorators';
 import { Core } from '@/Core/type';
 
 class Renderer extends Manager {
@@ -17,11 +17,6 @@ class Renderer extends Manager {
     public renderer!: THREE.WebGLRenderer;
 
     public actors: Array<Actor> = [];
-
-    @TTest.BindNumberProperty<Renderer>(0.1, 3, 0.1, (instance, value) => {
-        instance.renderer.setPixelRatio(value);
-    })
-    private resolutionScale = 1;
 
     public Run() {
         this.CreateScene();

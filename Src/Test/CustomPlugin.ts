@@ -10,6 +10,11 @@ import { CustomPlane } from './CustomPlane';
  * Debug
  */
 class CustomPlugin extends Plugin {
+    @TTest.BindNumberProperty<CustomPlugin>(0.01, 3, 0.01, (instance, value) => {
+        instance.ctx.Renderer.renderer.setPixelRatio(value);
+    })
+    private resolutionScale = 1;
+
     @TTest.BindFunction()
     private AddStatic() {
         new CustomPlane(this.ctx, {

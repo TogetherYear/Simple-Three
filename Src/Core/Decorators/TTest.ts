@@ -10,8 +10,8 @@ namespace TTest {
             return class extends C {
                 constructor(...args: Array<any>) {
                     super(...args);
-                    this.TTest_Generate_BindFunction();
                     this.TTest_Generate_BindProperty();
+                    this.TTest_Generate_BindFunction();
                     this.TTest_Generate_Hooks();
                 }
 
@@ -61,8 +61,8 @@ namespace TTest {
                 }
 
                 private TTest_Generate_Hooks() {
-                    this.TTest_Generate_UnBindFunction();
                     this.TTest_Generate_UnBindProperty();
+                    this.TTest_Generate_UnBindFunction();
                 }
 
                 private TTest_Generate_UnBindFunction() {
