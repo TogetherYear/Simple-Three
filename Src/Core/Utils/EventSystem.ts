@@ -98,12 +98,12 @@ class EventSystem extends Object {
      * @param callback 执行函数
      * @description 删除监听
      */
-    public RemoveListen(key: string, scope: Object, callback: string) {
+    public RemoveListen(key: string, scope: Object) {
         let cc = this.continue.find((ci) => ci.key === key);
         let tc = this.temporary.find((ti) => ti.key === key);
         if (cc && tc) {
-            cc.callbacks = cc.callbacks.filter((item) => item.scope !== scope && item.callback === callback);
-            tc.callbacks = tc.callbacks.filter((item) => item.scope !== scope && item.callback === callback);
+            cc.callbacks = cc.callbacks.filter((item) => item.scope !== scope);
+            tc.callbacks = tc.callbacks.filter((item) => item.scope !== scope);
         } else {
             console.error('事件不存在!');
         }
