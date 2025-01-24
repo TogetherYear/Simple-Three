@@ -1,9 +1,9 @@
 import * as THREE from 'three';
-import { Actor } from '@/Core/Base';
+import { Actor } from '../Base';
 import { Water as TW } from 'three/examples/jsm/objects/Water';
 import normal from '@/Assets/Images/normal.jpg';
-import { TEvent } from '@/Core/Decorators';
-import { Core } from '@/Core/type';
+import { TEvent } from '../Decorators';
+import { Core } from '../type';
 
 class Water extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.IWater = {}) {

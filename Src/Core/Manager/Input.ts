@@ -1,6 +1,6 @@
-import { Manager } from '@/Core/Base';
-import { Core } from '@/Core/type';
-import { TEvent, TTool } from '@/Core/Decorators';
+import { Manager } from '../Base';
+import { Core } from '../type';
+import { TEvent, TTool } from '../Decorators';
 import * as THREE from 'three';
 
 @TEvent.Create([Core.Manager.InputEvent.MouseMoveDelta, Core.Manager.InputEvent.Wheel])

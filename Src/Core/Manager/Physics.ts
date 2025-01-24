@@ -1,10 +1,10 @@
-import { Manager } from '@/Core/Base';
-import { Core } from '@/Core/type';
+import { Manager } from '../Base';
+import { Core } from '../type';
 import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
 import { Physics as PW, SharedBufferPhysics as PBW } from '@/Core/Worker';
 import { BoxRigidBody, SphereRigidBody } from '@/Core/Components';
-import { TEvent } from '@/Core/Decorators';
+import { TEvent } from '../Decorators';
 import { SubManager } from '../Base/SubManager';
 
 @TEvent.Create([Core.Manager.PhysicsEvent.Update])

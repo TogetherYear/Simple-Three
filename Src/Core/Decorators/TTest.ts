@@ -1,5 +1,5 @@
-import { Entity } from '@/Core/Base';
-import { Time } from '@/Core/Utils';
+import { Entity } from '../Base';
+import { Time } from '../Utils';
 
 namespace TTest {
     /**

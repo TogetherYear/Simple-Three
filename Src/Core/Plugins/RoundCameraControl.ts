@@ -1,5 +1,5 @@
-import { Core } from '@/Core/type';
-import { Plugin } from '@/Core/Base';
+import { Core } from '../type';
+import { Plugin } from '../Base';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 /**

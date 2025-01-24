@@ -1,6 +1,6 @@
-import { Entity, Manager } from '@/Core/Base';
+import { Entity, Manager } from '../Base';
 import * as G from 'three/examples/jsm/libs/lil-gui.module.min';
-import { Core } from '@/Core/type';
+import { Core } from '../type';
 
 class Editor extends Manager {
     constructor(ctx: Core.Context, options: Core.Manager.IEditor = {}) {

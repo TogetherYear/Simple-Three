@@ -1,5 +1,5 @@
-import { Time } from '@/Core/Utils';
-import { Entity } from '@/Core/Base';
+import { Time } from '../Utils';
+import { Entity } from '../Base';
 
 namespace TTool {
     /**

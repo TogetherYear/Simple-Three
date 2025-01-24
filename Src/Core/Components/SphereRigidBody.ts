@@ -1,5 +1,5 @@
-import { Component } from '@/Core/Base';
-import { Core } from '@/Core/type';
+import { Component } from '../Base';
+import { Core } from '../type';
 import * as THREE from 'three';
 
 class SphereRigidBody extends Component {

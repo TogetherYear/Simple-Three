@@ -1,6 +1,6 @@
-import { Actor, Manager } from '@/Core/Base';
-import { TEvent } from '@/Core/Decorators';
-import { Core } from '@/Core/type';
+import { Actor, Manager } from '../Base';
+import { TEvent } from '../Decorators';
+import { Core } from '../type';
 import * as THREE from 'three';
 
 @TEvent.Create([Core.Manager.GameEvent.Update])

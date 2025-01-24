@@ -1,6 +1,6 @@
-import { Actor } from '@/Core/Base';
+import { Actor } from '../Base';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Core } from '@/Core/type';
+import { Core } from '../type';
 import * as THREE from 'three';
 
 class GltfModel extends Actor {

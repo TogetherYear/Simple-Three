@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { Manager, Actor } from '@/Core/Base';
-import { TEvent } from '@/Core/Decorators';
-import { Core } from '@/Core/type';
+import { Manager, Actor } from '../Base';
+import { TEvent } from '../Decorators';
+import { Core } from '../type';
 
 class Renderer extends Manager {
     constructor(ctx: Core.Context, options: Core.Manager.IRenderer = {}) {

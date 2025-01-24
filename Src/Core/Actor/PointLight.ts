@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { Actor } from '@/Core/Base';
-import { Core } from '@/Core/type';
+import { Actor } from '../Base';
+import { Core } from '../type';
 
 class PointLight extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.IPointLight = {}) {

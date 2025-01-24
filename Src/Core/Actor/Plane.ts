@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import { Actor } from '@/Core/Base';
+import { Actor } from '../Base';
 import bcT from '@/Assets/Images/bc.png';
 import hT from '@/Assets/Images/h.png';
 import nT from '@/Assets/Images/n.png';
 import mT from '@/Assets/Images/m.png';
 import rT from '@/Assets/Images/r.png';
-import { Core } from '@/Core/type';
+import { Core } from '../type';
 
 class Plane extends Actor {
     constructor(ctx: Core.Context, options: Core.Actor.IPlane = {}) {

@@ -1,6 +1,6 @@
 import * as CANNON from 'cannon-es';
 
-import { Core } from '@/Core/type';
+import { Core } from '../type';
 
 let world!: CANNON.World;
 

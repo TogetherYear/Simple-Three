@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { Manager } from '@/Core/Base';
-import { Core } from '@/Core/type';
-import { TEvent } from '@/Core/Decorators';
+import { Manager } from '../Base';
+import { Core } from '../type';
+import { TEvent } from '../Decorators';
 
 class Camera extends Manager {
     constructor(ctx: Core.Context, options: Core.Manager.ICamera = {}) {

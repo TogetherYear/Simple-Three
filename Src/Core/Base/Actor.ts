@@ -1,5 +1,5 @@
-import { TEvent, TTest, TTool } from '@/Core/Decorators';
-import { Core } from '@/Core/type';
+import { TEvent, TTest, TTool } from '../Decorators';
+import { Core } from '../type';
 import { Component } from './Component';
 import { Entity } from './Entity';
 import * as THREE from 'three';
