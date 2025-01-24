@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { Camera, Editor, Game, Input, Physics, Renderer } from '@/Core/Manager';
-import { Plugin, Actor, Entity } from '../Base';
+import { Camera, Editor, Game, Input, Physics, Renderer } from './Manager';
+import { Plugin, Actor, Entity } from './Base';
 
 namespace Core {
     export namespace Actor {

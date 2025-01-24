@@ -2,8 +2,8 @@ import { Manager } from '../Base';
 import { Core } from '../type';
 import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
-import { Physics as PW, SharedBufferPhysics as PBW } from '@/Core/Worker';
-import { BoxRigidBody, SphereRigidBody } from '@/Core/Components';
+import { Physics as PW, SharedBufferPhysics as PBW } from '../Worker';
+import { BoxRigidBody, SphereRigidBody } from '../Components';
 import { TEvent } from '../Decorators';
 import { SubManager } from '../Base/SubManager';
 
